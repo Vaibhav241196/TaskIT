@@ -1,0 +1,58 @@
+<template name="login">
+
+	<div class="text-center form-wrapper">
+		<form method="post" class="text-center" name="login-form" id="login-form">
+			<input type="text" name="mobno" placeholder="Mobile Number" />
+			<input type="password" name="password" placeholder="Password" />
+			<input type="submit" class="btn waves-effect waves-light" name="submit" value="Submit">	
+		</form>
+		<p>Don't have an account? <a href="{{pathFor route='register'}}" id="register-link">Register</a></p>
+		<p>{{next}}</p>
+
+	</div>
+
+</template>
+
+
+<template name="register">
+	<div class="text-center form-wrapper">
+		<form method="post" name="register-form" id="register-form">
+			<input type="text" name="mobno" placeholder="Mobile Number" />
+			<input type="text" name="name" placeholder="Name">
+			<input type="password" name="password" placeholder="Password" />
+			<input type="password" name="conf-password" placeholder="Confirm Password" />
+			<input type="submit" class="btn waves-effect waves-light" name="submit" value="Submit" />
+		</form>
+		
+		<p>Already have an account? <a href="{{pathFor route='login'}}" id="login-link">Login</a></p>
+	</div>
+</template>
+
+
+<template name = "homescreen">
+
+	<div class="container-fluid"> 
+		<div class="row">
+
+			<h1 class="text-center">Welcome {{user}}</h1>
+			<div class="col-xs-12 col-md-3">
+
+			</div>
+
+			<div class="col-xs-12 col-md-9">
+				<p> {{users}} </p>
+			</div>
+		</div>
+	</div>
+</template>
+
+<template name= "verifyphone">
+	<form method="post" name="verify-phone" id="verify-phone">
+		<input type="text" name="code" />
+		<input type="submit" name="submit" value="Submit">
+	</form>
+
+	<p> Did not receive the code <a id="resend-code"> Resend Code </a> </p>
+	<p>{{next}}</p>
+</template>
+

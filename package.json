@@ -1,0 +1,17 @@
+{
+  "name": "TaskIt",
+  "private": true,
+  "scripts": {
+    "start": "meteor run"
+  },
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "hammerjs": "^2.0.8",
+    "jQuery": "^1.7.4",
+    "jquery": "^3.1.0",
+    "materialize-css": "^0.97.7",
+    "meteor-node-stubs": "~0.2.0",
+    "node-archiver": "^0.3.0",
+    "pickadate": "^3.5.6"
+  }
+}

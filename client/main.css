@@ -1,0 +1,7 @@
+/* CSS declarations go here */
+
+input {
+	display: block;
+	margin: auto !important ;
+	margin-top: 10px !important;
+}
