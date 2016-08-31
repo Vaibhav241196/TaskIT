@@ -1,45 +1,30 @@
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
-
 import '../node_modules/bootstrap/dist/css/bootstrap.css'
-
 import './main.css'
-
 import Bootstrap from 'bootstrap';
-
 import './main.html';
-
-// Template.hello.onCreated(function helloOnCreated() {
-//   // counter starts at 0
-//   this.counter = new ReactiveVar(0);
-// });
-
-// Template.hello.helpers({
-//   counter() {
-//     return Template.instance().counter.get();
-//   },
-// });
-
-// Template.hello.events({
-//   'click button'(event, instance) {
-//     // increment the counter when button is clicked
-//     instance.counter.set(instance.counter.get() + 1);
-//   },
-// });
 
 
 Template.homescreen.helpers({
 
 	user () {
 		u = Meteor.users.findOne({_id : Meteor.userId() });
-		console.log(Meteor);
 		return u.profile.name;
 	} ,
 
-	users () {
-		u = Meteor.users.find();
-		return u;
-	},
+	contacts () {
+		
+		var contacts = Meteor.users.findOne({_id : Meteor.userId() }).contacts;
+		var contact_users = [];
+		
+		for (c in contacts) {
+			contact_users.push(Meteor.users.findOne({_id : c }));
+		}
+
+		return contact_users;
+	}
+
 });
 
 Template.verifyphone.events({
@@ -47,9 +32,7 @@ Template.verifyphone.events({
 		evt.preventDefault();
 
 		var user = Meteor.user();
-		console.log(user);
 		var code = $("[name='code']").val();
-		// Meteor.logout();
 		console.log(code);
 		Accounts.verifyPhone(user.phone.number,code,function(err){
 			if(!err)
@@ -76,20 +59,29 @@ Template.login.events({
 	'submit form' : function(evt) {
 		
 		evt.preventDefault();
-
-		console.log(this.next);
 		var mobno = $("[name = 'mobno']").val();
 		var pwd = $("[name = 'password']").val();
 		console.log(mobno);
+		console.log(this.next);
+
+		var next = this.next;
 
 		Meteor.loginWithPhoneAndPassword({phone : mobno},pwd,function(err){
-		if(!err)
-			if(this.next)
-				Router.go(this.next);
+			if(!err) {
+				
+				if(next) {
+					console.log('Routing to next');
+					Router.go(next);
+				}
+
+				else {
+					console.log("homescreen");
+					Router.go('homescreen');
+				}
+			}
+
 			else
-				Router.go('homescreen');
-		else
-			console.log(err);
+				console.log(err);
 		});
 	},
 });
@@ -102,13 +94,6 @@ Template.register.events({
 		var mobno = $("[name = 'mobno']").val();
 		var pwd = $("[name = 'password']").val();
 		var name = $("[name = 'name']").val();
-		
-		console.log(mobno);
-		console.log(pwd);
-		console.log(name);
-		console.log(Meteor);
-
-
 		var options = {phone : mobno , password : pwd , profile : {
 
 					name : name,
