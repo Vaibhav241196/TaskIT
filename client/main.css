@@ -1,6 +1,6 @@
 /* CSS declarations go here */
 
-input {
+input.centered {
 	display: block;
 	margin: auto !important ;
 	margin-top: 10px !important;

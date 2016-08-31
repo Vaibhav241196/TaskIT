@@ -1,10 +1,11 @@
+<!--==================== Login Page Layout ====================-->
 <template name="login">
 
 	<div class="text-center form-wrapper">
 		<form method="post" class="text-center" name="login-form" id="login-form">
-			<input type="text" name="mobno" placeholder="Mobile Number" />
-			<input type="password" name="password" placeholder="Password" />
-			<input type="submit" class="btn waves-effect waves-light" name="submit" value="Submit">	
+			<input type="text" name="mobno" class="centered" placeholder="Mobile Number" />
+			<input type="password" name="password" class="centered" placeholder="Password" />
+			<input type="submit" class="centered" name="submit" value="Submit">	
 		</form>
 		<p>Don't have an account? <a href="{{pathFor route='register'}}" id="register-link">Register</a></p>
 		<p>{{next}}</p>
@@ -12,23 +13,29 @@
 	</div>
 
 </template>
+<!--==================== Login Page Layout ends ====================-->
 
 
+
+<!--==================== Registration Page Layout ====================-->
 <template name="register">
 	<div class="text-center form-wrapper">
 		<form method="post" name="register-form" id="register-form">
-			<input type="text" name="mobno" placeholder="Mobile Number" />
-			<input type="text" name="name" placeholder="Name">
-			<input type="password" name="password" placeholder="Password" />
-			<input type="password" name="conf-password" placeholder="Confirm Password" />
-			<input type="submit" class="btn waves-effect waves-light" name="submit" value="Submit" />
+			<input type="text" name="mobno" class="centered" placeholder="Mobile Number" />
+			<input type="text" name="name" class="centered" placeholder="Name">
+			<input type="password" name="password" class="centered" placeholder="Password" />
+			<input type="password" name="conf-password" class="centered" placeholder="Confirm Password" />
+			<input type="submit" class="centered" name="submit" value="Submit" />
 		</form>
 		
 		<p>Already have an account? <a href="{{pathFor route='login'}}" id="login-link">Login</a></p>
 	</div>
 </template>
+<!--==================== Registration Page Layout ====================-->
 
 
+
+<!--==================== Homescreen Page Layout - only for logged in users ====================-->
 <template name = "homescreen">
 
 	<div class="container-fluid"> 
@@ -36,23 +43,41 @@
 
 			<h1 class="text-center">Welcome {{user}}</h1>
 			<div class="col-xs-12 col-md-3">
+				<h4> Contacts </h4>
+				
+				<ul id="contacts">
+					{{#each contacts}}
+						<li><a href="">{{name}}</a></li>
+					{{/each}}	
+				</ul>
 
+				<form id="add_contact">
+					<input type="text" name="mobno" />
+					<input type="submit" name="submit" />
+				</form>
+					
 			</div>
 
 			<div class="col-xs-12 col-md-9">
-				<p> {{users}} </p>
+				<p></p>
+
+				
 			</div>
 		</div>
 	</div>
 </template>
+<!-- ==================== Homescreen Page Layout - only for logged in users end ==================== -->
 
+
+<!-- ==================== Mobile Number Verification Page Layout ==================== -->
 <template name= "verifyphone">
 	<form method="post" name="verify-phone" id="verify-phone">
-		<input type="text" name="code" />
-		<input type="submit" name="submit" value="Submit">
+		<input type="text" class="centered" name="code" />
+		<input type="submit" class="centered" name="submit" value="Submit">
 	</form>
 
 	<p> Did not receive the code <a id="resend-code"> Resend Code </a> </p>
 	<p>{{next}}</p>
 </template>
+<!-- ==================== Mobile Number Verification Page Layout ends ==================== -->
 
