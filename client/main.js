@@ -27,6 +27,34 @@ Template.homescreen.helpers({
 
 });
 
+Template.homescreen.events({
+	'submit form#add_contact' : function(evt) {
+		evt.preventDefault();
+		var mob_no = $("[name='mobno']").val();
+		console.log(mob_no);
+
+		Meteor.call('searchContact',mob_no,function(err,res){
+			if(!err){
+					if(res) 
+						Meteor.call('insertContact',res,function(err,res){
+							if(!err)
+								alert("Successfully Added Contact");
+							else
+								console.log(err)
+						});
+
+					else
+						alert("No such user found");
+				}
+			
+			else 
+				console.log(err);
+			
+		});
+	},
+
+});
+
 Template.verifyphone.events({
 	'submit form#verify-phone' : function(evt) {
 		evt.preventDefault();
