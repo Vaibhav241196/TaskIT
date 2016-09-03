@@ -5,6 +5,31 @@ import './main.css'
 import Bootstrap from 'bootstrap';
 import './main.html';
 
+// ============================ Global Functions to be used as helpers ===========================
+
+function wait(){
+	setTimeout(function (){}, 100 );
+}
+
+function fetchContacts(){
+	var contact_accounts = [];
+
+	Meteor.call('fetchContacts', function(err,res) {
+		if(!err){
+			console.log("Res : " + Array.isArray(res));
+			console.log("Res : " + res);
+			for (c in res) {
+				contact_accounts.push(Meteor.users.findOne({_id : res[c] }));
+			}
+
+			Template.homescreen.register	// REGISTERING HELPER
+		}
+
+		else
+			console.log("Error");
+
+	});
+}
 
 Template.homescreen.helpers({
 
@@ -14,17 +39,14 @@ Template.homescreen.helpers({
 	} ,
 
 	contacts () {
-		
-		var contacts = Meteor.users.findOne({_id : Meteor.userId() }).contacts;
-		var contact_users = [];
-		
-		for (c in contacts) {
-			contact_users.push(Meteor.users.findOne({_id : c }));
-		}
 
-		return contact_users;
-	}
+		console.log("In contact helper");
 
+			else {
+				console.log(err);
+			}
+		});
+	},
 });
 
 Template.homescreen.events({

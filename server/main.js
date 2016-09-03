@@ -25,6 +25,13 @@ Meteor.methods({
 		},{
 			$push : { contacts : contact },
 		});
+	},
+
+	fetchContacts : function(){
+
+		contacts =  Meteor.users.findOne({_id : this.userId }).contacts;
+		console.log(typeof(contacts));
+		return contacts;
 	}
 
 })

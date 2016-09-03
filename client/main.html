@@ -44,11 +44,12 @@
 			<h1 class="text-center">Welcome {{user}}</h1>
 			<div class="col-xs-12 col-md-3">
 				<h4> Contacts </h4>
+                <p>{{contacts}}</p>
 				
 				<ul id="contacts">
 					{{#each contacts}}
-						<li><a href="">{{name}}</a></li>
-					{{/each}}	
+						<li><a href="">{{_id}}</a></li>
+					{{/each}}
 				</ul>
 
 				<form id="add_contact">
