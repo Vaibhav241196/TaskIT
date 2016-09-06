@@ -33,22 +33,26 @@
 </template>
 <!--==================== Registration Page Layout ====================-->
 
+<template name = "user-layout">
+	<div class="container-fluid">
+		<div class="row">
+			<h1 class="text-center">Welcome {{user}}</h1>
+		</div>
+	</div>
+</template>
 
 
 <!--==================== Homescreen Page Layout - only for logged in users ====================-->
 <template name = "homescreen">
 
 	<div class="container-fluid"> 
-		<div class="row">
-
-			<h1 class="text-center">Welcome {{user}}</h1>
+		<div class="row">	
 			<div class="col-xs-12 col-md-3">
 				<h4> Contacts </h4>
-                <p>{{contacts}}</p>
 				
 				<ul id="contacts">
 					{{#each contacts}}
-						<li><a href="">{{_id}}</a></li>
+						<li><a href="">{{profile.name}}</a></li>
 					{{/each}}
 				</ul>
 

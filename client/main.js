@@ -1,35 +1,38 @@
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
+
 import '../node_modules/bootstrap/dist/css/bootstrap.css'
 import './main.css'
 import Bootstrap from 'bootstrap';
-import './main.html';
+import './main.html';                                                                                                                                      
 
-// ============================ Global Functions to be used as helpers ===========================
+Session.setDefault('rerun',true);			// Default value of session variable rerun used to reactively run the homescreen helper
 
-function wait(){
-	setTimeout(function (){}, 100 );
-}
+Template.homescreen.onRendered(function fetchContacts(){
+	
+	this.autorun(function(){ 
 
-function fetchContacts(){
-	var contact_accounts = [];
+		Session.get('rerun');		// to reactively rerun the function
+		var contact_accounts = [];
 
-	Meteor.call('fetchContacts', function(err,res) {
-		if(!err){
-			console.log("Res : " + Array.isArray(res));
-			console.log("Res : " + res);
-			for (c in res) {
-				contact_accounts.push(Meteor.users.findOne({_id : res[c] }));
+		Meteor.call('fetchContacts', function(err,res) {
+			if(!err){
+				console.log("Res : " + Array.isArray(res));
+				console.log("Res : " + res);
+				for (c in res) {
+					contact_accounts.push(Meteor.users.findOne({_id : res[c] }));
+				}
+
+				Session.set('contacts',contact_accounts);
 			}
 
-			Template.homescreen.register	// REGISTERING HELPER
-		}
+			else
+				console.log("Error");
 
-		else
-			console.log("Error");
+		});
 
 	});
-}
+});
 
 Template.homescreen.helpers({
 
@@ -40,12 +43,7 @@ Template.homescreen.helpers({
 
 	contacts () {
 
-		console.log("In contact helper");
-
-			else {
-				console.log(err);
-			}
-		});
+		return Session.get('contacts');
 	},
 });
 
@@ -59,8 +57,10 @@ Template.homescreen.events({
 			if(!err){
 					if(res) 
 						Meteor.call('insertContact',res,function(err,res){
-							if(!err)
+							if(!err){
+								Session.set('rerun',!Session.get('rerun'));
 								alert("Successfully Added Contact");
+							}
 							else
 								console.log(err)
 						});
