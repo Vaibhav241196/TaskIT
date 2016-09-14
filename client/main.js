@@ -34,6 +34,13 @@ Template.homescreen.onRendered(function fetchContacts(){
 	});
 });
 
+Template.userLayout.helpers({
+	user () {
+		u = Meteor.users.findOne({_id : Meteor.userId() });
+		return u.profile.name;
+	} ,
+})
+
 Template.homescreen.helpers({
 
 	user () {

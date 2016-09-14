@@ -5,6 +5,7 @@
 
 // ============================================== Root route =========================================
 Router.route('/' , function(){
+	this.layout('userLayout');
 	this.render('homescreen');
 }, 
 { 
@@ -68,9 +69,11 @@ Router.route('/logout',function(){
 // ============================================= Logout route ends =============================
 
 // ============================================= Test route ====================================
-Router.route('/test',function(){
-	console.log('Hello');
-})
+Router.route('/user/:_id',function(){
+	this.layout('userLayout');
+	this.render('userPage');
+
+});
 // ============================================= Test route ends ===============================
 
 
