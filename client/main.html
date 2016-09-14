@@ -48,6 +48,7 @@
 <!--==================== Homescreen Page Layout - only for logged in users ====================-->
 <template name = "homescreen">
 
+
 	<div class="row">	
 		<div class="col-xs-12 col-md-3">
 			<h4> Contacts </h4>
@@ -70,8 +71,787 @@
 		</div>
 	</div>
 
+    {{> tabs}}
+
+    {{> nav}}
+
+
 </template>
 <!-- ==================== Homescreen Page Layout - only for logged in users end ==================== -->
+
+
+<template name="nav">
+
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="index.html">SB Admin</a>
+        </div>
+        <!-- Top Menu Items -->
+        <ul class="nav navbar-right top-nav">
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> <b class="caret"></b></a>
+                <ul class="dropdown-menu message-dropdown">
+                    <li class="message-preview">
+                        <a href="#">
+                            <div class="media">
+                                    <span class="pull-left">
+                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
+                                    </span>
+                                <div class="media-body">
+                                    <h5 class="media-heading"><strong>{{user}}</strong>
+                                    </h5>
+                                    <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
+                                    <p>Lorem ipsum dolor sit amet, consectetur...</p>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="message-preview">
+                        <a href="#">
+                            <div class="media">
+                                    <span class="pull-left">
+                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
+                                    </span>
+                                <div class="media-body">
+                                    <h5 class="media-heading"><strong>{{user}}</strong>
+                                    </h5>
+                                    <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
+                                    <p>Lorem ipsum dolor sit amet, consectetur...</p>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="message-preview">
+                        <a href="#">
+                            <div class="media">
+                                    <span class="pull-left">
+                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
+                                    </span>
+                                <div class="media-body">
+                                    <h5 class="media-heading"><strong>{{user}}</strong>
+                                    </h5>
+                                    <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
+                                    <p>Lorem ipsum dolor sit amet, consectetur...</p>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="message-footer">
+                        <a href="#">Read All New Messages</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> <b class="caret"></b></a>
+                <ul class="dropdown-menu alert-dropdown">
+                    <li>
+                        <a href="#">Alert Name <span class="label label-default">Alert Badge</span></a>
+                    </li>
+                    <li>
+                        <a href="#">Alert Name <span class="label label-primary">Alert Badge</span></a>
+                    </li>
+                    <li>
+                        <a href="#">Alert Name <span class="label label-success">Alert Badge</span></a>
+                    </li>
+                    <li>
+                        <a href="#">Alert Name <span class="label label-info">Alert Badge</span></a>
+                    </li>
+                    <li>
+                        <a href="#">Alert Name <span class="label label-warning">Alert Badge</span></a>
+                    </li>
+                    <li>
+                        <a href="#">Alert Name <span class="label label-danger">Alert Badge</span></a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a href="#">View All</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> {{user}} <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-fw fa-envelope"></i> Inbox</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-fw fa-gear"></i> Settings</a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <!--<a href="#"><i class="fa fa-fw fa-power-off"></i> Log Out</a>-->
+                        <a href="{{pathFor route='logout'}}"><i class="fa fa-fw fa-power-off"></i>Logout</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+
+        <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+        <!--<div class="collapse navbar-collapse navbar-ex1-collapse">-->
+        <!--<ul class="nav navbar-nav side-nav">-->
+        <!--<li class="active">-->
+        <!--<a href="index.html"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>-->
+        <!--</li>-->
+        <!--<li>-->
+        <!--<a href="charts.html"><i class="fa fa-fw fa-bar-chart-o"></i> Charts</a>-->
+        <!--</li>-->
+        <!--<li>-->
+        <!--<a href="tables.html"><i class="fa fa-fw fa-table"></i> Tables</a>-->
+        <!--</li>-->
+        <!--<li>-->
+        <!--<a href="forms.html"><i class="fa fa-fw fa-edit"></i> Forms</a>-->
+        <!--</li>-->
+        <!--<li>-->
+        <!--<a href="bootstrap-elements.html"><i class="fa fa-fw fa-desktop"></i> Bootstrap Elements</a>-->
+        <!--</li>-->
+        <!--<li>-->
+        <!--<a href="bootstrap-grid.html"><i class="fa fa-fw fa-wrench"></i> Bootstrap Grid</a>-->
+        <!--</li>-->
+        <!--<li>-->
+        <!--<a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Dropdown <i class="fa fa-fw fa-caret-down"></i></a>-->
+        <!--<ul id="demo" class="collapse">-->
+        <!--<li>-->
+        <!--<a href="#">Dropdown Item</a>-->
+        <!--</li>-->
+        <!--<li>-->
+        <!--<a href="#">Dropdown Item</a>-->
+        <!--</li>-->
+        <!--</ul>-->
+        <!--</li>-->
+        <!--<li>-->
+        <!--<a href="blank-page.html"><i class="fa fa-fw fa-file"></i> Blank Page</a>-->
+        <!--</li>-->
+        <!--<li>-->
+        <!--<a href="index-rtl.html"><i class="fa fa-fw fa-dashboard"></i> RTL Dashboard</a>-->
+        <!--</li>-->
+        <!--</ul>-->
+        <!--</div>-->
+        <!-- /.navbar-collapse -->
+    </nav>
+
+</template>
+
+<!--====================== tabs layout start ========================== -->
+<template name="tabs">
+
+    <div class="tab-wrapper container">
+
+            <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
+                <ul id="myTab" class="nav nav-tabs nav-tabs-responsive" role="tablist">
+
+
+                    <li role="presentation" class="active col-xs-4 text-center">
+                        <a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">
+                            <span class="text">Tasks</span>
+                        </a>
+                    </li>
+
+                    <li role="presentation" class="col-xs-4 text-center">
+                        <a href="#samsa" role="tab" id="samsa-tab" data-toggle="tab" aria-controls="samsa">
+                            <span class="text">Teams</span>
+                        </a>
+                    </li>
+
+                    <li role="presentation" class="dropdown col-xs-4 text-center">
+                        <a href="#dropdown1" id="myTabDrop1" data-toggle="tab" aria-controls="myTabDrop1-contents">
+                            <span class="text">Calender</span>
+                        </a>
+
+                    </li>
+
+                </ul>
+
+
+                <div id="myTabContent" class="tab-content">
+
+                    <div role="tabpanel" class="tab-pane fade in active tasks-tab " id="home" aria-labelledby="home-tab">
+
+                        <div class="tasks-wrapper">
+
+                            <ul class="nav navbar-nav side-nav col-xs-3 text-center list-group">
+
+                                <li class="list-group-item">
+                                    <a href="#"> <i class="fa fa-check-square-o" aria-hidden="true"></i> Tasks </a>
+                                </li>
+
+                                <li class="list-group-item">
+                                    <a href="#"><i class="fa fa-share" aria-hidden="true"></i> Allocations </a>
+                                </li>
+
+                                <li class="list-group-item " data-toggle="modal" data-target="#myModal">
+                                    <a href="#"><i class="fa fa-plus" aria-hidden="true"></i> New Task </a>
+                                </li>
+
+                            </ul>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form>
+
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1">Task Name</label>
+                                                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Task Name">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="exampleInputPassword1">Description</label>
+                                                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Description">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="exampleInputPassword1">Deadline</label>
+                                                    <input type="password" class="form-control" id="exampleInputPassword" placeholder="Deadline">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="exampleInputPassword1">Duration</label>
+                                                    <input type="password" class="form-control" id="exampleInputPasswor" placeholder="Duration">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="exampleInputPassword1">Add Members</label>
+
+                                                    <select multiple class="form-control">
+                                                    <option>Ankit </option>
+                                                    <option>Anurag A.</option>
+                                                    <option>Pankaj Y. </option>
+                                                    <option>Vaibhav</option>
+                                                    <option>Shrunoti K.</option>
+                                                </select>
+                                                </div>
+
+
+
+                                                <button type="submit" class="btn btn-default">Add Task</button>
+
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                            <!--<button type="button" class="btn btn-primary">Add Task</button>-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-xs-9 tasks">
+                                <div class="col-xs-10 col-xs-offset-1">
+
+
+                                    <div class="alert alert-success" role="alert" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample1">
+                                        Complete website wireframes
+
+                                        <span class="badge right"> Personal
+                                        </span>
+
+                                        <span class="badge right assigned_by"> By: Ankit yadav
+                                        </span>
+
+
+                                    </div>
+
+                                    <div class="collapse" id="collapseExample1">
+                                        <div class="well">
+
+                                            <button type="button" class="btn btn-info"> Description: </button>
+
+                                            <span class="value"> Please complete the wireframes for our client faisal, he need home page as soon as possible.</span>
+                                            <br>
+                                            <br>
+                                            <button type="button" class="btn btn-info"> Deadline: </button>
+
+                                            <span class="value"> 6th September 2016 </span>
+                                            <br>
+                                            <br>
+                                            <button type="button" class="btn btn-info"> Status: </button>
+
+                                            <span class="value"> Not Completed yet</span>
+                                            <br><br>
+                                            <button type="button" class="btn btn-info">Duration: </button>
+
+                                            <span class="value"> 4 Hrs.</span>
+                                            <br><br>
+                                            <button type="button" class="btn btn-info">Priority: </button>
+
+                                            <span class="value"> Ctritical moderate low </span>
+
+
+                                        </div>
+                                    </div>
+
+                                    <div class="alert alert-warning" role="alert"> Call Mr. Rushabh
+
+                                        <span class="badge right"> Personal
+                                        </span>
+
+                                        <span class="badge right assigned_by"> By: Anurag agrawal
+                                        </span>
+                                    </div>
+
+
+
+                                    <div class="alert alert-danger" role="alert">
+                                        Plan for facebook marketing.
+                                        <span class="badge right"> Personal
+                                        </span>
+
+                                        <span class="badge right assigned_by"> By: Vaibhav Lohani
+                                        </span>
+
+                                    </div>
+
+
+                                    <div class="alert alert-success" role="alert" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample2">
+                                        Complete website wireframes
+
+                                        <span class="badge right"> Personal
+                                        </span>
+
+                                        <span class="badge right assigned_by"> By: Ankit yadav
+                                        </span>
+
+
+                                    </div>
+
+                                    <div class="collapse" id="collapseExample2">
+                                        <div class="well">
+
+                                            <button type="button" class="btn btn-info"> Description: </button>
+
+                                            <span class="value"> Please complete the wireframes for our client faisal, he need home page as soon as possible.</span>
+                                            <br>
+                                            <br>
+                                            <button type="button" class="btn btn-info"> Deadline: </button>
+
+                                            <span class="value"> 6th September 2016 </span>
+                                            <br>
+                                            <br>
+                                            <button type="button" class="btn btn-info"> Status: </button>
+
+                                            <span class="value"> Not Completed yet</span>
+                                            <br><br>
+                                            <button type="button" class="btn btn-info">Duration: </button>
+
+                                            <span class="value"> 4 Hrs.</span>
+                                            <br><br>
+                                            <button type="button" class="btn btn-info">Priority: </button>
+
+                                            <span class="value"> Ctritical moderate low </span>
+
+
+                                        </div>
+                                    </div>
+
+                                    <div class="alert alert-warning" role="alert"> Call Mr. Rushabh
+
+                                        <span class="badge right"> Personal
+                                        </span>
+
+                                        <span class="badge right assigned_by"> By: Anurag agrawal
+                                        </span>
+                                    </div>
+
+
+
+                                    <div class="alert alert-danger" role="alert">
+                                        Plan for facebook marketing.
+                                        <span class="badge right"> Personal
+                                        </span>
+
+                                        <span class="badge right assigned_by"> By: Vaibhav Lohani
+                                        </span>
+
+                                    </div>
+
+                                    <div class="alert alert-success" role="alert" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample3">
+                                        Complete website wireframes
+
+                                        <span class="badge right"> Personal
+                                        </span>
+
+                                        <span class="badge right assigned_by"> By: Ankit yadav
+                                        </span>
+
+
+                                    </div>
+
+                                    <div class="collapse" id="collapseExample3">
+                                        <div class="well">
+
+                                            <button type="button" class="btn btn-info"> Description: </button>
+
+                                            <span class="value"> Please complete the wireframes for our client faisal, he need home page as soon as possible.</span>
+                                            <br>
+                                            <br>
+                                            <button type="button" class="btn btn-info"> Deadline: </button>
+
+                                            <span class="value"> 6th September 2016 </span>
+                                            <br>
+                                            <br>
+                                            <button type="button" class="btn btn-info"> Status: </button>
+
+                                            <span class="value"> Not Completed yet</span>
+                                            <br><br>
+                                            <button type="button" class="btn btn-info">Duration: </button>
+
+                                            <span class="value"> 4 Hrs.</span>
+                                            <br><br>
+                                            <button type="button" class="btn btn-info">Priority: </button>
+
+                                            <span class="value"> Ctritical moderate low </span>
+
+
+                                        </div>
+                                    </div>
+
+                                    <div class="alert alert-warning" role="alert"> Call Mr. Rushabh
+
+                                        <span class="badge right"> Personal
+                                        </span>
+
+                                        <span class="badge right assigned_by"> By: Anurag agrawal
+                                        </span>
+                                    </div>
+
+
+
+                                    <div class="alert alert-danger" role="alert">
+                                        Plan for facebook marketing.
+                                        <span class="badge right"> Personal
+                                        </span>
+
+                                        <span class="badge right assigned_by"> By: Vaibhav Lohani
+                                        </span>
+
+                                    </div>
+
+
+
+                                </div>
+
+
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div role="tabpanel" class="tab-pane fade" id="samsa" aria-labelledby="samsa-tab">
+
+                        <div class="teams-wrapper">
+
+                            <ul class="nav navbar-nav side-nav col-xs-3 text-center list-group">
+
+                                <li class="list-group-item">
+                                    <a href="index.html"><i class="fa fa-fw fa-dashboard"></i> Development Team </a>
+                                </li>
+
+                                <li class="list-group-item">
+                                    <a href="charts.html"><i class="fa fa-fw fa-bar-chart-o"></i> Marketing Team </a>
+                                </li>
+
+                                <li class="list-group-item">
+                                    <a href="tables.html"><i class="fa fa-fw fa-table"></i> Design team </a>
+                                </li>
+
+
+
+                                <li class="list-group-item new-team" data-toggle="modal" data-target="#myModal2">
+                                    <a href="#"><i class="fa fa-fw fa-plus"></i> Add new Team </a>
+                                </li>
+
+
+                                <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form>
+
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1">Team Name</label>
+                                                        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Team Name">
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="exampleInputPassword1">Description</label>
+                                                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Description">
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="exampleInputPassword1">Add Members</label>
+
+                                                        <select multiple class="form-control">
+                                                            <option>Ankit </option>
+                                                            <option>Anurag A.</option>
+                                                            <option>Pankaj Y. </option>
+                                                            <option>Vaibhav</option>
+                                                            <option>Shrunoti K.</option>
+                                                        </select>
+                                                    </div>
+
+
+
+                                                    <button type="submit" class="btn btn-default">Add Team</button>
+
+                                                </form>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                <!--<button type="button" class="btn btn-primary">Add Task</button>-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                            </ul>
+
+                            <div class="col-xs-9 tasks">
+                                <div class="col-xs-10 col-xs-offset-1">
+
+                                    <div class="alert alert-success" role="alert" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                        Complete website wireframes
+
+                                        <span class="badge right"> Personal
+                                        </span>
+
+                                        <span class="badge right assigned_by"> By: Ankit yadav
+                                        </span>
+
+
+                                    </div>
+
+                                    <div class="collapse" id="collapseExample">
+                                        <div class="well">
+
+                                            <button type="button" class="btn btn-info"> Description: </button>
+
+                                            <span class="value"> Please complete the wireframes for our client faisal, he need home page as soon as possible.</span>
+                                            <br>
+                                            <br>
+                                            <button type="button" class="btn btn-info"> Deadline: </button>
+
+                                            <span class="value"> 6th September 2016 </span>
+                                            <br>
+                                            <br>
+                                            <button type="button" class="btn btn-info"> Status: </button>
+
+                                            <span class="value"> Not Completed yet</span>
+                                            <br><br>
+                                            <button type="button" class="btn btn-info">Duration: </button>
+
+                                            <span class="value"> 4 Hrs.</span>
+                                            <br><br>
+                                            <button type="button" class="btn btn-info">Priority: </button>
+
+                                            <span class="value"> Ctritical moderate low </span>
+
+
+                                        </div>
+                                    </div>
+
+                                    <div class="alert alert-warning" role="alert"> Call Mr. Rushabh
+
+                                        <span class="badge right"> Personal
+                                        </span>
+
+                                        <span class="badge right assigned_by"> By: Anurag agrawal
+                                        </span>
+                                    </div>
+
+
+
+                                    <div class="alert alert-danger" role="alert">
+                                        Plan for facebook marketing.
+                                        <span class="badge right"> Personal
+                                        </span>
+
+                                        <span class="badge right assigned_by"> By: Vaibhav Lohani
+                                        </span>
+
+                                    </div>
+
+
+                                    <div class="alert alert-success" role="alert" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                        Complete website wireframes
+
+                                        <span class="badge right"> Personal
+                                        </span>
+
+                                        <span class="badge right assigned_by"> By: Ankit yadav
+                                        </span>
+
+
+                                    </div>
+
+                                    <div class="collapse" id="collapseExample">
+                                        <div class="well">
+
+                                            <button type="button" class="btn btn-info"> Description: </button>
+
+                                            <span class="value"> Please complete the wireframes for our client faisal, he need home page as soon as possible.</span>
+                                            <br>
+                                            <br>
+                                            <button type="button" class="btn btn-info"> Deadline: </button>
+
+                                            <span class="value"> 6th September 2016 </span>
+                                            <br>
+                                            <br>
+                                            <button type="button" class="btn btn-info"> Status: </button>
+
+                                            <span class="value"> Not Completed yet</span>
+                                            <br><br>
+                                            <button type="button" class="btn btn-info">Duration: </button>
+
+                                            <span class="value"> 4 Hrs.</span>
+                                            <br><br>
+                                            <button type="button" class="btn btn-info">Priority: </button>
+
+                                            <span class="value"> Ctritical moderate low </span>
+
+
+                                        </div>
+                                    </div>
+
+                                    <div class="alert alert-warning" role="alert"> Call Mr. Rushabh
+
+                                        <span class="badge right"> Personal
+                                        </span>
+
+                                        <span class="badge right assigned_by"> By: Anurag agrawal
+                                        </span>
+                                    </div>
+
+
+
+                                    <div class="alert alert-danger" role="alert">
+                                        Plan for facebook marketing.
+                                        <span class="badge right"> Personal
+                                        </span>
+
+                                        <span class="badge right assigned_by"> By: Vaibhav Lohani
+                                        </span>
+
+                                    </div>
+
+                                    <div class="alert alert-success" role="alert" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                        Complete website wireframes
+
+                                        <span class="badge right"> Personal
+                                        </span>
+
+                                        <span class="badge right assigned_by"> By: Ankit yadav
+                                        </span>
+
+
+                                    </div>
+
+                                    <div class="collapse" id="collapseExample">
+                                        <div class="well">
+
+                                            <button type="button" class="btn btn-info"> Description: </button>
+
+                                            <span class="value"> Please complete the wireframes for our client faisal, he need home page as soon as possible.</span>
+                                            <br>
+                                            <br>
+                                            <button type="button" class="btn btn-info"> Deadline: </button>
+
+                                            <span class="value"> 6th September 2016 </span>
+                                            <br>
+                                            <br>
+                                            <button type="button" class="btn btn-info"> Status: </button>
+
+                                            <span class="value"> Not Completed yet</span>
+                                            <br><br>
+                                            <button type="button" class="btn btn-info">Duration: </button>
+
+                                            <span class="value"> 4 Hrs.</span>
+                                            <br><br>
+                                            <button type="button" class="btn btn-info">Priority: </button>
+
+                                            <span class="value"> Ctritical moderate low </span>
+
+
+                                        </div>
+                                    </div>
+
+                                    <div class="alert alert-warning" role="alert"> Call Mr. Rushabh
+
+                                        <span class="badge right"> Personal
+                                        </span>
+
+                                        <span class="badge right assigned_by"> By: Anurag agrawal
+                                        </span>
+                                    </div>
+
+
+
+                                    <div class="alert alert-danger" role="alert">
+                                        Plan for facebook marketing.
+                                        <span class="badge right"> Personal
+                                        </span>
+
+                                        <span class="badge right assigned_by"> By: Vaibhav Lohani
+                                        </span>
+
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                    <div role="tabpanel" class="tab-pane fade" id="dropdown1" aria-labelledby="dropdown1-tab">
+                        {{> calender}}
+                    </div>
+
+
+
+                </div>
+
+            </div>
+
+    </div>
+
+</template>
+<!-- =====================  tabs layout ends =========================== -->
+
+
+<template name="calender">
+    <div class="container">
+        <hr>
+        <div id="calendar"></div>
+    </div>
+
+</template>
 
 
 <!-- ==================== Mobile Number Verification Page Layout ==================== -->
@@ -80,7 +860,10 @@
 		<input type="text" class="centered" name="code" />
 		<input type="submit" class="centered" name="submit" value="Submit">
 	</form>
-
+	<div class="col-xs-12 col-md-9">
+		<a href="{{pathFor route='logout'}}" class="btn btn-danger logout">Logout</a>
+	</div>
+	<br>
 	<p> Did not receive the code <a id="resend-code"> Resend Code </a> </p>
 	<p>{{next}}</p>
 </template>

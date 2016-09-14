@@ -10,6 +10,8 @@ blaze@2.1.8
 blaze-html-templates@1.0.4
 blaze-tools@1.0.9
 boilerplate-generator@1.0.9
+bootstrap3:base@3.2.0_2
+bootstrap3:glyphicons@3.2.0_2
 caching-compiler@1.1.6
 caching-html-compiler@1.0.6
 callback-hook@1.0.9
@@ -26,6 +28,7 @@ ejson@1.0.12
 email@1.0.16
 es5-shim@4.6.13
 fastclick@1.0.12
+fortawesome:fontawesome@4.5.0
 geojson-utils@1.0.9
 hot-code-push@1.0.4
 html-tools@1.0.10
@@ -43,6 +46,7 @@ iron:router@1.0.13
 iron:url@1.0.11
 jquery@1.11.9
 launch-screen@1.0.12
+less@1.0.14
 livedata@1.0.18
 localstorage@1.0.11
 logging@1.1.14

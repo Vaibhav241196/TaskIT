@@ -22,5 +22,10 @@ npm-bcrypt
 session
 iron:router
 okland:accounts-phone
+<<<<<<< HEAD
 http
 jquery@1.11.9
+=======
+fortawesome:fontawesome
+bootstrap3:glyphicons
+>>>>>>> origin/ankit
