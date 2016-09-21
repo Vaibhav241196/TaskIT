@@ -5,8 +5,19 @@
 
 // ============================================== Root route =========================================
 Router.route('/' , function(){
-	this.layout('userLayout');
-	this.render('homescreen');
+	this.layout('userLayout', function (){
+            return { 
+                 user : Meteor.users.findOne({_id : Meteor.userId()}),
+            };
+    });
+	this.render('homescreen',function() {
+		    
+            return {
+                        contacts : Meteor.users.find({_id: {$ne: Meteor.userId()} }),
+                        user: Meteor.users.findOne({ _id: Meteor.userId() })
+                    };
+            
+    });
 }, 
 { 
 	name : 'homescreen',

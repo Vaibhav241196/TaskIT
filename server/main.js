@@ -17,7 +17,7 @@ Meteor.startup(() => {
 
 	 	try {
 			 	result = HTTP.call("get","http://smshorizon.co.in/api/sendsms.php",{ params : { user : "siteflu" , apikey : "g5JtwEaWcghvIseDeLJ3" , 
-			 			mobile : options.to , senderid : "MYTEXT" , message : options.body , type : "txt" } },function(){
+			 			mobile : options.to , senderid : "MYTEXT" , message : options.body , type : "txt" } },function(result){
 			 				console.log("HTTP call result : " + result.content);
 			 			});	 		
 		 	}

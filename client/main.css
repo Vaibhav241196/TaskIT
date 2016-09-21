@@ -140,7 +140,6 @@ ul.alert-dropdown {
 		position: relative;
 		/*top: 51px;*/
 		/*left: 225px;*/
-		width: 265px;
 		/*margin-left: -225px;*/
 		border: none;
 		border-radius: 0;
@@ -148,12 +147,13 @@ ul.alert-dropdown {
 		background-color: #222;
 		bottom: 0;
 		overflow-x: hidden;
+        padding-right: 0;
 		/*padding-bottom: 40px;*/
 	}
 
-	.side-nav>li>a {
+	.side-nav>li{
 		/*width: 225px;*/
-        width: 373px;
+        width: 100%;
 	}
 
 	.side-nav li a:hover,
@@ -369,7 +369,7 @@ div.tab-wrapper{
 .tasks-wrapper,.teams-wrapper{
     border: 1px solid #eee;
     border-top: none;
-    min-height: 722px;
+    /*min-height: 722px;*/
     padding-top: 20px;
 }
 
@@ -400,9 +400,9 @@ div.tab-wrapper{
 }
 
 .tasks-wrapper ul.side-nav li a{
-    padding: 70px 0;
+    padding: 40px 0;
     margin: 0;
-    font-size: 36px;
+    font-size: 25px;
     font-weight: 200;
 }
 
@@ -415,6 +415,7 @@ div.tab-wrapper{
     border-top: none;
     max-height: 700px;
     overflow-y: scroll;
+    padding: 0;
 }
 
 .tasks-wrapper ul.side-nav li a:hover, .tasks-wrapper ul.side-nav li a:active{
