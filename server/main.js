@@ -31,6 +31,11 @@ Meteor.startup(() => {
 });
 
 
+Meteor.publish('users',function () {
+    return Meteor.users.find({});
+});
+
+
 Meteor.methods({
 	searchContact : function(mob_no) {
 		console.log(mob_no);

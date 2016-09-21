@@ -1,12 +1,11 @@
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 
-import '../node_modules/bootstrap/dist/css/bootstrap.css'
-import './main.css'
-import Bootstrap from 'bootstrap';
-import './main.html';                                                                                                                                      
+console.log("Executing main.js");
 
 // Session.setDefault('rerun',true);			// Default value of session variable rerun used to reactively run the homescreen helper
+
+Meteor.subscribe('users');
 
 Template.homescreen.onRendered(function fetchContacts(){
 //	
@@ -41,16 +40,21 @@ Template.homescreen.onRendered(function fetchContacts(){
 
 Template.homescreen.helpers({
 
-	user () {
-		console.log(this.data);
-        // u = Meteor.users.findOne({_id : Meteor.userId() });
-		// return u.profile.name;
-	} ,
-
+	// user () {
+	// 	// console.log(this.data);
+	//    u = Meteor.users.findOne({_id : Meteor.userId() });
+	// 	return u.profile.name;
+	// },
+    //
 	// contacts () {
     //
 	// 	return Session.get('contacts');
 	// },
+    
+    someHelper(){
+        console.log(this);
+        return 'Hello';
+    }
 });
 
 Template.homescreen.events({
@@ -83,12 +87,11 @@ Template.homescreen.events({
 
 });
 
-Template.nav.helpers({
-	user () {
-		u = Meteor.users.findOne({_id : Meteor.userId() });
-		return u.profile.name;
-	} ,
-})
+
+// Template.tabs.events({
+//    'submit'
+// });
+
 
 Template.verifyphone.events({
 	'submit form#verify-phone' : function(evt) {

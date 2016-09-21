@@ -1,6 +1,21 @@
 /**
  * Created by lite on 21/9/16.
  */
+import { Template } from 'meteor/templating';
+
+//========================================== css imports ====================================================
+import '../node_modules/bootstrap/dist/css/bootstrap.css'
+import './main.css'
+import '../node_modules/bootstrap-select/dist/css/bootstrap-select.min.css'
+
+//========================================== javascript files import ========================================
+import Bootstrap from 'bootstrap';
+import BootstrapSelect from 'bootstrap-select'
+
+//========================================= html templates import ============================================
+import './main.html';
+
+console.log("Executing Ui js");
 
 // (function($) {
 //
@@ -34,6 +49,8 @@
 Template.tabs.onRendered(function() {
 
     'use strict';
+
+    console.log("Rendering tabs");
     // $(document).on('show.bs.tab', '.nav-tabs-responsive [data-toggle="tab"]', function(e) {
     //
     // 	var $target = $(e.target);
@@ -59,11 +76,10 @@ Template.tabs.onRendered(function() {
     // 	updateDropdownMenu( $next, 'right' );
     // });
 
-    // $('.selectpicker').selectpicker();
+    $('.selectpicker').selectpicker();
 });
 
-Template.calender.onCreated(
-    function () {
+Template.calender.onCreated(function () {
         $.getScript('http://arshaw.com/js/fullcalendar-1.6.4/fullcalendar/fullcalendar.min.js',function(){
 
             var date = new Date();
@@ -127,5 +143,4 @@ Template.calender.onCreated(
             });
         })
 
-    }
-)
+    });

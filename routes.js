@@ -5,18 +5,22 @@
 
 // ============================================== Root route =========================================
 Router.route('/' , function(){
-	this.layout('userLayout', function (){
-            return { 
-                 user : Meteor.users.findOne({_id : Meteor.userId()}),
-            };
-    });
-	this.render('homescreen',function() {
-		    
-            return {
-                        contacts : Meteor.users.find({_id: {$ne: Meteor.userId()} }),
-                        user: Meteor.users.findOne({ _id: Meteor.userId() })
-                    };
+	this.layout('userLayout', { data : function () {
+                return {
+                    user: Meteor.users.findOne({_id: Meteor.userId()})
+                };
             
+        }
+    });
+
+	this.render('homescreen', { data : function() {
+                
+                return {
+                    contacts: Meteor.users.find({_id: {$ne: Meteor.userId()}}),
+                    user: Meteor.users.findOne({_id: Meteor.userId()})
+                };
+            }
+        
     });
 }, 
 { 
@@ -64,7 +68,6 @@ Router.route('/logout',function(){
 	
 	Meteor.logout(function(err){
 		if(!err) {
-			console.log('Rendering login');
 			that.redirect('login');
 		}
 
@@ -100,10 +103,8 @@ Router.route('/user/:_id',function(){
 */
 
 Router.onBeforeAction(function(){
-	
-	console.log("Before route");
+
 	var path = this.route._path;
-	console.log(path);
 
 	if(Meteor.user() !== undefined)
 	{
@@ -111,16 +112,12 @@ Router.onBeforeAction(function(){
 		{
 			if(Meteor.user().phone !== undefined)
 			{
-				console.log(Meteor.user());
-				console.log(Accounts.isPhoneVerified());
 				if(!Accounts.isPhoneVerified() && path.indexOf('/verifyphone') !== 0 ) {
-					console.log("In if");
 					this.redirect('verifyphone' ,{} , { query : 'next='+path ,} );
 					alert('Please verify phone number');
 				}
 				
 				else {
-					console.log("In else");
 					this.next();
 				}
 			}

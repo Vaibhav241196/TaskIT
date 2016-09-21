@@ -35,19 +35,15 @@
 
 <template name = "userLayout">
 	<div class="container-fluid">
-
         {{> nav}}
 		{{> yield}}
-
 	</div>
 </template>
 
 
 <!--==================== Homescreen Page Layout - only for logged in users ====================-->
 <template name = "homescreen">
-
     {{> tabs}}
-
 </template>
 <!-- ==================== Homescreen Page Layout - only for logged in users end ==================== -->
 
@@ -215,9 +211,7 @@
 
 <!--====================== tabs layout start ========================== -->
 <template name="tabs">
-
     <div class="tab-wrapper container">
-
             <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
                 <ul id="myTab" class="nav nav-tabs nav-tabs-responsive" role="tablist">
 
@@ -244,7 +238,6 @@
                         <a href="#dropdown1" id="myTabDrop1" data-toggle="tab" aria-controls="myTabDrop1-contents">
                             <span class="text">Calender</span>
                         </a>
-
                     </li>
 
                 </ul>
@@ -266,53 +259,62 @@
                                     <a href="#"><i class="fa fa-share" aria-hidden="true"></i> Allocations </a>
                                 </li>
 
-                                <li class="list-group-item " data-toggle="modal" data-target="#myModal">
+                                <li class="list-group-item " data-toggle="modal" data-target="#new-task-form">
                                     <a href="#"><i class="fa fa-plus" aria-hidden="true"></i> New Task </a>
                                 </li>
 
                             </ul>
 
                             <!-- Modal -->
-                            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                            <div class="modal fade" id="new-task-form" tabindex="-1" role="dialog" aria-labelledby="modalFormLabel">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                            <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                                            <h4 class="modal-title" id="modal-form">Modal title</h4>
                                         </div>
                                         <div class="modal-body">
                                             <form>
 
                                                 <div class="form-group">
-                                                    <label for="exampleInputEmail1">Task Name</label>
-                                                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Task Name">
+                                                    <label for="task-name">Task Name</label>
+                                                    <input type="text" class="form-control" id="task-name" placeholder="Task Name">
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label for="exampleInputPassword1">Description</label>
-                                                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Description">
+                                                    <label for="task-description">Description</label>
+                                                    <input type="text" class="form-control" id="task-description" placeholder="Description">
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label for="exampleInputPassword1">Deadline</label>
-                                                    <input type="password" class="form-control" id="exampleInputPassword" placeholder="Deadline">
+                                                    <label for="task-deadline">Deadline</label>
+                                                    <input type="date" class="form-control" id="task-deadline" placeholder="Deadline">
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label for="exampleInputPassword1">Duration</label>
-                                                    <input type="password" class="form-control" id="exampleInputPasswor" placeholder="Duration">
+                                                    <label for="task-duration">Duration</label>
+                                                    <input type="number" class="form-control" id="task-duration" placeholder="Duration">
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label for="exampleInputPassword1">Add Members</label>
+                                                    <label for="task-priority">Priority</label>
+                                                    <select class="selectpicker" name="task-priority" id="task-priority" >
+                                                        <option id="low">Low</option>
+                                                        <option id="medium">Medium</option>
+                                                        <option id="high">High</option>
+                                                    </select>
+                                                </div>
 
-                                                    <select multiple class="form-control">
-                                                    <option>Ankit </option>
-                                                    <option>Anurag A.</option>
-                                                    <option>Pankaj Y. </option>
-                                                    <option>Vaibhav</option>
-                                                    <option>Shrunoti K.</option>
-                                                </select>
+
+                                                <div class="form-group">
+                                                    <label for="task-members">Add Members</label>
+
+                                                    <select class="selectpicker" name="task-members" id="task-members" multiple>
+                                                        {{# each contacts}}
+                                                            <option value="{{_id}}"> {{profil                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   e.name}} </option>
+                                                        {{/ each}}
+                                                    </select>
+
                                                 </div>
 
 
@@ -346,7 +348,7 @@
 
                                     </div>
 
-                                    <div class="collapse" id="collapseExample1">
+                                    <div class="collapse" id="collapseExample">
                                         <div class="well">
 
                                             <button type="button" class="btn btn-info"> Description: </button>
@@ -374,158 +376,7 @@
 
                                         </div>
                                     </div>
-
-                                    <div class="alert alert-warning" role="alert"> Call Mr. Rushabh
-
-                                        <span class="badge right"> Personal
-                                        </span>
-
-                                        <span class="badge right assigned_by"> By: Anurag agrawal
-                                        </span>
-                                    </div>
-
-
-
-                                    <div class="alert alert-danger" role="alert">
-                                        Plan for facebook marketing.
-                                        <span class="badge right"> Personal
-                                        </span>
-
-                                        <span class="badge right assigned_by"> By: Vaibhav Lohani
-                                        </span>
-
-                                    </div>
-
-
-                                    <div class="alert alert-success" role="alert" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample2">
-                                        Complete website wireframes
-
-                                        <span class="badge right"> Personal
-                                        </span>
-
-                                        <span class="badge right assigned_by"> By: Ankit yadav
-                                        </span>
-
-
-                                    </div>
-
-                                    <div class="collapse" id="collapseExample2">
-                                        <div class="well">
-
-                                            <button type="button" class="btn btn-info"> Description: </button>
-
-                                            <span class="value"> Please complete the wireframes for our client faisal, he need home page as soon as possible.</span>
-                                            <br>
-                                            <br>
-                                            <button type="button" class="btn btn-info"> Deadline: </button>
-
-                                            <span class="value"> 6th September 2016 </span>
-                                            <br>
-                                            <br>
-                                            <button type="button" class="btn btn-info"> Status: </button>
-
-                                            <span class="value"> Not Completed yet</span>
-                                            <br><br>
-                                            <button type="button" class="btn btn-info">Duration: </button>
-
-                                            <span class="value"> 4 Hrs.</span>
-                                            <br><br>
-                                            <button type="button" class="btn btn-info">Priority: </button>
-
-                                            <span class="value"> Ctritical moderate low </span>
-
-
-                                        </div>
-                                    </div>
-
-                                    <div class="alert alert-warning" role="alert"> Call Mr. Rushabh
-
-                                        <span class="badge right"> Personal
-                                        </span>
-
-                                        <span class="badge right assigned_by"> By: Anurag agrawal
-                                        </span>
-                                    </div>
-
-
-
-                                    <div class="alert alert-danger" role="alert">
-                                        Plan for facebook marketing.
-                                        <span class="badge right"> Personal
-                                        </span>
-
-                                        <span class="badge right assigned_by"> By: Vaibhav Lohani
-                                        </span>
-
-                                    </div>
-
-                                    <div class="alert alert-success" role="alert" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample3">
-                                        Complete website wireframes
-
-                                        <span class="badge right"> Personal
-                                        </span>
-
-                                        <span class="badge right assigned_by"> By: Ankit yadav
-                                        </span>
-
-
-                                    </div>
-
-                                    <div class="collapse" id="collapseExample3">
-                                        <div class="well">
-
-                                            <button type="button" class="btn btn-info"> Description: </button>
-
-                                            <span class="value"> Please complete the wireframes for our client faisal, he need home page as soon as possible.</span>
-                                            <br>
-                                            <br>
-                                            <button type="button" class="btn btn-info"> Deadline: </button>
-
-                                            <span class="value"> 6th September 2016 </span>
-                                            <br>
-                                            <br>
-                                            <button type="button" class="btn btn-info"> Status: </button>
-
-                                            <span class="value"> Not Completed yet</span>
-                                            <br><br>
-                                            <button type="button" class="btn btn-info">Duration: </button>
-
-                                            <span class="value"> 4 Hrs.</span>
-                                            <br><br>
-                                            <button type="button" class="btn btn-info">Priority: </button>
-
-                                            <span class="value"> Ctritical moderate low </span>
-
-
-                                        </div>
-                                    </div>
-
-                                    <div class="alert alert-warning" role="alert"> Call Mr. Rushabh
-
-                                        <span class="badge right"> Personal
-                                        </span>
-
-                                        <span class="badge right assigned_by"> By: Anurag agrawal
-                                        </span>
-                                    </div>
-
-
-
-                                    <div class="alert alert-danger" role="alert">
-                                        Plan for facebook marketing.
-                                        <span class="badge right"> Personal
-                                        </span>
-
-                                        <span class="badge right assigned_by"> By: Vaibhav Lohani
-                                        </span>
-
-                                    </div>
-
-
-
                                 </div>
-
-
                             </div>
                         </div>
 
