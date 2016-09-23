@@ -38,7 +38,7 @@ Template.homescreen.onRendered(function fetchContacts(){
 
 
 
-Template.homescreen.helpers({
+Template.tabs.helpers({
 
 	// user () {
 	// 	// console.log(this.data);
@@ -50,11 +50,20 @@ Template.homescreen.helpers({
     //
 	// 	return Session.get('contacts');
 	// },
+
+    tasks () {
+        return Meteor.users.findOne({_id : Meteor.userId() }).tasks;
+    },
     
-    someHelper(){
-        console.log(this);
-        return 'Hello';
-    }
+    assignedTasks () {
+        return Meteor.users.findOne({_id : Meteor.userId() }).assignedTasks;
+    },
+
+    getNameById () {
+        return Meteor.users.findOne({_id : Meteor.userId() }).profile.name;
+    },
+
+
 });
 
 Template.homescreen.events({
@@ -87,10 +96,30 @@ Template.homescreen.events({
 
 });
 
+Template.tabs.events({
+   'submit form#assign-task-personal' : function (evt) {
+	   evt.preventDefault();
 
-// Template.tabs.events({
-//    'submit'
-// });
+	   var task = {};
+
+       task.name = $(evt.target).find("input[name='task-name']").val();
+       task.description = $(evt.target).find("input[name='task-description']").val();
+       task.deadline = $(evt.target).find("input[name='task-deadline']").val();
+       task.duration = $(evt.target).find("input[name='task-duration']").val();
+       task.priority = $(evt.target).find("input[name='task-priority']").val();
+       task.members = $(evt.target).find("[name='task-members']").val();
+       task.assignedBy = Meteor.userId();
+       
+       
+       Meteor.call('assignTask',task,function (err,res) {
+           if(err)
+               console.log(err);
+           else 
+               alert ("Task Assigned succesfully");
+       });
+       
+   }
+});
 
 
 Template.verifyphone.events({

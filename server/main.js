@@ -62,4 +62,4 @@ Meteor.methods({
 		return contacts;
 	}
 
-})
+});
