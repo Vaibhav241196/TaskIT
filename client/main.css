@@ -29,7 +29,7 @@ input.centered {
 
 body {
 	margin-top: 100px;
-	background: #eee;
+	background-color: #eee !important;
 
 }
 
@@ -147,7 +147,7 @@ ul.alert-dropdown {
 		background-color: #222;
 		bottom: 0;
 		overflow-x: hidden;
-        padding-right: 0;
+        padding-right: 0 !important;
 		/*padding-bottom: 40px;*/
 	}
 
@@ -159,7 +159,6 @@ ul.alert-dropdown {
 	.side-nav li a:hover,
 	.side-nav li a:focus {
 		outline: none;
-		background-color: #000 !important;
 	}
 }
 
@@ -395,11 +394,10 @@ div.tab-wrapper{
 }
 
 .tasks-wrapper ul.side-nav {
-    min-height:700px;
     background: #fff;
 }
 
-.tasks-wrapper ul.side-nav li a{
+#myTabContent ul.side-nav li a{
     padding: 40px 0;
     margin: 0;
     font-size: 25px;
@@ -408,6 +406,10 @@ div.tab-wrapper{
 
 .tasks-wrapper ul li.list-group-item{
     padding: 0;
+}
+
+.side-nav .list-group-item {
+    padding : 0;
 }
 
 .tasks-wrapper div.tasks{
