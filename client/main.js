@@ -59,8 +59,8 @@ Template.tabs.helpers({
         return Meteor.users.findOne({_id : Meteor.userId() }).assignedTasks;
     },
 
-    getNameById () {
-        return Meteor.users.findOne({_id : Meteor.userId() }).profile.name;
+    getNameById (id) {
+        return Meteor.users.findOne({_id : id }).profile.name;
     },
 
 
