@@ -6,6 +6,7 @@ console.log("Executing main.js");
 // Session.setDefault('rerun',true);			// Default value of session variable rerun used to reactively run the homescreen helper
 
 Meteor.subscribe('users');
+Meteor.subscribe('teams');
 
 Template.homescreen.onRendered(function fetchContacts(){
 //	
@@ -63,6 +64,10 @@ Template.tabs.helpers({
         return Meteor.users.findOne({_id : Meteor.userId() }).profile.name;
     },
 
+    teams () {
+        return Teams.find();
+    }
+
 
 });
 
@@ -118,7 +123,27 @@ Template.tabs.events({
                alert ("Task Assigned succesfully");
        });
        
-   }
+   },
+
+    'submit form#add-team-form' : function (evt) {
+        evt.preventDefault();
+
+        var team = {};
+
+        team.name = $(evt.target).find("input[name='team-name']").val();
+        team.description = $(evt.target).find("input[name='team-description']").val();
+        team.members = $(evt.target).find("[name='team-members']").val();
+        team.admin = Meteor.userId();
+
+
+        Meteor.call('addTeam',team,function (err,res) {
+            if(err)
+                console.log(err);
+            else
+                alert ("Team created successfully");
+        });
+
+    },
 });
 
 

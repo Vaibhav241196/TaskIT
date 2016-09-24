@@ -35,6 +35,10 @@ Meteor.publish('users',function () {
     return Meteor.users.find({});
 });
 
+Meteor.publish('teams',function () {
+	return Teams.find({members : { $elemMatch : {$eq : this.userId } }});
+});
+
 
 Meteor.methods({
 	searchContact : function(mob_no) {
