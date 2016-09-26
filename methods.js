@@ -24,6 +24,15 @@ Meteor.methods({
         }
         
     },
-    
 
+    'assignTaskTeam' : function (team,task){
+
+        var members = task.members;
+
+        for (i in members) {
+            Teams.update({_id: team }, {$push: {tasks: task}});
+        }
+
+        Meteor.users.update({ _id : task.assignedBy },{$push : { assignedTasks : task }});
+    }
 });

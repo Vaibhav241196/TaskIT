@@ -250,7 +250,7 @@
 
                             <ul class="nav navbar-nav side-nav nav-pills nav-stacked col-xs-3 text-center list-group">
 
-                                <li class="list-group-item" role="presentation">
+                                <li class="list-group-item active" role="presentation">
                                     <a href="#my-tasks" role="tab" data-toggle="tab"> <i class="fa fa-check-square-o" aria-hidden="true"></i> Tasks </a>
                                 </li>
 
@@ -270,7 +270,7 @@
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                            <h4 class="modal-title" id="modal-form">Modal title</h4>
+                                            <h4 class="modal-title" id="modal-form">Assign Task</h4>
                                         </div>
                                         <div class="modal-body">
                                             <form id="assign-task-personal">
@@ -380,7 +380,7 @@
 
                                         <div role="tabpanel" class="tab-pane fade" id="assigned-tasks">
                                             {{# each assignedTasks}}
-                                                <div class="alert alert-success" role="alert" data-toggle="collapse" href="#description{{@index}}" aria-expanded="false" aria-controls="description{{@index}}">
+                                                <div class="alert alert-success" role="alert" data-toggle="collapse" href="#description-{{@index}}" aria-expanded="false" aria-controls="description-{{@index}}">
                                                     {{name}}
 
                                                     <span class="badge right"> Personal
@@ -392,7 +392,7 @@
 
                                                 </div>
 
-                                                <div class="collapse" id="description{{@index}}">
+                                                <div class="collapse" id="description-{{@index}}">
                                                     <div class="well">
 
                                                         <button type="button" class="btn btn-info"> Description: </button>
@@ -426,8 +426,6 @@
                                 </div>
                             </div>
                         </div>
-
-
                     </div>
 
                     <div role="tabpanel" class="tab-pane fade" id="tasks-team" aria-labelledby="tasks-team-tab">
@@ -439,15 +437,7 @@
                                 {{# each teams}}
 
                                     <li class="list-group-item" role="presentation">
-                                        <a href="#team{{@index}}"><i class="fa fa-fw fa-dashboard"></i> Development Team </a>
-                                    </li>
-
-                                    <li class="list-group-item" role="presentation">
-                                        <a href="#team{{@index}}"><i class="fa fa-fw fa-bar-chart-o"></i> Marketing Team </a>
-                                    </li>
-
-                                    <li class="list-group-item" role="presentation">
-                                        <a href="#team{{@index}}"><i class="fa fa-fw fa-table"></i> Design team </a>
+                                        <a href="#team{{@index}}" role="tab" data-toggle="tab"> {{name}} </a>
                                     </li>
 
                                 {{/ each}}
@@ -464,25 +454,25 @@
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                            <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                                            <h4 class="modal-title" id="myModalLabel">Add Team</h4>
                                         </div>
                                         <div class="modal-body">
                                             <form id="add-team-form">
 
                                                 <div class="form-group">
                                                     <label for="team-name">Team Name</label>
-                                                    <input type="text" class="form-control" id="team-name" placeholder="Team Name">
+                                                    <input type="text" class="form-control" name="team-name" id="team-name" placeholder="Team Name">
                                                 </div>
 
                                                 <div class="form-group">
                                                     <label for="team-description">Description</label>
-                                                    <input type="text" class="form-control" id="team-description" placeholder="Description">
+                                                    <input type="text" class="form-control" name="team-description" id="team-description" placeholder="Description">
                                                 </div>
 
                                                 <div class="form-group">
                                                     <label for="team-members">Add Members</label>
 
-                                                    <select multiple class="selectpicker">
+                                                    <select multiple class="selectpicker" id="team-members" name="team-members">
                                                         {{# each contacts }}
                                                             <option value="{{_id}}">{{profile.name}} </option>
                                                         {{/ each}}
@@ -503,59 +493,140 @@
                                 </div>
                             </div>
 
-
-
-
-
                             <div class="col-xs-9 tasks">
                                 <div class="col-xs-10 col-xs-offset-1">
 
                                     <div class="tab-content">
 
                                         {{# each teams}}
+
                                             <div role="tabpanel" class="tab-pane fade" id="team{{@index}}">
 
-                                                <div class="alert alert-success" role="alert" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                                                    Complete website wireframes
+                                                {{# each this.tasks}}
+                                                    <div class="alert alert-success" role="alert" data-toggle="collapse" href="#task-{{@index}}" aria-expanded="false" aria-controls="task{{@index}}">
+                                                        {{name}}
 
-                                                    <span class="badge right"> Personal
-                                                    </span>
+                                                        <span class="badge right"> Personal
+                                                        </span>
 
-                                                    <span class="badge right assigned_by"> By: Ankit yadav
-                                                    </span>
-
-
-                                                </div>
-
-                                                <div class="collapse" id="collapseExample">
-                                                    <div class="well">
-
-                                                        <button type="button" class="btn btn-info"> Description: </button>
-
-                                                        <span class="value"> Please complete the wireframes for our client faisal, he need home page as soon as possible.</span>
-                                                        <br>
-                                                        <br>
-                                                        <button type="button" class="btn btn-info"> Deadline: </button>
-
-                                                        <span class="value"> 6th September 2016 </span>
-                                                        <br>
-                                                        <br>
-                                                        <button type="button" class="btn btn-info"> Status: </button>
-
-                                                        <span class="value"> Not Completed yet</span>
-                                                        <br><br>
-                                                        <button type="button" class="btn btn-info">Duration: </button>
-
-                                                        <span class="value"> 4 Hrs.</span>
-                                                        <br><br>
-                                                        <button type="button" class="btn btn-info">Priority: </button>
-
-                                                        <span class="value"> Ctritical moderate low </span>
+                                                        <span class="badge right assigned_by"> By: {{getNameById assignedBy}}
+                                                        </span>
 
                                                     </div>
+
+                                                    <div class="collapse" id="task-{{@index}}">
+                                                        <div class="well">
+
+                                                            <button type="button" class="btn btn-info"> For: </button>
+
+                                                            <span class="value">
+                                                                {{# each members}}
+                                                                    {{getNameById this}}
+                                                                {{/ each}}
+                                                            </span>
+
+                                                            <br />
+                                                            <br />
+
+                                                            <button type="button" class="btn btn-info"> Description: </button>
+
+                                                            <span class="value"> {{description}} </span>
+                                                            <br>
+                                                            <br>
+                                                            <button type="button" class="btn btn-info"> Deadline: </button>
+
+                                                            <span class="value"> {{deadline}} </span>
+                                                            <br>
+                                                            <br>
+                                                            <button type="button" class="btn btn-info"> Status: </button>
+
+                                                            <span class="value"> Not Completed yet </span>
+                                                            <br><br>
+                                                            <button type="button" class="btn btn-info">Duration: </button>
+
+                                                            <span class="value"> {{duration}} </span>
+                                                            <br><br>
+                                                            <button type="button" class="btn btn-info">Priority: </button>
+
+                                                            <span class="value"> Ctritical moderate low </span>
+
+                                                        </div>
+                                                    </div>
+                                                {{/ each}}
+
+                                                <button class="btn btn-default pull-right" data-toggle="modal" data-target="#assign-task-team-form"> Assign Task </button>
+
+                                                <!-- ============================ Modal for add team task ======================= -->
+
+                                                <div class="modal fade" id="assign-task-team-form" tabindex="-1" role="dialog" aria-labelledby="modalFormLabel">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                                <h4 class="modal-title" id="modal-form">Assign Task Team</h4>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <form id="assign-task-team">
+
+                                                                    <div class="form-group">
+                                                                        <label for="task-name">Task Name</label>
+                                                                        <input type="text" name="task-name" class="form-control" id="task-name" placeholder="Task Name">
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <label for="task-description">Description</label>
+                                                                        <input type="text" name="task-description" class="form-control" id="task-description" placeholder="Description">
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <label for="task-deadline">Deadline</label>
+                                                                        <input type="date" name="task-deadline" class="form-control" id="task-deadline" placeholder="Deadline">
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <label for="task-duration">Duration</label>
+                                                                        <input type="number" name="task-duration" class="form-control" id="task-duration" placeholder="Duration">
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <label for="task-priority">Priority</label>
+                                                                        <select class="selectpicker" name="task-priority" id="task-priority" >
+                                                                            <option value="low">Low</option>
+                                                                            <option value="medium">Medium</option>
+                                                                            <option value="high">High</option>
+                                                                        </select>
+                                                                    </div>
+
+
+                                                                    <div class="form-group">
+                                                                        <label for="task-members">Add Members</label>
+
+                                                                        <select multiple id="task-members" class="selectpicker" data-live-search="true" name="task-members">
+                                                                            {{# each members}}
+                                                                                <option value="{{this}}">{{ getNameById this}}</option>
+                                                                            {{/ each}}
+                                                                        </select>
+                                                                    </div>
+
+
+
+                                                                    <input type="submit" class="btn btn-default" name="submit" value="Add Task" />
+
+                                                                </form>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                <!--<button type="button" class="btn btn-primary">Add Task</button>-->
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
+
+
+
                                             </div>
-                                        {{/ each}}
+
+                                        {{/each}}
 
                                     </div>
 
@@ -582,8 +653,6 @@
                     <div role="tabpanel" class="tab-pane fade" id="dropdown1" aria-labelledby="dropdown1-tab">
                         {{> calender}}
                     </div>
-
-
 
                 </div>
 

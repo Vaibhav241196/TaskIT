@@ -41,16 +41,6 @@ Template.homescreen.onRendered(function fetchContacts(){
 
 Template.tabs.helpers({
 
-	// user () {
-	// 	// console.log(this.data);
-	//    u = Meteor.users.findOne({_id : Meteor.userId() });
-	// 	return u.profile.name;
-	// },
-    //
-	// contacts () {
-    //
-	// 	return Session.get('contacts');
-	// },
 
     tasks () {
         return Meteor.users.findOne({_id : Meteor.userId() }).tasks;
@@ -60,15 +50,14 @@ Template.tabs.helpers({
         return Meteor.users.findOne({_id : Meteor.userId() }).assignedTasks;
     },
 
-    getNameById () {
-        return Meteor.users.findOne({_id : Meteor.userId() }).profile.name;
+    getNameById ( id ) {
+        return Meteor.users.findOne({_id : id }).profile.name;
     },
 
     teams () {
         return Teams.find();
-    }
-
-
+    },
+    
 });
 
 Template.homescreen.events({
@@ -135,6 +124,8 @@ Template.tabs.events({
         team.members = $(evt.target).find("[name='team-members']").val();
         team.admin = Meteor.userId();
 
+        team.members.push(team.admin);
+
 
         Meteor.call('addTeam',team,function (err,res) {
             if(err)
@@ -144,6 +135,30 @@ Template.tabs.events({
         });
 
     },
+
+    'submit form#assign-task-team' : function (evt) {
+        evt.preventDefault();
+
+        var task = {};
+        var team_id = this._id;
+
+        task.name = $(evt.target).find("input[name='task-name']").val();
+        task.description = $(evt.target).find("input[name='task-description']").val();
+        task.deadline = $(evt.target).find("input[name='task-deadline']").val();
+        task.duration = $(evt.target).find("input[name='task-duration']").val();
+        task.priority = $(evt.target).find("input[name='task-priority']").val();
+        task.members = $(evt.target).find("[name='task-members']").val();
+        task.assignedBy = Meteor.userId();
+
+
+        Meteor.call('assignTaskTeam',team_id,task,function (err,res) {
+            if(err)
+                console.log(err);
+            else
+                alert ("Task Assigned succesfully");
+        });
+
+    }
 });
 
 
