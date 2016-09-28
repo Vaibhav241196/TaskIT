@@ -1,9 +1,19 @@
 /* CSS declarations go here */
 
-input.centered {
-	display: block;
-	margin: auto !important ;
-	margin-top: 10px !important;
+/* Input Elements */
+
+.input-group{
+    margin: auto;
+    margin-top: 10px;
+}
+
+#login-form .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) ,
+#register-form .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn){
+    width: 66px !important;
+}
+
+.mobno{
+    width: 20%;
 }
 
 .logout {
@@ -998,5 +1008,7 @@ table.fc-border-separate {
 	text-align: center;
 	cursor: s-resize;
 }
+
+
 
 

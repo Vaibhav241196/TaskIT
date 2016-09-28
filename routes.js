@@ -9,7 +9,6 @@ Router.route('/' , function(){
                 return {
                     user: Meteor.users.findOne({_id: Meteor.userId()})
                 };
-            
         }
     });
 
@@ -79,7 +78,7 @@ Router.route('/logout',function(){
 },
 {
 	name: 'logout',
-})
+});
 // ============================================= Logout route ends =============================
 
 // ============================================= Test route ====================================

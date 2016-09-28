@@ -41,7 +41,6 @@ Template.homescreen.onRendered(function fetchContacts(){
 
 Template.tabs.helpers({
 
-
     tasks () {
         return Meteor.users.findOne({_id : Meteor.userId() }).tasks;
     },
@@ -87,11 +86,10 @@ Template.homescreen.events({
 			
 		});
 	},
-
 });
 
 Template.tabs.events({
-   'submit form#assign-task-personal' : function (evt) {
+   'submit form#assign-task-personal' : function(evt) {
 	   evt.preventDefault();
 
 	   var task = {};
@@ -196,8 +194,12 @@ Template.login.events({
 	'submit form' : function(evt) {
 		
 		evt.preventDefault();
+        var country_code = $("[name='country-code']").val();
 		var mobno = $("[name = 'mobno']").val();
 		var pwd = $("[name = 'password']").val();
+
+        mobno = country_code + mobno;
+
 		console.log(mobno);
 		console.log(this.next);
 
@@ -228,23 +230,36 @@ Template.register.events({
 	'submit form' :  function(evt) {
 		evt.preventDefault();
 		
-		var mobno = $("[name = 'mobno']").val();
+		var country_code = $("[name = 'county-code']").val()
+        var mobno = $("[name = 'mobno']").val();
 		var pwd = $("[name = 'password']").val();
+		var conf_pwd = $("[name = 'conf-password']").val();
 		var name = $("[name = 'name']").val();
-		var options = {phone : mobno , password : pwd , profile : {
 
-					name : name,
-			} 
-		};
+        mobno = country_code + mobno  ;
 
-		Accounts.createUserWithPhone(options);
+        if(pwd === conf_pwd) {
+            alert("Passwords don't match");
+        }
 
-		Meteor.loginWithPhoneAndPassword({phone : mobno},pwd,function(err){
-			if(!err)
-				Router.go('homescreen');
-			else
-				console.log(err);
-		});
+        else {
+            
+            var options = {
+                phone: mobno, password: pwd, profile: {
+
+                    name: name,
+                }
+            };
+
+            Accounts.createUserWithPhone(options);
+
+            Meteor.loginWithPhoneAndPassword({phone: mobno}, pwd, function (err) {
+                if (!err)
+                    Router.go('homescreen');
+                else
+                    console.log(err);
+            });
+        }
 	},
 });
 

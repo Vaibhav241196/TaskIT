@@ -1,32 +1,60 @@
 <!--==================== Login Page Layout ====================-->
 <template name="login">
-
 	<div class="text-center form-wrapper">
 		<form method="post" class="text-center" name="login-form" id="login-form">
-			<input type="text" name="mobno" class="centered" placeholder="Mobile Number" />
-			<input type="password" name="password" class="centered" placeholder="Password" />
-			<input type="submit" class="centered" name="submit" value="Submit">	
-		</form>
+			<div class="centered input-group mobno">
+                <div class="input-group-btn">
+                    <select id="country-code" name="country-code" class="selectpicker">
+                        <option value="+91"> +91 - India </option>
+                    </select>
+                </div>
+                <input type="text" name="mobno" id="mobno" class="form-control" placeholder="Mobile Number" />
+            </div>
+
+            <div class="input-group">
+                <input type="password" name="password" class="centered form-control" placeholder="Password" />
+            </div>
+
+            <div class="input-group">
+                <input type="submit" class="centered form-control" name="submit" value="Submit">
+            </div>
+
+        </form>
 		<p>Don't have an account? <a href="{{pathFor route='register'}}" id="register-link">Register</a></p>
 		<p>{{next}}</p>
 
 	</div>
-
 </template>
 <!--==================== Login Page Layout ends ====================-->
-
 
 
 <!--==================== Registration Page Layout ====================-->
 <template name="register">
 	<div class="text-center form-wrapper">
 		<form method="post" name="register-form" id="register-form">
-			<input type="text" name="mobno" class="centered" placeholder="Mobile Number" />
-			<input type="text" name="name" class="centered" placeholder="Name">
-			<input type="password" name="password" class="centered" placeholder="Password" />
-			<input type="password" name="conf-password" class="centered" placeholder="Confirm Password" />
-			<input type="submit" class="centered" name="submit" value="Submit" />
-		</form>
+			<div class="input-group mobno centered">
+                <div class="input-group-btn">
+                    <select id="country-code" name="country-code" class="selectpicker">
+                        <option value="+91"> +91 - India </option>
+                    </select>
+                </div>
+
+                <input type="text" name="mobno" class="form-control" placeholder="Mobile Number" />
+            </div>
+
+            <div class="input-group centered">
+                <input type="text" name="name" class="form-control" placeholder="Name">
+            </div>
+            <div class="input-group centered">
+                <input type="password" name="password" class="form-control" placeholder="Password" />
+            </div>
+            <div class="input-group centered">
+                <input type="password" name="conf-password" class="form-control" placeholder="Confirm Password" />
+            </div>
+            <div class="input-group centered">
+                <input type="submit" class="form-control" name="submit" value="Submit" />
+            </div>
+        </form>
 		
 		<p>Already have an account? <a href="{{pathFor route='login'}}" id="login-link">Login</a></p>
 	</div>
@@ -59,105 +87,105 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.html">SB Admin</a>
+            <a class="navbar-brand" href="#!">Task It</a>
         </div>
         <!-- Top Menu Items -->
         <ul class="nav navbar-right top-nav">
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> <b class="caret"></b></a>
-                <ul class="dropdown-menu message-dropdown">
-                    <li class="message-preview">
-                        <a href="#">
-                            <div class="media">
-                                    <span class="pull-left">
-                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
-                                    </span>
-                                <div class="media-body">
-                                    <h5 class="media-heading"><strong>{{user.profile.name}}</strong>
-                                    </h5>
-                                    <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                    <p>Lorem ipsum dolor sit amet, consectetur...</p>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="message-preview">
-                        <a href="#">
-                            <div class="media">
-                                    <span class="pull-left">
-                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
-                                    </span>
-                                <div class="media-body">
-                                    <h5 class="media-heading"><strong>{{user.profile.name}}</strong>
-                                    </h5>
-                                    <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                    <p>Lorem ipsum dolor sit amet, consectetur...</p>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="message-preview">
-                        <a href="#">
-                            <div class="media">
-                                    <span class="pull-left">
-                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
-                                    </span>
-                                <div class="media-body">
-                                    <h5 class="media-heading"><strong>{{user.profile.name}}</strong>
-                                    </h5>
-                                    <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                    <p>Lorem ipsum dolor sit amet, consectetur...</p>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="message-footer">
-                        <a href="#">Read All New Messages</a>
-                    </li>
-                </ul>
-            </li>
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> <b class="caret"></b></a>
-                <ul class="dropdown-menu alert-dropdown">
-                    <li>
-                        <a href="#">Alert Name <span class="label label-default">Alert Badge</span></a>
-                    </li>
-                    <li>
-                        <a href="#">Alert Name <span class="label label-primary">Alert Badge</span></a>
-                    </li>
-                    <li>
-                        <a href="#">Alert Name <span class="label label-success">Alert Badge</span></a>
-                    </li>
-                    <li>
-                        <a href="#">Alert Name <span class="label label-info">Alert Badge</span></a>
-                    </li>
-                    <li>
-                        <a href="#">Alert Name <span class="label label-warning">Alert Badge</span></a>
-                    </li>
-                    <li>
-                        <a href="#">Alert Name <span class="label label-danger">Alert Badge</span></a>
-                    </li>
-                    <li class="divider"></li>
-                    <li>
-                        <a href="#">View All</a>
-                    </li>
-                </ul>
-            </li>
+            <!--<li class="dropdown">-->
+                <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> <b class="caret"></b></a>-->
+                <!--<ul class="dropdown-menu message-dropdown">-->
+                    <!--<li class="message-preview">-->
+                        <!--<a href="#">-->
+                            <!--<div class="media">-->
+                                    <!--<span class="pull-left">-->
+                                        <!--<img class="media-object" src="http://placehold.it/50x50" alt="">-->
+                                    <!--</span>-->
+                                <!--<div class="media-body">-->
+                                    <!--<h5 class="media-heading"><strong>{{user.profile.name}}</strong>-->
+                                    <!--</h5>-->
+                                    <!--<p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>-->
+                                    <!--<p>Lorem ipsum dolor sit amet, consectetur...</p>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</a>-->
+                    <!--</li>-->
+                    <!--<li class="message-preview">-->
+                        <!--<a href="#">-->
+                            <!--<div class="media">-->
+                                    <!--<span class="pull-left">-->
+                                        <!--<img class="media-object" src="http://placehold.it/50x50" alt="">-->
+                                    <!--</span>-->
+                                <!--<div class="media-body">-->
+                                    <!--<h5 class="media-heading"><strong>{{user.profile.name}}</strong>-->
+                                    <!--</h5>-->
+                                    <!--<p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>-->
+                                    <!--<p>Lorem ipsum dolor sit amet, consectetur...</p>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</a>-->
+                    <!--</li>-->
+                    <!--<li class="message-preview">-->
+                        <!--<a href="#">-->
+                            <!--<div class="media">-->
+                                    <!--<span class="pull-left">-->
+                                        <!--<img class="media-object" src="http://placehold.it/50x50" alt="">-->
+                                    <!--</span>-->
+                                <!--<div class="media-body">-->
+                                    <!--<h5 class="media-heading"><strong>{{user.profile.name}}</strong>-->
+                                    <!--</h5>-->
+                                    <!--<p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>-->
+                                    <!--<p>Lorem ipsum dolor sit amet, consectetur...</p>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</a>-->
+                    <!--</li>-->
+                    <!--<li class="message-footer">-->
+                        <!--<a href="#">Read All New Messages</a>-->
+                    <!--</li>-->
+                <!--</ul>-->
+            <!--</li>-->
+            <!--<li class="dropdown">-->
+                <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> <b class="caret"></b></a>-->
+                <!--<ul class="dropdown-menu alert-dropdown">-->
+                    <!--<li>-->
+                        <!--<a href="#">Alert Name <span class="label label-default">Alert Badge</span></a>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                        <!--<a href="#">Alert Name <span class="label label-primary">Alert Badge</span></a>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                        <!--<a href="#">Alert Name <span class="label label-success">Alert Badge</span></a>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                        <!--<a href="#">Alert Name <span class="label label-info">Alert Badge</span></a>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                        <!--<a href="#">Alert Name <span class="label label-warning">Alert Badge</span></a>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                        <!--<a href="#">Alert Name <span class="label label-danger">Alert Badge</span></a>-->
+                    <!--</li>-->
+                    <!--<li class="divider"></li>-->
+                    <!--<li>-->
+                        <!--<a href="#">View All</a>-->
+                    <!--</li>-->
+                <!--</ul>-->
+            <!--</li>-->
+
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> {{user.profile.name}} <b class="caret"></b></a>
                 <ul class="dropdown-menu">
+                    <!--<li>-->
+                        <!--<a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                        <!--<a href="#"><i class="fa fa-fw fa-envelope"></i> Inbox</a>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                        <!--<a href="#"><i class="fa fa-fw fa-gear"></i> Settings</a>-->
+                    <!--</li>-->
+                    <!--<li class="divider"></li>-->
                     <li>
-                        <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-fw fa-envelope"></i> Inbox</a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-fw fa-gear"></i> Settings</a>
-                    </li>
-                    <li class="divider"></li>
-                    <li>
-                        <!--<a href="#"><i class="fa fa-fw fa-power-off"></i> Log Out</a>-->
                         <a href="{{pathFor route='logout'}}"><i class="fa fa-fw fa-power-off"></i>Logout</a>
                     </li>
                 </ul>
@@ -215,29 +243,29 @@
                 <ul id="myTab" class="nav nav-tabs nav-tabs-responsive" role="tablist">
 
 
-                    <li role="presentation" class="active col-xs-3 text-center">
+                    <li role="presentation" class="active col-xs-6 text-center">
                         <a href="#tasks-personal" id="tasks-personal-tab" role="tab" data-toggle="tab" aria-controls="tasks-personal" aria-expanded="true">
                             <span class="text">Tasks</span>
                         </a>
                     </li>
 
-                    <li role="presentation" class="col-xs-3 text-center">
+                    <li role="presentation" class="col-xs-6 text-center">
                         <a href="#tasks-team" role="tab" id="tasks-team-tab" data-toggle="tab" aria-controls="tasks-team">
                             <span class="text">Teams</span>
                         </a>
                     </li>
 
-                    <li role="presentation" class="col-xs-3 text-center">
-                        <a href="#contacts" role="tab" id="contacts-tab" data-toggle="tab" aria-controls="contacts">
-                            <span class="text">Contacts</span>
-                        </a>
-                    </li>
+                    <!--<li role="presentation" class="col-xs-3 text-center">-->
+                        <!--<a href="#contacts" role="tab" id="contacts-tab" data-toggle="tab" aria-controls="contacts">-->
+                            <!--<span class="text">Contacts</span>-->
+                        <!--</a>-->
+                    <!--</li>-->
 
-                    <li role="presentation" class="dropdown col-xs-3 text-center">
-                        <a href="#dropdown1" id="myTabDrop1" data-toggle="tab" aria-controls="myTabDrop1-contents">
-                            <span class="text">Calender</span>
-                        </a>
-                    </li>
+                    <!--<li role="presentation" class="dropdown col-xs-3 text-center">-->
+                        <!--<a href="#dropdown1" id="myTabDrop1" data-toggle="tab" aria-controls="myTabDrop1-contents">-->
+                            <!--<span class="text">Calender</span>-->
+                        <!--</a>-->
+                    <!--</li>-->
 
                 </ul>
 
@@ -621,56 +649,41 @@
                                                         </div>
                                                     </div>
                                                 </div>
-
-
-
                                             </div>
 
                                         {{/each}}
-
                                     </div>
-
                                 </div>
-
                             </div>
-
                         </div>
-
-
                     </div>
 
-                    <div role="tabpanel" class="tab-pane fade" id="contacts" aria-labelledby="contacts-tab">
-
-                        <ul class="contacts">
-                            {{#each contacts}}
-                                <li>{{profile.name}}</li>
-                            {{/each}}
-                        </ul>
-
-                    </div>
+                    <!--<div role="tabpanel" class="tab-pane fade" id="contacts" aria-labelledby="contacts-tab">-->
+                        <!--<ul class="contacts">-->
+                            <!--{{#each contacts}}-->
+                                <!--<li>{{profile.name}}</li>-->
+                            <!--{{/each}}-->
+                        <!--</ul>-->
+                    <!--</div>-->
 
 
-                    <div role="tabpanel" class="tab-pane fade" id="dropdown1" aria-labelledby="dropdown1-tab">
-                        {{> calender}}
-                    </div>
-
+                    <!--<div role="tabpanel" class="tab-pane fade" id="dropdown1" aria-labelledby="dropdown1-tab">-->
+                        <!-- calender template-->
+                    <!--</div>-->
                 </div>
-
             </div>
-
     </div>
 
 </template>
 <!-- =====================  tabs layout ends =========================== -->
 
 
-<template name="calender">
-    <div class="container">
-        <hr>
-        <div id="calendar"></div>
-    </div>
-
-</template>
+<!--<template name="calender">-->
+    <!--<div class="container">-->
+        <!--<hr>-->
+        <!--<div id="calendar"></div>-->
+    <!--</div>-->
+<!--</template>-->
 
 
 <!-- ==================== Mobile Number Verification Page Layout ==================== -->
