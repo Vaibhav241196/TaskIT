@@ -1,32 +1,60 @@
 <!--==================== Login Page Layout ====================-->
 <template name="login">
-
 	<div class="text-center form-wrapper">
 		<form method="post" class="text-center" name="login-form" id="login-form">
-			<input type="text" name="mobno" class="centered" placeholder="Mobile Number" />
-			<input type="password" name="password" class="centered" placeholder="Password" />
-			<input type="submit" class="centered" name="submit" value="Submit">	
-		</form>
+			<div class="centered input-group mobno">
+                <div class="input-group-btn">
+                    <select id="country-code" name="country-code" class="selectpicker">
+                        <option value="+91"> +91 - India </option>
+                    </select>
+                </div>
+                <input type="text" name="mobno" id="mobno" class="form-control" placeholder="Mobile Number" />
+            </div>
+
+            <div class="input-group">
+                <input type="password" name="password" class="centered form-control" placeholder="Password" />
+            </div>
+
+            <div class="input-group">
+                <input type="submit" class="centered form-control" name="submit" value="Submit">
+            </div>
+
+        </form>
 		<p>Don't have an account? <a href="{{pathFor route='register'}}" id="register-link">Register</a></p>
 		<p>{{next}}</p>
 
 	</div>
-
 </template>
 <!--==================== Login Page Layout ends ====================-->
-
 
 
 <!--==================== Registration Page Layout ====================-->
 <template name="register">
 	<div class="text-center form-wrapper">
 		<form method="post" name="register-form" id="register-form">
-			<input type="text" name="mobno" class="centered" placeholder="Mobile Number" />
-			<input type="text" name="name" class="centered" placeholder="Name">
-			<input type="password" name="password" class="centered" placeholder="Password" />
-			<input type="password" name="conf-password" class="centered" placeholder="Confirm Password" />
-			<input type="submit" class="centered" name="submit" value="Submit" />
-		</form>
+			<div class="input-group mobno centered">
+                <div class="input-group-btn">
+                    <select id="country-code" name="country-code" class="selectpicker">
+                        <option value="+91"> +91 - India </option>
+                    </select>
+                </div>
+
+                <input type="text" name="mobno" class="form-control" placeholder="Mobile Number" />
+            </div>
+
+            <div class="input-group centered">
+                <input type="text" name="name" class="form-control" placeholder="Name">
+            </div>
+            <div class="input-group centered">
+                <input type="password" name="password" class="form-control" placeholder="Password" />
+            </div>
+            <div class="input-group centered">
+                <input type="password" name="conf-password" class="form-control" placeholder="Confirm Password" />
+            </div>
+            <div class="input-group centered">
+                <input type="submit" class="form-control" name="submit" value="Submit" />
+            </div>
+        </form>
 		
 		<p>Already have an account? <a href="{{pathFor route='login'}}" id="login-link">Login</a></p>
 	</div>
@@ -59,105 +87,105 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.html">SB Admin</a>
+            <a class="navbar-brand" href="#!">Task It</a>
         </div>
         <!-- Top Menu Items -->
         <ul class="nav navbar-right top-nav">
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> <b class="caret"></b></a>
-                <ul class="dropdown-menu message-dropdown">
-                    <li class="message-preview">
-                        <a href="#">
-                            <div class="media">
-                                    <span class="pull-left">
-                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
-                                    </span>
-                                <div class="media-body">
-                                    <h5 class="media-heading"><strong>{{user.profile.name}}</strong>
-                                    </h5>
-                                    <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                    <p>Lorem ipsum dolor sit amet, consectetur...</p>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="message-preview">
-                        <a href="#">
-                            <div class="media">
-                                    <span class="pull-left">
-                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
-                                    </span>
-                                <div class="media-body">
-                                    <h5 class="media-heading"><strong>{{user.profile.name}}</strong>
-                                    </h5>
-                                    <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                    <p>Lorem ipsum dolor sit amet, consectetur...</p>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="message-preview">
-                        <a href="#">
-                            <div class="media">
-                                    <span class="pull-left">
-                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
-                                    </span>
-                                <div class="media-body">
-                                    <h5 class="media-heading"><strong>{{user.profile.name}}</strong>
-                                    </h5>
-                                    <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                    <p>Lorem ipsum dolor sit amet, consectetur...</p>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="message-footer">
-                        <a href="#">Read All New Messages</a>
-                    </li>
-                </ul>
-            </li>
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> <b class="caret"></b></a>
-                <ul class="dropdown-menu alert-dropdown">
-                    <li>
-                        <a href="#">Alert Name <span class="label label-default">Alert Badge</span></a>
-                    </li>
-                    <li>
-                        <a href="#">Alert Name <span class="label label-primary">Alert Badge</span></a>
-                    </li>
-                    <li>
-                        <a href="#">Alert Name <span class="label label-success">Alert Badge</span></a>
-                    </li>
-                    <li>
-                        <a href="#">Alert Name <span class="label label-info">Alert Badge</span></a>
-                    </li>
-                    <li>
-                        <a href="#">Alert Name <span class="label label-warning">Alert Badge</span></a>
-                    </li>
-                    <li>
-                        <a href="#">Alert Name <span class="label label-danger">Alert Badge</span></a>
-                    </li>
-                    <li class="divider"></li>
-                    <li>
-                        <a href="#">View All</a>
-                    </li>
-                </ul>
-            </li>
+            <!--<li class="dropdown">-->
+                <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> <b class="caret"></b></a>-->
+                <!--<ul class="dropdown-menu message-dropdown">-->
+                    <!--<li class="message-preview">-->
+                        <!--<a href="#">-->
+                            <!--<div class="media">-->
+                                    <!--<span class="pull-left">-->
+                                        <!--<img class="media-object" src="http://placehold.it/50x50" alt="">-->
+                                    <!--</span>-->
+                                <!--<div class="media-body">-->
+                                    <!--<h5 class="media-heading"><strong>{{user.profile.name}}</strong>-->
+                                    <!--</h5>-->
+                                    <!--<p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>-->
+                                    <!--<p>Lorem ipsum dolor sit amet, consectetur...</p>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</a>-->
+                    <!--</li>-->
+                    <!--<li class="message-preview">-->
+                        <!--<a href="#">-->
+                            <!--<div class="media">-->
+                                    <!--<span class="pull-left">-->
+                                        <!--<img class="media-object" src="http://placehold.it/50x50" alt="">-->
+                                    <!--</span>-->
+                                <!--<div class="media-body">-->
+                                    <!--<h5 class="media-heading"><strong>{{user.profile.name}}</strong>-->
+                                    <!--</h5>-->
+                                    <!--<p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>-->
+                                    <!--<p>Lorem ipsum dolor sit amet, consectetur...</p>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</a>-->
+                    <!--</li>-->
+                    <!--<li class="message-preview">-->
+                        <!--<a href="#">-->
+                            <!--<div class="media">-->
+                                    <!--<span class="pull-left">-->
+                                        <!--<img class="media-object" src="http://placehold.it/50x50" alt="">-->
+                                    <!--</span>-->
+                                <!--<div class="media-body">-->
+                                    <!--<h5 class="media-heading"><strong>{{user.profile.name}}</strong>-->
+                                    <!--</h5>-->
+                                    <!--<p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>-->
+                                    <!--<p>Lorem ipsum dolor sit amet, consectetur...</p>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</a>-->
+                    <!--</li>-->
+                    <!--<li class="message-footer">-->
+                        <!--<a href="#">Read All New Messages</a>-->
+                    <!--</li>-->
+                <!--</ul>-->
+            <!--</li>-->
+            <!--<li class="dropdown">-->
+                <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> <b class="caret"></b></a>-->
+                <!--<ul class="dropdown-menu alert-dropdown">-->
+                    <!--<li>-->
+                        <!--<a href="#">Alert Name <span class="label label-default">Alert Badge</span></a>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                        <!--<a href="#">Alert Name <span class="label label-primary">Alert Badge</span></a>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                        <!--<a href="#">Alert Name <span class="label label-success">Alert Badge</span></a>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                        <!--<a href="#">Alert Name <span class="label label-info">Alert Badge</span></a>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                        <!--<a href="#">Alert Name <span class="label label-warning">Alert Badge</span></a>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                        <!--<a href="#">Alert Name <span class="label label-danger">Alert Badge</span></a>-->
+                    <!--</li>-->
+                    <!--<li class="divider"></li>-->
+                    <!--<li>-->
+                        <!--<a href="#">View All</a>-->
+                    <!--</li>-->
+                <!--</ul>-->
+            <!--</li>-->
+
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> {{user.profile.name}} <b class="caret"></b></a>
                 <ul class="dropdown-menu">
+                    <!--<li>-->
+                        <!--<a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                        <!--<a href="#"><i class="fa fa-fw fa-envelope"></i> Inbox</a>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                        <!--<a href="#"><i class="fa fa-fw fa-gear"></i> Settings</a>-->
+                    <!--</li>-->
+                    <!--<li class="divider"></li>-->
                     <li>
-                        <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-fw fa-envelope"></i> Inbox</a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-fw fa-gear"></i> Settings</a>
-                    </li>
-                    <li class="divider"></li>
-                    <li>
-                        <!--<a href="#"><i class="fa fa-fw fa-power-off"></i> Log Out</a>-->
                         <a href="{{pathFor route='logout'}}"><i class="fa fa-fw fa-power-off"></i>Logout</a>
                     </li>
                 </ul>
@@ -215,29 +243,29 @@
                 <ul id="myTab" class="nav nav-tabs nav-tabs-responsive" role="tablist">
 
 
-                    <li role="presentation" class="active col-xs-3 text-center">
+                    <li role="presentation" class="active col-xs-6 text-center">
                         <a href="#tasks-personal" id="tasks-personal-tab" role="tab" data-toggle="tab" aria-controls="tasks-personal" aria-expanded="true">
                             <span class="text">Tasks</span>
                         </a>
                     </li>
 
-                    <li role="presentation" class="col-xs-3 text-center">
+                    <li role="presentation" class="col-xs-6 text-center">
                         <a href="#tasks-team" role="tab" id="tasks-team-tab" data-toggle="tab" aria-controls="tasks-team">
                             <span class="text">Teams</span>
                         </a>
                     </li>
 
-                    <li role="presentation" class="col-xs-3 text-center">
-                        <a href="#contacts" role="tab" id="contacts-tab" data-toggle="tab" aria-controls="contacts">
-                            <span class="text">Contacts</span>
-                        </a>
-                    </li>
+                    <!--<li role="presentation" class="col-xs-3 text-center">-->
+                        <!--<a href="#contacts" role="tab" id="contacts-tab" data-toggle="tab" aria-controls="contacts">-->
+                            <!--<span class="text">Contacts</span>-->
+                        <!--</a>-->
+                    <!--</li>-->
 
-                    <li role="presentation" class="dropdown col-xs-3 text-center">
-                        <a href="#dropdown1" id="myTabDrop1" data-toggle="tab" aria-controls="myTabDrop1-contents">
-                            <span class="text">Calender</span>
-                        </a>
-                    </li>
+                    <!--<li role="presentation" class="dropdown col-xs-3 text-center">-->
+                        <!--<a href="#dropdown1" id="myTabDrop1" data-toggle="tab" aria-controls="myTabDrop1-contents">-->
+                            <!--<span class="text">Calender</span>-->
+                        <!--</a>-->
+                    <!--</li>-->
 
                 </ul>
 
@@ -250,7 +278,7 @@
 
                             <ul class="nav navbar-nav side-nav nav-pills nav-stacked col-xs-3 text-center list-group">
 
-                                <li class="list-group-item" role="presentation">
+                                <li class="list-group-item active" role="presentation">
                                     <a href="#my-tasks" role="tab" data-toggle="tab"> <i class="fa fa-check-square-o" aria-hidden="true"></i> Tasks </a>
                                 </li>
 
@@ -270,7 +298,7 @@
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                            <h4 class="modal-title" id="modal-form">Modal title</h4>
+                                            <h4 class="modal-title" id="modal-form">Assign Task</h4>
                                         </div>
                                         <div class="modal-body">
                                             <form id="assign-task-personal">
@@ -335,7 +363,6 @@
 
                                     <div class="tab-content">
                                         <div role="tabpanel" class="tab-pane fade in active" id="my-tasks">
-
                                             {{# each tasks}}
                                                 <div class="alert alert-success" role="alert" data-toggle="collapse" href="#description{{@index}}" aria-expanded="false" aria-controls="description{{@index}}">
                                                     {{name}}
@@ -381,7 +408,7 @@
 
                                         <div role="tabpanel" class="tab-pane fade" id="assigned-tasks">
                                             {{# each assignedTasks}}
-                                                <div class="alert alert-success" role="alert" data-toggle="collapse" href="#description{{@index}}" aria-expanded="false" aria-controls="description{{@index}}">
+                                                <div class="alert alert-success" role="alert" data-toggle="collapse" href="#description-{{@index}}" aria-expanded="false" aria-controls="description-{{@index}}">
                                                     {{name}}
 
                                                     <span class="badge right"> Personal
@@ -393,7 +420,7 @@
 
                                                 </div>
 
-                                                <div class="collapse" id="description{{@index}}">
+                                                <div class="collapse" id="description-{{@index}}">
                                                     <div class="well">
 
                                                         <button type="button" class="btn btn-info"> Description: </button>
@@ -427,319 +454,236 @@
                                 </div>
                             </div>
                         </div>
-
-
                     </div>
 
                     <div role="tabpanel" class="tab-pane fade" id="tasks-team" aria-labelledby="tasks-team-tab">
 
-                        <div class="teams-wrapper">
+                        <div class="teams-wrapper" role="navigation">
 
-                            <ul class="nav navbar-nav side-nav col-xs-3 text-center list-group">
+                            <ul class="nav navbar-nav side-nav nav-pills nav-stacked col-xs-3 text-center list-group">
 
-                                <li class="list-group-item">
-                                    <a href="index.html"><i class="fa fa-fw fa-dashboard"></i> Development Team </a>
-                                </li>
+                                {{# each teams}}
 
-                                <li class="list-group-item">
-                                    <a href="charts.html"><i class="fa fa-fw fa-bar-chart-o"></i> Marketing Team </a>
-                                </li>
+                                    <li class="list-group-item" role="presentation">
+                                        <a href="#team{{@index}}" role="tab" data-toggle="tab"> {{name}} </a>
+                                    </li>
 
-                                <li class="list-group-item">
-                                    <a href="tables.html"><i class="fa fa-fw fa-table"></i> Design team </a>
-                                </li>
+                                {{/ each}}
 
+                                    <li class="list-group-item new-team" data-toggle="modal" data-target="#myModal2">
+                                        <a href="#"><i class="fa fa-fw fa-plus"></i> Add new Team </a>
+                                    </li>
 
+                            </ul>
 
-                                <li class="list-group-item new-team" data-toggle="modal" data-target="#myModal2">
-                                    <a href="#"><i class="fa fa-fw fa-plus"></i> Add new Team </a>
-                                </li>
+                            <!-- ============================ Modal for add team ======================= -->
+                            <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            <h4 class="modal-title" id="myModalLabel">Add Team</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form id="add-team-form">
 
+                                                <div class="form-group">
+                                                    <label for="team-name">Team Name</label>
+                                                    <input type="text" class="form-control" name="team-name" id="team-name" placeholder="Team Name">
+                                                </div>
 
-                                <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form>
+                                                <div class="form-group">
+                                                    <label for="team-description">Description</label>
+                                                    <input type="text" class="form-control" name="team-description" id="team-description" placeholder="Description">
+                                                </div>
 
-                                                    <div class="form-group">
-                                                        <label for="exampleInputEmail1">Team Name</label>
-                                                        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Team Name">
-                                                    </div>
+                                                <div class="form-group">
+                                                    <label for="team-members">Add Members</label>
 
-                                                    <div class="form-group">
-                                                        <label for="exampleInputPassword1">Description</label>
-                                                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Description">
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <label for="exampleInputPassword1">Add Members</label>
-
-                                                        <select multiple class="form-control">
-                                                            <option>Ankit </option>
-                                                            <option>Anurag A.</option>
-                                                            <option>Pankaj Y. </option>
-                                                            <option>Vaibhav</option>
-                                                            <option>Shrunoti K.</option>
-                                                        </select>
-                                                    </div>
+                                                    <select multiple class="selectpicker" id="team-members" name="team-members">
+                                                        {{# each contacts }}
+                                                            <option value="{{_id}}">{{profile.name}} </option>
+                                                        {{/ each}}
+                                                    </select>
+                                                </div>
 
 
 
-                                                    <button type="submit" class="btn btn-default">Add Team</button>
+                                                <input type="submit" class="btn btn-default" value="Add Team">
 
-                                                </form>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                <!--<button type="button" class="btn btn-primary">Add Task</button>-->
-                                            </div>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                            <!--<button type="button" class="btn btn-primary">Add Task</button>-->
                                         </div>
                                     </div>
                                 </div>
-
-
-
-                            </ul>
+                            </div>
 
                             <div class="col-xs-9 tasks">
                                 <div class="col-xs-10 col-xs-offset-1">
 
-                                    <div class="alert alert-success" role="alert" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                                        Complete website wireframes
 
-                                        <span class="badge right"> Personal
-                                        </span>
+                                    <div class="tab-content">
+                                        {{# each teams}}
 
-                                        <span class="badge right assigned_by"> By: Ankit yadav
-                                        </span>
+                                            <div role="tabpanel" class="tab-pane fade" id="team{{@index}}">
+
+                                                {{# each this.tasks}}
+                                                    <div class="alert alert-success" role="alert" data-toggle="collapse" href="#task-{{@index}}" aria-expanded="false" aria-controls="task{{@index}}">
+                                                        {{name}}
+
+                                                        <span class="badge right"> Personal
+                                                        </span>
+
+                                                        <span class="badge right assigned_by"> By: {{getNameById assignedBy}}
+                                                        </span>
+
+                                                    </div>
+
+                                                    <div class="collapse" id="task-{{@index}}">
+                                                        <div class="well">
+
+                                                            <button type="button" class="btn btn-info"> For: </button>
+
+                                                            <span class="value">
+                                                                {{# each members}}
+                                                                    {{getNameById this}}
+                                                                {{/ each}}
+                                                            </span>
+
+                                                            <br />
+                                                            <br />
+
+                                                            <button type="button" class="btn btn-info"> Description: </button>
+
+                                                            <span class="value"> {{description}} </span>
+                                                            <br>
+                                                            <br>
+                                                            <button type="button" class="btn btn-info"> Deadline: </button>
+
+                                                            <span class="value"> {{deadline}} </span>
+                                                            <br>
+                                                            <br>
+                                                            <button type="button" class="btn btn-info"> Status: </button>
+
+                                                            <span class="value"> Not Completed yet </span>
+                                                            <br><br>
+                                                            <button type="button" class="btn btn-info">Duration: </button>
+
+                                                            <span class="value"> {{duration}} </span>
+                                                            <br><br>
+                                                            <button type="button" class="btn btn-info">Priority: </button>
+
+                                                            <span class="value"> Ctritical moderate low </span>
+
+                                                        </div>
+                                                    </div>
+                                                {{/ each}}
+
+                                                <button class="btn btn-default pull-right" data-toggle="modal" data-target="#assign-task-team-form"> Assign Task </button>
+
+                                                <!-- ============================ Modal for add team task ======================= -->
+
+                                                <div class="modal fade" id="assign-task-team-form" tabindex="-1" role="dialog" aria-labelledby="modalFormLabel">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                                <h4 class="modal-title" id="modal-form">Assign Task Team</h4>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <form id="assign-task-team">
+
+                                                                    <div class="form-group">
+                                                                        <label for="task-name">Task Name</label>
+                                                                        <input type="text" name="task-name" class="form-control" id="task-name" placeholder="Task Name">
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <label for="task-description">Description</label>
+                                                                        <input type="text" name="task-description" class="form-control" id="task-description" placeholder="Description">
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <label for="task-deadline">Deadline</label>
+                                                                        <input type="date" name="task-deadline" class="form-control" id="task-deadline" placeholder="Deadline">
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <label for="task-duration">Duration</label>
+                                                                        <input type="number" name="task-duration" class="form-control" id="task-duration" placeholder="Duration">
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <label for="task-priority">Priority</label>
+                                                                        <select class="selectpicker" name="task-priority" id="task-priority" >
+                                                                            <option value="low">Low</option>
+                                                                            <option value="medium">Medium</option>
+                                                                            <option value="high">High</option>
+                                                                        </select>
+                                                                    </div>
 
 
+                                                                    <div class="form-group">
+                                                                        <label for="task-members">Add Members</label>
+
+                                                                        <select multiple id="task-members" class="selectpicker" data-live-search="true" name="task-members">
+                                                                            {{# each members}}
+                                                                                <option value="{{this}}">{{ getNameById this}}</option>
+                                                                            {{/ each}}
+                                                                        </select>
+                                                                    </div>
+
+
+
+                                                                    <input type="submit" class="btn btn-default" name="submit" value="Add Task" />
+
+                                                                </form>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                <!--<button type="button" class="btn btn-primary">Add Task</button>-->
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        {{/each}}
                                     </div>
-
-                                    <div class="collapse" id="collapseExample">
-                                        <div class="well">
-
-                                            <button type="button" class="btn btn-info"> Description: </button>
-
-                                            <span class="value"> Please complete the wireframes for our client faisal, he need home page as soon as possible.</span>
-                                            <br>
-                                            <br>
-                                            <button type="button" class="btn btn-info"> Deadline: </button>
-
-                                            <span class="value"> 6th September 2016 </span>
-                                            <br>
-                                            <br>
-                                            <button type="button" class="btn btn-info"> Status: </button>
-
-                                            <span class="value"> Not Completed yet</span>
-                                            <br><br>
-                                            <button type="button" class="btn btn-info">Duration: </button>
-
-                                            <span class="value"> 4 Hrs.</span>
-                                            <br><br>
-                                            <button type="button" class="btn btn-info">Priority: </button>
-
-                                            <span class="value"> Ctritical moderate low </span>
-
-
-                                        </div>
-                                    </div>
-
-                                    <div class="alert alert-warning" role="alert"> Call Mr. Rushabh
-
-                                        <span class="badge right"> Personal
-                                        </span>
-
-                                        <span class="badge right assigned_by"> By: Anurag agrawal
-                                        </span>
-                                    </div>
-
-
-
-                                    <div class="alert alert-danger" role="alert">
-                                        Plan for facebook marketing.
-                                        <span class="badge right"> Personal
-                                        </span>
-
-                                        <span class="badge right assigned_by"> By: Vaibhav Lohani
-                                        </span>
-
-                                    </div>
-
-
-                                    <div class="alert alert-success" role="alert" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                                        Complete website wireframes
-
-                                        <span class="badge right"> Personal
-                                        </span>
-
-                                        <span class="badge right assigned_by"> By: Ankit yadav
-                                        </span>
-
-
-                                    </div>
-
-                                    <div class="collapse" id="collapseExample">
-                                        <div class="well">
-
-                                            <button type="button" class="btn btn-info"> Description: </button>
-
-                                            <span class="value"> Please complete the wireframes for our client faisal, he need home page as soon as possible.</span>
-                                            <br>
-                                            <br>
-                                            <button type="button" class="btn btn-info"> Deadline: </button>
-
-                                            <span class="value"> 6th September 2016 </span>
-                                            <br>
-                                            <br>
-                                            <button type="button" class="btn btn-info"> Status: </button>
-
-                                            <span class="value"> Not Completed yet</span>
-                                            <br><br>
-                                            <button type="button" class="btn btn-info">Duration: </button>
-
-                                            <span class="value"> 4 Hrs.</span>
-                                            <br><br>
-                                            <button type="button" class="btn btn-info">Priority: </button>
-
-                                            <span class="value"> Critical moderate low </span>
-
-
-                                        </div>
-                                    </div>
-
-                                    <div class="alert alert-warning" role="alert"> Call Mr. Rushabh
-
-                                        <span class="badge right"> Personal
-                                        </span>
-
-                                        <span class="badge right assigned_by"> By: Anurag agrawal
-                                        </span>
-                                    </div>
-
-
-
-                                    <div class="alert alert-danger" role="alert">
-                                        Plan for facebook marketing.
-                                        <span class="badge right"> Personal
-                                        </span>
-
-                                        <span class="badge right assigned_by"> By: Vaibhav Lohani
-                                        </span>
-
-                                    </div>
-
-                                    <div class="alert alert-success" role="alert" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                                        Complete website wireframes
-
-                                        <span class="badge right"> Personal
-                                        </span>
-
-                                        <span class="badge right assigned_by"> By: Ankit yadav
-                                        </span>
-
-
-                                    </div>
-
-                                    <div class="collapse" id="collapseExample">
-                                        <div class="well">
-
-                                            <button type="button" class="btn btn-info"> Description: </button>
-
-                                            <span class="value"> Please complete the wireframes for our client faisal, he need home page as soon as possible.</span>
-                                            <br>
-                                            <br>
-                                            <button type="button" class="btn btn-info"> Deadline: </button>
-
-                                            <span class="value"> 6th September 2016 </span>
-                                            <br>
-                                            <br>
-                                            <button type="button" class="btn btn-info"> Status: </button>
-
-                                            <span class="value"> Not Completed yet</span>
-                                            <br><br>
-                                            <button type="button" class="btn btn-info">Duration: </button>
-
-                                            <span class="value"> 4 Hrs.</span>
-                                            <br><br>
-                                            <button type="button" class="btn btn-info">Priority: </button>
-
-                                            <span class="value"> Ctritical moderate low </span>
-
-
-                                        </div>
-                                    </div>
-
-                                    <div class="alert alert-warning" role="alert"> Call Mr. Rushabh
-
-                                        <span class="badge right"> Personal
-                                        </span>
-
-                                        <span class="badge right assigned_by"> By: Anurag agrawal
-                                        </span>
-                                    </div>
-
-
-
-                                    <div class="alert alert-danger" role="alert">
-                                        Plan for facebook marketing.
-                                        <span class="badge right"> Personal
-                                        </span>
-
-                                        <span class="badge right assigned_by"> By: Vaibhav Lohani
-                                        </span>
-
-                                    </div>
-
-
                                 </div>
-
                             </div>
-
                         </div>
-
-
                     </div>
 
-                    <div role="tabpanel" class="tab-pane fade" id="contacts" aria-labelledby="contacts-tab">
-
-                        <ul class="contacts">
-                            {{#each contacts}}
-                                <li>{{profile.name}}</li>
-                            {{/each}}
-                        </ul>
-
-                    </div>
+                    <!--<div role="tabpanel" class="tab-pane fade" id="contacts" aria-labelledby="contacts-tab">-->
+                        <!--<ul class="contacts">-->
+                            <!--{{#each contacts}}-->
+                                <!--<li>{{profile.name}}</li>-->
+                            <!--{{/each}}-->
+                        <!--</ul>-->
+                    <!--</div>-->
 
 
-                    <div role="tabpanel" class="tab-pane fade" id="dropdown1" aria-labelledby="dropdown1-tab">
-                        {{> calender}}
-                    </div>
-
-
-
+                    <!--<div role="tabpanel" class="tab-pane fade" id="dropdown1" aria-labelledby="dropdown1-tab">-->
+                        <!-- calender template-->
+                    <!--</div>-->
                 </div>
-
             </div>
-
     </div>
 
 </template>
 <!-- =====================  tabs layout ends =========================== -->
 
 
-<template name="calender">
-    <div class="container">
-        <hr>
-        <div id="calendar"></div>
-    </div>
-
-</template>
+<!--<template name="calender">-->
+    <!--<div class="container">-->
+        <!--<hr>-->
+        <!--<div id="calendar"></div>-->
+    <!--</div>-->
+<!--</template>-->
 
 
 <!-- ==================== Mobile Number Verification Page Layout ==================== -->

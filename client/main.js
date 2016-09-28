@@ -6,6 +6,7 @@ console.log("Executing main.js");
 // Session.setDefault('rerun',true);			// Default value of session variable rerun used to reactively run the homescreen helper
 
 Meteor.subscribe('users');
+Meteor.subscribe('teams');
 
 Template.homescreen.onRendered(function fetchContacts(){
 //	
@@ -40,17 +41,6 @@ Template.homescreen.onRendered(function fetchContacts(){
 
 Template.tabs.helpers({
 
-	// user () {
-	// 	// console.log(this.data);
-	//    u = Meteor.users.findOne({_id : Meteor.userId() });
-	// 	return u.profile.name;
-	// },
-    //
-	// contacts () {
-    //
-	// 	return Session.get('contacts');
-	// },
-
     tasks () {
         return Meteor.users.findOne({_id : Meteor.userId() }).tasks;
     },
@@ -59,11 +49,15 @@ Template.tabs.helpers({
         return Meteor.users.findOne({_id : Meteor.userId() }).assignedTasks;
     },
 
-    getNameById (id) {
+
+    getNameById ( id ) {
         return Meteor.users.findOne({_id : id }).profile.name;
     },
 
-
+    teams () {
+        return Teams.find();
+    },
+    
 });
 
 Template.homescreen.events({
@@ -93,11 +87,10 @@ Template.homescreen.events({
 			
 		});
 	},
-
 });
 
 Template.tabs.events({
-   'submit form#assign-task-personal' : function (evt) {
+   'submit form#assign-task-personal' : function(evt) {
 	   evt.preventDefault();
 
 	   var task = {};
@@ -118,7 +111,53 @@ Template.tabs.events({
                alert ("Task Assigned succesfully");
        });
        
-   }
+   },
+
+    'submit form#add-team-form' : function (evt) {
+        evt.preventDefault();
+
+        var team = {};
+
+        team.name = $(evt.target).find("input[name='team-name']").val();
+        team.description = $(evt.target).find("input[name='team-description']").val();
+        team.members = $(evt.target).find("[name='team-members']").val();
+        team.admin = Meteor.userId();
+
+        team.members.push(team.admin);
+
+
+        Meteor.call('addTeam',team,function (err,res) {
+            if(err)
+                console.log(err);
+            else
+                alert ("Team created successfully");
+        });
+
+    },
+
+    'submit form#assign-task-team' : function (evt) {
+        evt.preventDefault();
+
+        var task = {};
+        var team_id = this._id;
+
+        task.name = $(evt.target).find("input[name='task-name']").val();
+        task.description = $(evt.target).find("input[name='task-description']").val();
+        task.deadline = $(evt.target).find("input[name='task-deadline']").val();
+        task.duration = $(evt.target).find("input[name='task-duration']").val();
+        task.priority = $(evt.target).find("input[name='task-priority']").val();
+        task.members = $(evt.target).find("[name='task-members']").val();
+        task.assignedBy = Meteor.userId();
+
+
+        Meteor.call('assignTaskTeam',team_id,task,function (err,res) {
+            if(err)
+                console.log(err);
+            else
+                alert ("Task Assigned succesfully");
+        });
+
+    }
 });
 
 
@@ -156,8 +195,12 @@ Template.login.events({
 	'submit form' : function(evt) {
 		
 		evt.preventDefault();
+        var country_code = $("[name='country-code']").val();
 		var mobno = $("[name = 'mobno']").val();
 		var pwd = $("[name = 'password']").val();
+
+        mobno = country_code + mobno;
+
 		console.log(mobno);
 		console.log(this.next);
 
@@ -188,23 +231,36 @@ Template.register.events({
 	'submit form' :  function(evt) {
 		evt.preventDefault();
 		
-		var mobno = $("[name = 'mobno']").val();
+		var country_code = $("[name = 'county-code']").val()
+        var mobno = $("[name = 'mobno']").val();
 		var pwd = $("[name = 'password']").val();
+		var conf_pwd = $("[name = 'conf-password']").val();
 		var name = $("[name = 'name']").val();
-		var options = {phone : mobno , password : pwd , profile : {
 
-					name : name,
-			} 
-		};
+        mobno = country_code + mobno  ;
 
-		Accounts.createUserWithPhone(options);
+        if(pwd === conf_pwd) {
+            alert("Passwords don't match");
+        }
 
-		Meteor.loginWithPhoneAndPassword({phone : mobno},pwd,function(err){
-			if(!err)
-				Router.go('homescreen');
-			else
-				console.log(err);
-		});
+        else {
+            
+            var options = {
+                phone: mobno, password: pwd, profile: {
+
+                    name: name,
+                }
+            };
+
+            Accounts.createUserWithPhone(options);
+
+            Meteor.loginWithPhoneAndPassword({phone: mobno}, pwd, function (err) {
+                if (!err)
+                    Router.go('homescreen');
+                else
+                    console.log(err);
+            });
+        }
 	},
 });
 

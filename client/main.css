@@ -1,9 +1,19 @@
 /* CSS declarations go here */
 
-input.centered {
-	display: block;
-	margin: auto !important ;
-	margin-top: 10px !important;
+/* Input Elements */
+
+.input-group{
+    margin: auto;
+    margin-top: 10px;
+}
+
+#login-form .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) ,
+#register-form .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn){
+    width: 66px !important;
+}
+
+.mobno{
+    width: 20%;
 }
 
 .logout {
@@ -29,7 +39,7 @@ input.centered {
 
 body {
 	margin-top: 100px;
-	background: #eee;
+	background-color: #eee !important;
 
 }
 
@@ -147,7 +157,7 @@ ul.alert-dropdown {
 		background-color: #222;
 		bottom: 0;
 		overflow-x: hidden;
-        padding-right: 0;
+        padding-right: 0 !important;
 		/*padding-bottom: 40px;*/
 	}
 
@@ -159,7 +169,6 @@ ul.alert-dropdown {
 	.side-nav li a:hover,
 	.side-nav li a:focus {
 		outline: none;
-		background-color: #000 !important;
 	}
 }
 
@@ -395,11 +404,10 @@ div.tab-wrapper{
 }
 
 .tasks-wrapper ul.side-nav {
-    min-height:700px;
     background: #fff;
 }
 
-.tasks-wrapper ul.side-nav li a{
+#myTabContent ul.side-nav li a{
     padding: 40px 0;
     margin: 0;
     font-size: 25px;
@@ -408,6 +416,10 @@ div.tab-wrapper{
 
 .tasks-wrapper ul li.list-group-item{
     padding: 0;
+}
+
+.side-nav .list-group-item {
+    padding : 0;
 }
 
 .tasks-wrapper div.tasks{
@@ -996,5 +1008,7 @@ table.fc-border-separate {
 	text-align: center;
 	cursor: s-resize;
 }
+
+
 
 
