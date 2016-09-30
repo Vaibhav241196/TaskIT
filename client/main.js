@@ -1,42 +1,19 @@
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 
-console.log("Executing main.js");
 
-// Session.setDefault('rerun',true);			// Default value of session variable rerun used to reactively run the homescreen helper
 
-Meteor.subscribe('users');
-Meteor.subscribe('teams');
+Template.registerHelper('contacts',function (){
 
-Template.homescreen.onRendered(function fetchContacts(){
-//	
-// 	this.autorun(function(){ 
-//
-// 		Session.get('rerun');		// to reactively rerun the function
-// 		var contact_accounts = [];
-//
-// 		Meteor.call('fetchContacts', function(err,res) {
-// 			if(!err){
-// 				console.log("Res : " + Array.isArray(res));
-// 				console.log("Res : " + res);
-// 				for (c in res) {
-// 					contact_accounts.push(Meteor.users.findOne({_id : res[c] }));
-// 				}
-//
-// 				Session.set('contacts',contact_accounts);
-// 			}
-//
-// 			else
-// 				console.log("Error");
-//
-// 		});
-//
-// 	});
-
-    console.log(this);
+    if(Template.instance().subscriptionsReady()) {
+        return Meteor.users.find({_id: {$ne: Meteor.userId()}});
+    }
 });
-//
 
+Template.homescreen.onCreated(function () {
+    this.subscribe('users');
+    this.subscribe('teams');
+});
 
 
 Template.tabs.helpers({
@@ -50,6 +27,7 @@ Template.tabs.helpers({
     },
 
     getNameById ( id ) {
+        console.log(id);
         return Meteor.users.findOne({_id : id }).profile.name;
     },
 

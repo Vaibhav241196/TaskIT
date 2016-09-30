@@ -15,7 +15,6 @@ Router.route('/' , function(){
 	this.render('homescreen', { data : function() {
                 
                 return {
-                    contacts: Meteor.users.find({_id: {$ne: Meteor.userId()}}),
                     user: Meteor.users.findOne({_id: Meteor.userId()})
                 };
             }
