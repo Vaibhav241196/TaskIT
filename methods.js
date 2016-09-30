@@ -5,12 +5,18 @@ Meteor.methods({
     'assignTask' : function (task){
         
         var members = task.members;
-        
+        var assigned_representation = [];
+        var member;
+        var l;
+
         for (i in members) {
+            member = Meteor.users.findOne({_id : members[i]});
+            l = member.tasks.length;
+            assigned_representation = { userId : members[i] , taskId: l };
+            
             Meteor.users.update({_id: members[i]}, {$push: {tasks: task}});
+            Meteor.users.update({ _id : task.assignedBy },{$push : { assignedTasks : assigned_representation }});
         }
-        
-        Meteor.users.update({ _id : task.assignedBy },{$push : { assignedTasks : task }});
     },
     
     'addTeam' : function (team) {
