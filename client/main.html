@@ -269,7 +269,6 @@
 
                 </ul>
 
-
                 <div id="myTabContent" class="tab-content">
 
                     <div role="tabpanel" class="tab-pane fade in active tasks-tab " id="tasks-personal" aria-labelledby="tasks-personal-tab">
@@ -357,103 +356,22 @@
                                 </div>
                             </div>
 
-
                             <div class="col-xs-9 tasks">
                                 <div class="col-xs-10 col-xs-offset-1">
 
                                     <div class="tab-content">
                                         <div role="tabpanel" class="tab-pane fade in active" id="my-tasks">
-                                            {{# each tasks}}
-
-                                                <div class="alert {{getColorByPriority priority}}" role="alert" data-toggle="collapse" href="#description{{@index}}" aria-expanded="false" aria-controls="description{{@index}}">
-                                                    {{name}}
-
-                                                    <span class="badge right"> Personal
-                                                    </span>
-
-                                                    <span class="badge right assigned_by"> By: {{getNameById assignedBy}}
-                                                    </span>
-
-
-                                                </div>
-
-                                                <div class="collapse" id="description{{@index}}">
-                                                    <div class="well">
-
-                                                        <button type="button" class="btn btn-info"> Description: </button>
-
-                                                        <span class="value"> {{description}}</span>
-                                                        <br>
-                                                        <br>
-                                                        <button type="button" class="btn btn-info"> Deadline: </button>
-
-                                                        <span class="value"> {{ deadline }}  </span>
-                                                        <br>
-                                                        <br>
-                                                        <button type="button" class="btn btn-info"> Status: </button>
-
-                                                        <span class="value"> Not Completed yet</span>
-                                                        <br><br>
-                                                        <button type="button" class="btn btn-info">Duration: </button>
-
-                                                        <span class="value"> {{duration}} </span>
-                                                        <br><br>
-                                                        <button type="button" class="btn btn-info">Priority: </button>
-
-                                                        <span class="value"> {{priority}} </span>
-
-                                                    </div>
-                                                </div>
-                                            {{/ each }}
+                                            {{> tasklist tasks=myTasks selector="my-tasks" }}
                                         </div>
 
                                         <div role="tabpanel" class="tab-pane fade" id="assigned-tasks">
-                                            {{# each assignedTasks}}
-                                                <div class="alert alert-success" role="alert" data-toggle="collapse" href="#description-{{@index}}" aria-expanded="false" aria-controls="description-{{@index}}">
-                                                    {{name}}
-
-                                                    <span class="badge right"> Personal
-                                                    </span>
-
-                                                    <span class="badge right assigned_by"> By: {{getNameById assignedBy}}
-                                                    </span>
-
-
-                                                </div>
-
-                                                <div class="collapse" id="description-{{@index}}">
-                                                    <div class="well">
-
-                                                        <button type="button" class="btn btn-info"> Description: </button>
-
-                                                        <span class="value"> {{description}}</span>
-                                                        <br>
-                                                        <br>
-                                                        <button type="button" class="btn btn-info"> Deadline: </button>
-
-                                                        <span class="value"> {{deadline}} </span>
-                                                        <br>
-                                                        <br>
-                                                        <button type="button" class="btn btn-info"> Status: </button>
-
-                                                        <span class="value"> Not Completed yet</span>
-                                                        <br><br>
-                                                        <button type="button" class="btn btn-info">Duration: </button>
-
-                                                        <span class="value"> {{duration}} </span>
-                                                        <br><br>
-                                                        <button type="button" class="btn btn-info">Priority: </button>
-
-                                                        <span class="value"> {{priority}} </span>
-
-                                                    </div>
-                                                </div>
-                                            {{/ each }}
+                                            {{> tasklist tasks=assignedTasks selector="assigned-tasks" }}
                                         </div>
 
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                     </div>
 
@@ -531,57 +449,7 @@
 
                                             <div role="tabpanel" class="tab-pane fade" id="team{{@index}}">
 
-                                                {{# each this.tasks}}
-                                                    <div class="alert alert-success" role="alert" data-toggle="collapse" href="#task-{{@index}}" aria-expanded="false" aria-controls="task{{@index}}">
-                                                        {{name}}
-
-                                                        <span class="badge right"> Personal
-                                                        </span>
-
-                                                        <span class="badge right assigned_by"> By: {{getNameById assignedBy}}
-                                                        </span>
-
-                                                    </div>
-
-                                                    <div class="collapse" id="task-{{@index}}">
-                                                        <div class="well">
-
-                                                            <button type="button" class="btn btn-info"> For: </button>
-
-                                                            <span class="value">
-                                                                {{# each members}}
-                                                                    {{getNameById this}}
-                                                                {{/ each}}
-                                                            </span>
-
-                                                            <br />
-                                                            <br />
-
-                                                            <button type="button" class="btn btn-info"> Description: </button>
-
-                                                            <span class="value"> {{description}} </span>
-                                                            <br>
-                                                            <br>
-                                                            <button type="button" class="btn btn-info"> Deadline: </button>
-
-                                                            <span class="value"> {{deadline}} </span>
-                                                            <br>
-                                                            <br>
-                                                            <button type="button" class="btn btn-info"> Status: </button>
-
-                                                            <span class="value"> Not Completed yet </span>
-                                                            <br><br>
-                                                            <button type="button" class="btn btn-info">Duration: </button>
-
-                                                            <span class="value"> {{duration}} </span>
-                                                            <br><br>
-                                                            <button type="button" class="btn btn-info">Priority: </button>
-
-                                                            <span class="value"> Ctritical moderate low </span>
-
-                                                        </div>
-                                                    </div>
-                                                {{/ each}}
+                                                {{> tasklist tasks=tasks selector="team-tasks" }}
 
                                                 <button class="btn btn-default pull-right" data-toggle="modal" data-target="#assign-task-team-form"> Assign Task </button>
 
@@ -675,6 +543,65 @@
             </div>
     </div>
 
+</template>
+
+
+<template name="tasklist">
+
+    {{# each tasks}}
+
+       {{_id}}
+        <div class="alert {{getColorByPriority priority}}" role="alert" data-toggle="collapse" href="#{{../selector}}-{{@index}}-description" aria-expanded="false" aria-controls="description{{@index}}">
+            {{name}}
+
+            {{# if notEqual ../selector "team-tasks"}}
+                <span class="badge right"> {{ getTeam }}
+                </span>
+            {{/ if}}
+
+            <span class="badge right assigned_by"> By: {{getNameById assignedBy}}
+            </span>
+
+        </div>
+
+        <div class="collapse" id="{{../selector}}-{{@index}}-description">
+            <div class="well">
+
+                <button type="button" class="btn btn-info"> Description: </button>
+
+                <span class="value"> {{description}}</span>
+                <br>
+                <br>
+                <button type="button" class="btn btn-info"> Deadline: </button>
+
+                <span class="value"> {{ getDateString deadline }}  </span>
+                <br>
+                <br>
+                <button type="button" class="btn btn-info"> Status: </button>
+
+                <div class="status-wrapper">
+                    <label class="radio-inline">
+                        <input type="radio" name="status" id="not-started" value="not-started"> Not started
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="status" id="ongoing" value="ongoing"> Ongoing
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="status" id="completed" value="completed"> Completed
+                    </label>
+                </div>
+
+                <br><br>
+                <button type="button" class="btn btn-info">Duration: </button>
+
+                <span class="value"> {{duration}} </span>
+                <br><br>
+                <button type="button" class="btn btn-info">Priority: </button>
+
+                <span class="value"> {{priority}} </span>
+            </div>
+        </div>
+    {{/ each }}
 </template>
 <!-- =====================  tabs layout ends =========================== -->
 

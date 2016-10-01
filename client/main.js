@@ -2,65 +2,99 @@ import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 
 
-
-
-Template.homescreen.onCreated(function () {
-    this.subscribe('users');
-    this.subscribe('teams');
-});
+// Meteor.subscribe('users');
+// Meteor.subscribe('teams');
 
 /* ====================================== Global Template Helpers ===================================== */
 
-Template.registerHelper('_',function () {
-    return _;
+Template.registerHelper('notEqual',function (a,b) {
+    return a != b ;
 });
 
 Template.registerHelper('contacts',function () {
+    return Meteor.users.find({_id: {$ne: Meteor.userId()}});
+});
 
-    if (Template.instance().subscriptionsReady()) {
-        return Meteor.users.find({_id: {$ne: Meteor.userId()}});
-    }
-
+Template.registerHelper('getNameById',function (id) {
+        return Meteor.users.findOne({_id : id }).profile.name;
 });
 
 
 /* ====================================  Tabs template Helpers ========================================= */
 Template.tabs.helpers({
 
-    tasks () {
+    myTasks () {
 
-        var user = Meteor.users.findOne({_id : Meteor.userId() });
-        var task_list_personal = user.tasks;
-        var task_list_team = [];
+        var user = Meteor.users.findOne({ _id : Meteor.userId() });
+        var task_list = user.tasks ? user.tasks : [] ;
         var teams = user.teams;
+        var team;
         var team_tasks;
 
         function searchFunction(task){
-            return task.members.indexOf(Meteor.userId()) >= 0
+            return task.members.indexOf(Meteor.userId()) >= 0;
         }
 
-        for( i in teams){
-            team_tasks = Teams.findOne({ _id: teams[i] }).tasks;
-            var team_tasks = team_tasks.filter(searchFunction);
+        if(user.teams) {
+            for (i in teams) {
+                team = Teams.findOne({_id: teams[i]});
+
+                if(team) {
+                    if(team.tasks)
+                        team_tasks = team.tasks.filter(searchFunction);
+                }
+
+                if(team_tasks)
+                    task_list = task_list.concat(team_tasks);
+
+
+            }
         }
 
         if(task_list)
             task_list.sort(function(a,b){ return a.deadline - b.deadline });
 
         return task_list;
+
+        // return Meteor.users.findOne({_id : Meteor.userId() }).tasks;
+    },
+
+    contacts () {
+        return Meteor.users.find({_id: {$ne: Meteor.userId()}});
     },
     
     assignedTasks () {
-        return Meteor.users.findOne({_id : Meteor.userId() }).assignedTasks;
-    },
 
-    getNameById ( id ) {
-        console.log(id);
-        return Meteor.users.findOne({_id : id }).profile.name;
+        var assignedTasks  = Meteor.users.findOne({_id : Meteor.userId() }).assignedTasks;
+
+        var assigned_tasks_list = [];
+
+        for (a in assignedTasks) {
+            if( assignedTasks[a].userId )
+                assigned_tasks_list.push(Meteor.users.findOne({ _id: assignedTasks[a].userId }).tasks[assignedTasks[a].taskId]);
+
+            else if(assignedTasks[a].teamId) {
+                assigned_tasks_list.push(Teams.findOne({ _id: assignedTasks[a].teamId }).tasks[assignedTasks[a].taskId]);
+            }
+
+            return assigned_tasks_list;
+        }
     },
 
     teams () {
         return Teams.find();
+    }
+
+});
+
+Template.tasklist.helpers({
+    getTeam () {
+        if(this.team) {
+            return Teams.findOne({_id : this.team }).name;
+        }
+
+        else
+            return "Personal";
     },
 
     getColorByPriority(priority) {
@@ -70,7 +104,17 @@ Template.tabs.helpers({
             return "alert-warning";
         else if(priority == 'high')
             return "alert-danger";
-    }
+    },
+
+    getDateString(date) {
+        var date_arr = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+        return date_arr[date.getDay()] + " " + date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear();
+    },
+
+    notLastOfArray(){
+        console.log(this);
+    },
+
 });
 
 // Template.homescreen.events({
@@ -157,13 +201,19 @@ Template.tabs.events({
         var task = {};
         var team_id = this._id;
 
+        console.log(this);
+
         task.name = $(evt.target).find("input[name='task-name']").val();
         task.description = $(evt.target).find("input[name='task-description']").val();
+
         task.deadline = $(evt.target).find("input[name='task-deadline']").val();
+        task.deadline = new Date(task.deadline);
+
         task.duration = $(evt.target).find("input[name='task-duration']").val();
-        task.priority = $(evt.target).find("input[name='task-priority']").val();
+        task.priority = $(evt.target).find("[name='task-priority']").val();
         task.members = $(evt.target).find("[name='task-members']").val();
         task.assignedBy = Meteor.userId();
+        task.team = team_id;
 
 
         Meteor.call('assignTaskTeam',team_id,task,function (err,res) {
@@ -174,6 +224,14 @@ Template.tabs.events({
         });
 
     }
+});
+
+Template.tasklist.events({
+   'change [name="status"]' : function (evt){
+       evt.preventDefault();
+       console.log(this._id);
+       console.log("In event");
+   }
 });
 
 

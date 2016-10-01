@@ -5,6 +5,10 @@
 
 // ============================================== Root route =========================================
 Router.route('/' , function(){
+
+	this.subscribe('users').wait();
+    this.subscribe('teams').wait();
+
 	this.layout('userLayout', { data : function () {
                 return {
                     user: Meteor.users.findOne({_id: Meteor.userId()})
@@ -12,14 +16,17 @@ Router.route('/' , function(){
         }
     });
 
-	this.render('homescreen', { data : function() {
-                
+	if(this.ready()) {
+        this.render('homescreen', {
+            data: function () {
+
                 return {
                     user: Meteor.users.findOne({_id: Meteor.userId()})
                 };
             }
-        
-    });
+
+        });
+    }
 }, 
 { 
 	name : 'homescreen',

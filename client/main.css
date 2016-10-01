@@ -1009,6 +1009,11 @@ table.fc-border-separate {
 	cursor: s-resize;
 }
 
+.status-wrapper {
+	display: inline;
+    margin-left: 5%;
+}
+
 
 
 

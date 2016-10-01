@@ -92,6 +92,7 @@ for (t in Template) {
         });
     }
 }
+
 // Template.calender.onCreated(function () {
 //         $.getScript('http://arshaw.com/js/fullcalendar-1.6.4/fullcalendar/fullcalendar.min.js',function(){
 //
