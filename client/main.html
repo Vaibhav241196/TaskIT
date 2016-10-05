@@ -446,10 +446,9 @@
 
                                     <div class="tab-content">
                                         {{# each teams}}
-
                                             <div role="tabpanel" class="tab-pane fade" id="team{{@index}}">
 
-                                                {{> tasklist tasks=tasks selector="team-tasks" }}
+                                                {{> tasklist tasks=teamTasks selector="team-tasks" }}
 
                                                 <button class="btn btn-default pull-right" data-toggle="modal" data-target="#assign-task-team-form"> Assign Task </button>
 
@@ -548,58 +547,73 @@
 
 <template name="tasklist">
 
-    {{# each tasks}}
+    {{# each groupByDate tasks }}
 
-       {{_id}}
-        <div class="alert {{getColorByPriority priority}}" role="alert" data-toggle="collapse" href="#{{../selector}}-{{@index}}-description" aria-expanded="false" aria-controls="description{{@index}}">
-            {{name}}
-
-            {{# if notEqual ../selector "team-tasks"}}
-                <span class="badge right"> {{ getTeam }}
-                </span>
-            {{/ if}}
-
-            <span class="badge right assigned_by"> By: {{getNameById assignedBy}}
-            </span>
-
+        <div class="panel panel-default sort-groups" data-toggle="collapse" href="#{{ groupName }}" aria-expanded="false" aria-controls="{{ groupName }}">
+            <div class="panel-body">
+                <h3> {{ groupName }} ({{ count }}) </h3>
+            </div>
         </div>
 
-        <div class="collapse" id="{{../selector}}-{{@index}}-description">
-            <div class="well">
+        <div class="collapse" id="{{ groupName }}">
 
-                <button type="button" class="btn btn-info"> Description: </button>
+            {{# each records }}
 
-                <span class="value"> {{description}}</span>
-                <br>
-                <br>
-                <button type="button" class="btn btn-info"> Deadline: </button>
+                <div class="alert {{getColorByPriority priority}}" role="alert" data-toggle="collapse" href="#{{../selector}}-{{@index}}-description" aria-expanded="false" aria-controls="description{{@index}}">
+                    {{name}}
 
-                <span class="value"> {{ getDateString deadline }}  </span>
-                <br>
-                <br>
-                <button type="button" class="btn btn-info"> Status: </button>
+                    {{# if notEqual ../selector "team-tasks"}}
+                        <span class="badge right"> {{ getTeam }}
+                        </span>
+                    {{/ if}}
 
-                <div class="status-wrapper">
-                    <label class="radio-inline">
-                        <input type="radio" name="status" id="not-started" value="not-started"> Not started
-                    </label>
-                    <label class="radio-inline">
-                        <input type="radio" name="status" id="ongoing" value="ongoing"> Ongoing
-                    </label>
-                    <label class="radio-inline">
-                        <input type="radio" name="status" id="completed" value="completed"> Completed
-                    </label>
+                    <span class="badge right assigned_by"> By: {{getNameById assignedBy}}
+                    </span>
+
                 </div>
 
-                <br><br>
-                <button type="button" class="btn btn-info">Duration: </button>
+                <div class="collapse" id="{{../selector}}-{{@index}}-description">
+                    <div class="well">
 
-                <span class="value"> {{duration}} </span>
-                <br><br>
-                <button type="button" class="btn btn-info">Priority: </button>
+                        <button type="button" class="btn btn-info"> Description: </button>
 
-                <span class="value"> {{priority}} </span>
-            </div>
+                        <span class="value"> {{description}}</span>
+                        <br>
+                        <br>
+                        <button type="button" class="btn btn-info"> Deadline: </button>
+
+                        <span class="value"> {{ getDateString deadline }}  </span>
+                        <br>
+                        <br>
+                        <button type="button" class="btn btn-info"> Status: </button>
+
+                        <div class="status-wrapper">
+
+                            <form>
+                                <label class="radio-inline">
+                                    <input type="radio" name="status" id="not-started" value="0"  {{ getChecked 0 }}> Not started
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="status" id="ongoing" value="1"  {{ getChecked 1 }}> Ongoing
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="status" id="completed" value="2"  {{ getChecked 2 }}> Completed
+                                </label>
+                            </form>
+
+                        </div>
+
+                        <br><br>
+                        <button type="button" class="btn btn-info">Duration: </button>
+
+                        <span class="value"> {{duration}} </span>
+                        <br><br>
+                        <button type="button" class="btn btn-info">Priority: </button>
+
+                        <span class="value"> {{priority}} </span>
+                    </div>
+                </div>
+            {{/ each }}
         </div>
     {{/ each }}
 </template>

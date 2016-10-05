@@ -5,10 +5,26 @@ import { ReactiveVar } from 'meteor/reactive-var';
 // Meteor.subscribe('users');
 // Meteor.subscribe('teams');
 
+/* Global Helper Functions */
+
+function compareDate(d1,d2) {
+
+    if( (d1.getDate() == d2.getDate()) && (d1.getMonth() == d2.getMonth()) && (d1.getFullYear() == d2.getFullYear()) )
+        return true;
+
+    else
+        return false;
+}
+
 /* ====================================== Global Template Helpers ===================================== */
 
 Template.registerHelper('notEqual',function (a,b) {
     return a != b ;
+});
+
+Template.registerHelper('isEqual',function (a,b) {
+    console.log(a==b);
+    return a == b ;
 });
 
 Template.registerHelper('contacts',function () {
@@ -20,43 +36,63 @@ Template.registerHelper('getNameById',function (id) {
 });
 
 
+
 /* ====================================  Tabs template Helpers ========================================= */
 Template.tabs.helpers({
 
     myTasks () {
 
-        var user = Meteor.users.findOne({ _id : Meteor.userId() });
-        var task_list = user.tasks ? user.tasks : [] ;
-        var teams = user.teams;
+        console.log("In my tasks");
+        var task_list =  [] ;
+        var teams = Meteor.users.findOne({ _id : Meteor.userId() }).teams;
         var team;
         var team_tasks;
 
-        function searchFunction(task){
-            return task.members.indexOf(Meteor.userId()) >= 0;
+        function searchFunction(task,index){
+            var return_value = ( task.members.indexOf(Meteor.userId()) >= 0 );
+
+            console.log("In filter function");
+
+            if(return_value) {
+                task.team = { id : this._id , index : index };
+            }
+            return return_value;
         }
 
-        if(user.teams) {
+        if(teams) {
             for (i in teams) {
                 team = Teams.findOne({_id: teams[i]});
 
                 if(team) {
-                    if(team.tasks)
-                        team_tasks = team.tasks.filter(searchFunction);
+                    if (team.tasks) {
+                        team_tasks = team.tasks.filter(searchFunction, team);
+                    }
                 }
 
                 if(team_tasks)
                     task_list = task_list.concat(team_tasks);
-
-
             }
         }
 
         if(task_list)
             task_list.sort(function(a,b){ return a.deadline - b.deadline });
 
+        console.log("My tasks : " );
+        console.log(task_list);
         return task_list;
 
-        // return Meteor.users.findOne({_id : Meteor.userId() }).tasks;
+    },
+
+    teamTasks () {
+
+        console.log("In team tasks");
+        for (t in this.tasks) {
+            this.tasks[t].team = { id : this._id , index : t };
+        }
+
+        console.log("Team Tasks : " );
+        console.log(this.tasks);
+        return this.tasks;
     },
 
     contacts () {
@@ -65,32 +101,52 @@ Template.tabs.helpers({
     
     assignedTasks () {
 
-        var assignedTasks  = Meteor.users.findOne({_id : Meteor.userId() }).assignedTasks;
-
+        var teams = Meteor.users.findOne({ _id : Meteor.userId() }).teams;
+        var team;
+        var team_tasks = [];
         var assigned_tasks_list = [];
 
-        for (a in assignedTasks) {
-            if( assignedTasks[a].userId )
-                assigned_tasks_list.push(Meteor.users.findOne({ _id: assignedTasks[a].userId }).tasks[assignedTasks[a].taskId]);
+        function searchFunction(task,index){
 
-            else if(assignedTasks[a].teamId) {
-                assigned_tasks_list.push(Teams.findOne({ _id: assignedTasks[a].teamId }).tasks[assignedTasks[a].taskId]);
+            var return_value = ( task.assignedBy == Meteor.userId() );
+
+            if(return_value) {
+                task.team = { id : this._id , index : index };
             }
-
-            return assigned_tasks_list;
+            return return_value;
         }
+
+        if(teams) {
+            for (i in teams) {
+                team = Teams.findOne({_id: teams[i]});
+
+                if(team) {
+                    if(team.tasks)
+                        team_tasks = team.tasks.filter(searchFunction,team);
+                }
+
+                if(team_tasks)
+                    assigned_tasks_list = assigned_tasks_list.concat(team_tasks);
+            }
+        }
+
+        return assigned_tasks_list;
     },
 
     teams () {
-        return Teams.find();
+        return Teams.find({name : { $exists : true }});
     }
 
 });
 
 Template.tasklist.helpers({
+
     getTeam () {
-        if(this.team) {
-            return Teams.findOne({_id : this.team }).name;
+
+        var team_name = Teams.findOne({_id : this.team.id }).name;
+
+        if(team_name) {
+            return team_name;
         }
 
         else
@@ -108,11 +164,67 @@ Template.tasklist.helpers({
 
     getDateString(date) {
         var date_arr = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
-        return date_arr[date.getDay()] + " " + date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear();
+        var month_arr = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+        return date_arr[date.getDay()] + " " + date.getDate() + " " + month_arr[date.getMonth()]  + " " + date.getFullYear();
     },
 
     notLastOfArray(){
-        console.log(this);
+        // console.log(this);
+    },
+
+    getChecked(status) {
+
+        if(this.status == status) {
+            return "checked";
+        }
+        else
+            return "";
+    },
+
+    getActive(status){
+
+        if(this.status == status) {
+            console.log("In if");
+            return "active";
+        }
+        else
+            return "";
+    },
+
+    groupByDate(tasks) {
+        var groups = [{groupName : 'Today' , records : [] , count : 0 },{groupName : 'Tommorow' , records : [] , count : 0 },{groupName : 'Later' , records : [] , count : 0 }];
+
+        var today = new Date();
+        
+        var tommorow = new Date();
+        tommorow.setDate(tommorow.getDate() + 1);
+
+        console.log(tommorow);
+
+        console.log("All Tasks ");
+        console.log(tasks);
+        
+        for (t in tasks) {
+            if (compareDate(tasks[t].deadline,today)){
+                groups[0].records.push(tasks[t]);
+                groups[0].count++;
+            }
+
+            else if (compareDate(tasks[t].deadline,tommorow)){
+                groups[1].records.push(tasks[t]);
+                groups[1].count++;
+            }
+            
+            else {
+                groups[2].records.push(tasks[t]);
+                groups[2].count++;
+            }
+        }
+
+        console.log("Groups : ");
+        console.log(groups);
+
+        return groups;
     },
 
 });
@@ -151,6 +263,7 @@ Template.tabs.events({
 	   evt.preventDefault();
 
 	   var task = {};
+       var today = new Date();
 
        task.name = $(evt.target).find("input[name='task-name']").val();
        task.description = $(evt.target).find("input[name='task-description']").val();
@@ -162,14 +275,20 @@ Template.tabs.events({
        task.priority = $(evt.target).find("[name='task-priority']").val();
        task.members = $(evt.target).find("[name='task-members']").val();
        task.assignedBy = Meteor.userId();
-       
-       
-       Meteor.call('assignTask',task,function (err,res) {
-           if(err)
-               console.log(err);
-           else 
-               alert ("Task Assigned succesfully");
-       });
+
+
+       if(task.deadline < today)
+           alert("Please Enter a realistic deadline. Your team mates can not go back in time and complete tasks");
+
+       else {
+           Meteor.call('assignTask', task, function (err, res) {
+
+               if (err)
+                   console.log(err);
+               else
+                   alert("Task Assigned succesfully");
+           });
+       }
        
    },
 
@@ -192,12 +311,12 @@ Template.tabs.events({
             else
                 alert ("Team created successfully");
         });
-
     },
 
     'submit form#assign-task-team' : function (evt) {
         evt.preventDefault();
 
+        var today = new Date();
         var task = {};
         var team_id = this._id;
 
@@ -215,13 +334,17 @@ Template.tabs.events({
         task.assignedBy = Meteor.userId();
         task.team = team_id;
 
+        if(task.deadline < today)
+            alert("Please Enter a realistic deadline. Your team mates can not go back in time and complete tasks");
 
-        Meteor.call('assignTaskTeam',team_id,task,function (err,res) {
-            if(err)
-                console.log(err);
-            else
-                alert ("Task Assigned succesfully");
-        });
+        else {
+            Meteor.call('assignTaskTeam', team_id, task, function (err, res) {
+                if (err)
+                    console.log(err);
+                else
+                    alert("Task Assigned succesfully");
+            });
+        }
 
     }
 });
@@ -229,8 +352,13 @@ Template.tabs.events({
 Template.tasklist.events({
    'change [name="status"]' : function (evt){
        evt.preventDefault();
-       console.log(this._id);
-       console.log("In event");
+       
+       var team_id = this.team.id;
+       var task_id = Number(this.team.index);
+
+       var status = $(evt.target).val();
+
+       Meteor.call('updateStatus',team_id,task_id,status);
    }
 });
 

@@ -1009,10 +1009,21 @@ table.fc-border-separate {
 	cursor: s-resize;
 }
 
+/* For status form buttons */
 .status-wrapper {
 	display: inline;
     margin-left: 5%;
 }
+
+.status-wrapper form {
+    display: inline;
+}
+
+/* For sorting group panels */
+.sort-groups {
+    cursor: pointer;
+}
+
 
 
 
