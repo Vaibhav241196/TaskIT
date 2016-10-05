@@ -421,6 +421,7 @@ Template.login.events({
 
 			else
 				console.log(err);
+                alert(err.message);
 		});
 	},
 });
