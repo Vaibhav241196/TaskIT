@@ -376,8 +376,10 @@ Template.verifyphone.events({
 					Router.go(this.next);
 				else
 					Router.go('homescreen');
-			else
-				console.log(err);
+			else {
+                console.log(err);
+                alert(err.message);
+            }
 		});
 	},
 
@@ -460,6 +462,7 @@ Template.register.events({
                     Router.go('homescreen');
                 else
                     console.log(err);
+                    alert(err.message);
             });
         }
 	},
