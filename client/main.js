@@ -9,11 +9,14 @@ import { ReactiveVar } from 'meteor/reactive-var';
 
 function compareDate(d1,d2) {
 
-    if( (d1.getDate() == d2.getDate()) && (d1.getMonth() == d2.getMonth()) && (d1.getFullYear() == d2.getFullYear()) )
-        return true;
+    if( (d1.getDate() < d2.getDate()) && (d1.getMonth() <= d2.getMonth()) && (d1.getFullYear() <= d2.getFullYear()) )
+        return -1;
+
+    else if ( (d1.getDate() > d2.getDate()) && (d1.getMonth() >= d2.getMonth()) && (d1.getFullYear() >= d2.getFullYear()) )
+        return 1;
 
     else
-        return false;
+        return 0;
 }
 
 /* ====================================== Global Template Helpers ===================================== */
@@ -61,18 +64,31 @@ Template.tabs.helpers({
 
         if(teams) {
             for (i in teams) {
+
+                team_tasks = [];
                 team = Teams.findOne({_id: teams[i]});
+                console.log(team);
 
                 if(team) {
+                    console.log("In if");
                     if (team.tasks) {
                         team_tasks = team.tasks.filter(searchFunction, team);
+                        console.log(team_tasks);
                     }
                 }
 
-                if(team_tasks)
+                console.log(team_tasks);
+
+                if(team_tasks) {
+                    console.log("In concat");
+                    console.log(task_list);
                     task_list = task_list.concat(team_tasks);
+                    console.log(task_list);
+                }
             }
         }
+
+        console.log(task_list);
 
         if(task_list)
             task_list.sort(function(a,b){ return a.deadline - b.deadline });
@@ -85,7 +101,6 @@ Template.tabs.helpers({
 
     teamTasks () {
 
-        console.log("In team tasks");
         for (t in this.tasks) {
             this.tasks[t].team = { id : this._id , index : t };
         }
@@ -118,6 +133,8 @@ Template.tabs.helpers({
 
         if(teams) {
             for (i in teams) {
+
+                team_tasks = [];
                 team = Teams.findOne({_id: teams[i]});
 
                 if(team) {
@@ -205,12 +222,12 @@ Template.tasklist.helpers({
         console.log(tasks);
         
         for (t in tasks) {
-            if (compareDate(tasks[t].deadline,today)){
+            if (!compareDate(tasks[t].deadline,today)){
                 groups[0].records.push(tasks[t]);
                 groups[0].count++;
             }
 
-            else if (compareDate(tasks[t].deadline,tommorow)){
+            else if (!compareDate(tasks[t].deadline,tommorow)){
                 groups[1].records.push(tasks[t]);
                 groups[1].count++;
             }
@@ -277,7 +294,7 @@ Template.tabs.events({
        task.assignedBy = Meteor.userId();
 
 
-       if(task.deadline < today)
+       if(compareDate(task.deadline,today) < 0)
            alert("Please Enter a realistic deadline. Your team mates can not go back in time and complete tasks");
 
        else {
@@ -334,7 +351,7 @@ Template.tabs.events({
         task.assignedBy = Meteor.userId();
         task.team = team_id;
 
-        if(task.deadline < today)
+        if(compareDate(task.deadline,today) < 0)
             alert("Please Enter a realistic deadline. Your team mates can not go back in time and complete tasks");
 
         else {
@@ -442,7 +459,7 @@ Template.register.events({
 
         mobno = country_code + mobno  ;
 
-        if(pwd === conf_pwd) {
+        if(pwd !== conf_pwd) {
             alert("Passwords don't match");
         }
 
@@ -450,7 +467,6 @@ Template.register.events({
             
             var options = {
                 phone: mobno, password: pwd, profile: {
-
                     name: name,
                 }
             };

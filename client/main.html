@@ -549,20 +549,20 @@
 
     {{# each groupByDate tasks }}
 
-        <div class="panel panel-default sort-groups" data-toggle="collapse" href="#{{ groupName }}" aria-expanded="false" aria-controls="{{ groupName }}">
+        <div class="panel panel-default sort-groups" data-toggle="collapse" href="#{{ groupName }}-{{../selector}}" aria-expanded="false" aria-controls="{{ groupName }}">
             <div class="panel-body">
                 <h3> {{ groupName }} ({{ count }}) </h3>
             </div>
         </div>
 
-        <div class="collapse" id="{{ groupName }}">
+        <div class="collapse" id="{{ groupName }}-{{../selector}}">
 
             {{# each records }}
 
-                <div class="alert {{getColorByPriority priority}}" role="alert" data-toggle="collapse" href="#{{../selector}}-{{@index}}-description" aria-expanded="false" aria-controls="description{{@index}}">
+                <div class="alert {{getColorByPriority priority}}" role="alert" data-toggle="collapse" href="#{{../../selector}}-{{../groupName}}-{{@index}}-description" aria-expanded="false" aria-controls="description{{@index}}">
                     {{name}}
 
-                    {{# if notEqual ../selector "team-tasks"}}
+                    {{# if notEqual ../../selector "team-tasks"}}
                         <span class="badge right"> {{ getTeam }}
                         </span>
                     {{/ if}}
@@ -572,7 +572,7 @@
 
                 </div>
 
-                <div class="collapse" id="{{../selector}}-{{@index}}-description">
+                <div class="collapse" id="{{../../selector}}-{{../groupName}}-{{@index}}-description">
                     <div class="well">
 
                         <button type="button" class="btn btn-info"> Description: </button>

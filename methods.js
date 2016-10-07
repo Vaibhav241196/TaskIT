@@ -7,11 +7,13 @@ Meteor.methods({
         var members = task.members;
         var assigned_representation = {};
 
-        var participant_arr = members;
+        var participant_arr = members.slice();
         participant_arr.push(task.assignedBy);
 
         var team = Teams.findOne({ members : { $size : participant_arr.length , $all : participant_arr } , name : {$exists : false }});
-        
+
+        console.log(team);
+
         if(!team) {
             team_id = Teams.insert({members: participant_arr, tasks: [task]});
 
@@ -36,7 +38,6 @@ Meteor.methods({
         for (i in members) {
             Meteor.users.update({_id: members[i]}, {$push: {teams: team_id }});
         }
-        
     },
 
     'assignTaskTeam' : function (team_id,task){
@@ -54,10 +55,6 @@ Meteor.methods({
         var team = Teams.findOne({ _id : team_id });
         var tasks = team.tasks;
 
-
-        console.log(tasks);
-        console.log(task_id);
-        console.log(tasks[task_id].status);
 
         tasks[task_id].status = Number(status);
 
