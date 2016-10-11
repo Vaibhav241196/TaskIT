@@ -433,7 +433,7 @@ Template.register.events({
 	'submit form' :  function(evt) {
 		evt.preventDefault();
 		
-		var country_code = $("[name = 'county-code']").val()
+		var country_code = $("[name = 'country-code']").val()
         var mobno = $("[name = 'mobno']").val();
 		var pwd = $("[name = 'password']").val();
 		var conf_pwd = $("[name = 'conf-password']").val();
