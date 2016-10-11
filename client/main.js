@@ -26,7 +26,6 @@ Template.registerHelper('notEqual',function (a,b) {
 });
 
 Template.registerHelper('isEqual',function (a,b) {
-    console.log(a==b);
     return a == b ;
 });
 
@@ -35,7 +34,7 @@ Template.registerHelper('contacts',function () {
 });
 
 Template.registerHelper('getNameById',function (id) {
-        return Meteor.users.findOne({_id : id }).profile.name;
+    return Meteor.users.findOne({_id : id }).profile.name;
 });
 
 
@@ -67,28 +66,18 @@ Template.tabs.helpers({
 
                 team_tasks = [];
                 team = Teams.findOne({_id: teams[i]});
-                console.log(team);
 
                 if(team) {
-                    console.log("In if");
                     if (team.tasks) {
                         team_tasks = team.tasks.filter(searchFunction, team);
-                        console.log(team_tasks);
                     }
                 }
 
-                console.log(team_tasks);
-
                 if(team_tasks) {
-                    console.log("In concat");
-                    console.log(task_list);
                     task_list = task_list.concat(team_tasks);
-                    console.log(task_list);
                 }
             }
         }
-
-        console.log(task_list);
 
         if(task_list)
             task_list.sort(function(a,b){ return a.deadline - b.deadline });
@@ -190,7 +179,6 @@ Template.tasklist.helpers({
     },
 
     getChecked(status) {
-
         if(this.status == status) {
             return "checked";
         }
@@ -199,9 +187,7 @@ Template.tasklist.helpers({
     },
 
     getActive(status){
-
         if(this.status == status) {
-            console.log("In if");
             return "active";
         }
         else
@@ -216,7 +202,6 @@ Template.tasklist.helpers({
         var tommorow = new Date();
         tommorow.setDate(tommorow.getDate() + 1);
 
-        console.log(tommorow);
 
         console.log("All Tasks ");
         console.log(tasks);
@@ -276,7 +261,8 @@ Template.tasklist.helpers({
 // });
 
 Template.tabs.events({
-   'submit form#assign-task-personal' : function(evt) {
+   
+    'submit form#assign-task-personal' : function(evt) {
 	   evt.preventDefault();
 
 	   var task = {};
@@ -386,7 +372,6 @@ Template.verifyphone.events({
 
 		var user = Meteor.user();
 		var code = $("[name='code']").val();
-		console.log(code);
 		Accounts.verifyPhone(user.phone.number,code,function(err){
 			if(!err)
 				if(this.next)
@@ -418,9 +403,6 @@ Template.login.events({
 		var pwd = $("[name = 'password']").val();
 
         mobno = country_code + mobno;
-
-		console.log(mobno);
-		console.log(this.next);
 
 		var next = this.next;
 

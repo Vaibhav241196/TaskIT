@@ -5,29 +5,35 @@ Meteor.methods({
     'assignTask' : function (task){
         
         var members = task.members;
-        var assigned_representation = {};
 
         var participant_arr = members.slice();
         participant_arr.push(task.assignedBy);
 
+        console.log("Assigned By  : ");
+        console.log(task.assignedBy);
+        console.log("Task  : ");
+        console.log(task);
+
         var team = Teams.findOne({ members : { $size : participant_arr.length , $all : participant_arr } , name : {$exists : false }});
 
-        console.log(team);
 
         if(!team) {
+
+            console.log("No such existing team");
             team_id = Teams.insert({members: participant_arr, tasks: [task]});
 
-            for (i in members) {
-                Meteor.users.update({_id: members[i]}, {$push: { teams: team_id }});
+            for (i in participant_arr) {
+                Meteor.users.update({_id: participant_arr[i]}, {$push: { teams: team_id }});
             }
         }
 
         else {
+
+            console.log("Team existing : ");
+            console.log(team);
             team_id = team._id;
             Teams.update({_id: team_id}, {$push: {tasks: task}});
         }
-
-        
     },
     
     'addTeam' : function (team) {
@@ -54,7 +60,6 @@ Meteor.methods({
 
         var team = Teams.findOne({ _id : team_id });
         var tasks = team.tasks;
-
 
         tasks[task_id].status = Number(status);
 
