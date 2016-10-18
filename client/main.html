@@ -1,18 +1,25 @@
+<head>
+    <title>TaskIt App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+
 <!--==================== Login Page Layout ====================-->
 <template name="login">
-	<div class="text-center form-wrapper">
-		<form method="post" class="text-center" name="login-form" id="login-form">
-			<div class="centered input-group mobno">
+    <div class="text-center form-wrapper">
+        <form method="post" class="text-center" name="login-form" id="login-form">
+            <div class="centered input-group mobno">
                 <div class="input-group-btn">
                     <select id="country-code" name="country-code" class="selectpicker">
-                        <option value="+91"> +91 - India </option>
+                        <option value="+91"> +91 - India</option>
                     </select>
                 </div>
-                <input type="text" name="mobno" id="mobno" class="form-control" style="width: 100%;" placeholder="Mobile Number" />
+                <input type="text" name="mobno" id="mobno" class="form-control" style="width: 100%;"
+                       placeholder="Mobile Number"/>
             </div>
 
-            <div class="input-group">
-                <input type="password" name="password" class="centered form-control" placeholder="Password" />
+            <div class="input-group centered">
+                <input type="password" name="password" class="form-control" placeholder="Password"/>
             </div>
 
             <div class="input-group">
@@ -20,68 +27,67 @@
             </div>
 
         </form>
-		<p>Don't have an account? <a href="{{pathFor route='register'}}" id="register-link">Register</a></p>
-		<p>{{next}}</p>
+        <p>Don't have an account? <a href="{{pathFor route='register'}}" id="register-link">Register</a></p>
+        <p>{{next}}</p>
 
-	</div>
+    </div>
 </template>
 <!--==================== Login Page Layout ends ====================-->
 
 
 <!--==================== Registration Page Layout ====================-->
 <template name="register">
-	<div class="text-center form-wrapper">
-		<form method="post" name="register-form" id="register-form">
-			<div class="input-group mobno centered">
+    <div class="text-center form-wrapper">
+        <form method="post" name="register-form" id="register-form">
+            <div class="input-group mobno centered">
                 <div class="input-group-btn">
                     <select id="country-code" name="country-code" class="selectpicker">
-                        <option value="+91"> +91 - India </option>
+                        <option value="+91"> +91 - India</option>
                     </select>
                 </div>
 
-                <input type="text" name="mobno" class="form-control" placeholder="Mobile Number" />
+                <input type="text" name="mobno" class="form-control" placeholder="Mobile Number"/>
             </div>
 
             <div class="input-group centered">
                 <input type="text" name="name" class="form-control" placeholder="Name">
             </div>
             <div class="input-group centered">
-                <input type="password" name="password" class="form-control" placeholder="Password" />
+                <input type="password" name="password" class="form-control" placeholder="Password"/>
             </div>
             <div class="input-group centered">
-                <input type="password" name="conf-password" class="form-control" placeholder="Confirm Password" />
+                <input type="password" name="conf-password" class="form-control" placeholder="Confirm Password"/>
             </div>
             <div class="input-group centered">
-                <input type="submit" class="form-control" name="submit" value="Submit" />
+                <input type="submit" class="form-control" name="submit" value="Submit"/>
             </div>
         </form>
-		
-		<p>Already have an account? <a href="{{pathFor route='login'}}" id="login-link">Login</a></p>
-	</div>
+
+        <p>Already have an account? <a href="{{pathFor route='login'}}" id="login-link">Login</a></p>
+    </div>
 </template>
 <!--==================== Registration Page Layout ====================-->
 
-<template name = "userLayout">
-	<div class="container-fluid">
+<template name="userLayout">
+    <div class="container-fluid">
         {{> nav}}
-		{{> yield}}
-	</div>
+        {{> yield}}
+    </div>
 </template>
 
 
 <!--==================== Homescreen Page Layout - only for logged in users ====================-->
-<template name = "homescreen">
+<template name="homescreen">
     {{> tabs}}
 </template>
 <!-- ==================== Homescreen Page Layout - only for logged in users end ==================== -->
-
 
 <template name="nav">
 
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nav-collapse-content">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -89,102 +95,16 @@
             </button>
             <a class="navbar-brand" href="#!">Task It</a>
         </div>
+
+        <!--<div class="collapse navbar-collapse" id="nav-collapse-content">-->
+        <!--</div>-->
+
         <!-- Top Menu Items -->
         <ul class="nav navbar-right top-nav">
-            <!--<li class="dropdown">-->
-                <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> <b class="caret"></b></a>-->
-                <!--<ul class="dropdown-menu message-dropdown">-->
-                    <!--<li class="message-preview">-->
-                        <!--<a href="#">-->
-                            <!--<div class="media">-->
-                                    <!--<span class="pull-left">-->
-                                        <!--<img class="media-object" src="http://placehold.it/50x50" alt="">-->
-                                    <!--</span>-->
-                                <!--<div class="media-body">-->
-                                    <!--<h5 class="media-heading"><strong>{{user.profile.name}}</strong>-->
-                                    <!--</h5>-->
-                                    <!--<p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>-->
-                                    <!--<p>Lorem ipsum dolor sit amet, consectetur...</p>-->
-                                <!--</div>-->
-                            <!--</div>-->
-                        <!--</a>-->
-                    <!--</li>-->
-                    <!--<li class="message-preview">-->
-                        <!--<a href="#">-->
-                            <!--<div class="media">-->
-                                    <!--<span class="pull-left">-->
-                                        <!--<img class="media-object" src="http://placehold.it/50x50" alt="">-->
-                                    <!--</span>-->
-                                <!--<div class="media-body">-->
-                                    <!--<h5 class="media-heading"><strong>{{user.profile.name}}</strong>-->
-                                    <!--</h5>-->
-                                    <!--<p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>-->
-                                    <!--<p>Lorem ipsum dolor sit amet, consectetur...</p>-->
-                                <!--</div>-->
-                            <!--</div>-->
-                        <!--</a>-->
-                    <!--</li>-->
-                    <!--<li class="message-preview">-->
-                        <!--<a href="#">-->
-                            <!--<div class="media">-->
-                                    <!--<span class="pull-left">-->
-                                        <!--<img class="media-object" src="http://placehold.it/50x50" alt="">-->
-                                    <!--</span>-->
-                                <!--<div class="media-body">-->
-                                    <!--<h5 class="media-heading"><strong>{{user.profile.name}}</strong>-->
-                                    <!--</h5>-->
-                                    <!--<p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>-->
-                                    <!--<p>Lorem ipsum dolor sit amet, consectetur...</p>-->
-                                <!--</div>-->
-                            <!--</div>-->
-                        <!--</a>-->
-                    <!--</li>-->
-                    <!--<li class="message-footer">-->
-                        <!--<a href="#">Read All New Messages</a>-->
-                    <!--</li>-->
-                <!--</ul>-->
-            <!--</li>-->
-            <!--<li class="dropdown">-->
-                <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> <b class="caret"></b></a>-->
-                <!--<ul class="dropdown-menu alert-dropdown">-->
-                    <!--<li>-->
-                        <!--<a href="#">Alert Name <span class="label label-default">Alert Badge</span></a>-->
-                    <!--</li>-->
-                    <!--<li>-->
-                        <!--<a href="#">Alert Name <span class="label label-primary">Alert Badge</span></a>-->
-                    <!--</li>-->
-                    <!--<li>-->
-                        <!--<a href="#">Alert Name <span class="label label-success">Alert Badge</span></a>-->
-                    <!--</li>-->
-                    <!--<li>-->
-                        <!--<a href="#">Alert Name <span class="label label-info">Alert Badge</span></a>-->
-                    <!--</li>-->
-                    <!--<li>-->
-                        <!--<a href="#">Alert Name <span class="label label-warning">Alert Badge</span></a>-->
-                    <!--</li>-->
-                    <!--<li>-->
-                        <!--<a href="#">Alert Name <span class="label label-danger">Alert Badge</span></a>-->
-                    <!--</li>-->
-                    <!--<li class="divider"></li>-->
-                    <!--<li>-->
-                        <!--<a href="#">View All</a>-->
-                    <!--</li>-->
-                <!--</ul>-->
-            <!--</li>-->
-
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> {{user.profile.name}} <b class="caret"></b></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i
+                        class="fa fa-user"></i> {{user.profile.name}} <b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                    <!--<li>-->
-                        <!--<a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>-->
-                    <!--</li>-->
-                    <!--<li>-->
-                        <!--<a href="#"><i class="fa fa-fw fa-envelope"></i> Inbox</a>-->
-                    <!--</li>-->
-                    <!--<li>-->
-                        <!--<a href="#"><i class="fa fa-fw fa-gear"></i> Settings</a>-->
-                    <!--</li>-->
-                    <!--<li class="divider"></li>-->
                     <li>
                         <a href="{{pathFor route='logout'}}"><i class="fa fa-fw fa-power-off"></i>Logout</a>
                     </li>
@@ -192,139 +112,245 @@
             </li>
         </ul>
 
-        <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
-        <!--<div class="collapse navbar-collapse navbar-ex1-collapse">-->
-        <!--<ul class="nav navbar-nav side-nav">-->
-        <!--<li class="active">-->
-        <!--<a href="index.html"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>-->
-        <!--</li>-->
-        <!--<li>-->
-        <!--<a href="charts.html"><i class="fa fa-fw fa-bar-chart-o"></i> Charts</a>-->
-        <!--</li>-->
-        <!--<li>-->
-        <!--<a href="tables.html"><i class="fa fa-fw fa-table"></i> Tables</a>-->
-        <!--</li>-->
-        <!--<li>-->
-        <!--<a href="forms.html"><i class="fa fa-fw fa-edit"></i> Forms</a>-->
-        <!--</li>-->
-        <!--<li>-->
-        <!--<a href="bootstrap-elements.html"><i class="fa fa-fw fa-desktop"></i> Bootstrap Elements</a>-->
-        <!--</li>-->
-        <!--<li>-->
-        <!--<a href="bootstrap-grid.html"><i class="fa fa-fw fa-wrench"></i> Bootstrap Grid</a>-->
-        <!--</li>-->
-        <!--<li>-->
-        <!--<a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Dropdown <i class="fa fa-fw fa-caret-down"></i></a>-->
-        <!--<ul id="demo" class="collapse">-->
-        <!--<li>-->
-        <!--<a href="#">Dropdown Item</a>-->
-        <!--</li>-->
-        <!--<li>-->
-        <!--<a href="#">Dropdown Item</a>-->
-        <!--</li>-->
-        <!--</ul>-->
-        <!--</li>-->
-        <!--<li>-->
-        <!--<a href="blank-page.html"><i class="fa fa-fw fa-file"></i> Blank Page</a>-->
-        <!--</li>-->
-        <!--<li>-->
-        <!--<a href="index-rtl.html"><i class="fa fa-fw fa-dashboard"></i> RTL Dashboard</a>-->
-        <!--</li>-->
-        <!--</ul>-->
-        <!--</div>-->
-        <!-- /.navbar-collapse -->
     </nav>
 </template>
 
 <!--====================== tabs layout start ========================== -->
 <template name="tabs">
     <div class="tab-wrapper container">
-            <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
-                <ul id="myTab" class="nav nav-tabs nav-tabs-responsive" role="tablist">
+        <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
+            <ul id="myTab" class="nav nav-tabs nav-tabs-responsive" role="tablist">
+                <li role="presentation" class="active col-xs-6 text-center">
+                    <a href="#tasks-personal" id="tasks-personal-tab" role="tab" data-toggle="tab"
+                       aria-controls="tasks-personal" aria-expanded="true">
+                        <span class="text">Tasks</span>
+                    </a>
+                </li>
+
+                <li role="presentation" class="col-xs-6 text-center">
+                    <a href="#tasks-team" role="tab" id="tasks-team-tab" data-toggle="tab" aria-controls="tasks-team">
+                        <span class="text">Teams</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div id="myTabContent" class="tab-content">
+
+                <div role="tabpanel" class="tab-pane fade in active tasks-tab " id="tasks-personal"
+                     aria-labelledby="tasks-personal-tab">
+                    {{> tabcontentLayout linkData='[{"name":"My Tasks","helper":"myTasks", "selector":"my-tasks" },{"name":"Assigned Tasks","helper":"assignedTasks","selector":"assigned-tasks"},{"name":"New Task","selector":"new","target":"add-task-personal"}]' }}
+                </div>
+
+                <div role="tabpanel" class="tab-pane fade" id="tasks-team" aria-labelledby="tasks-team-tab">
+                    {{> tabcontentLayout linkData= (stringifyObject displayTeams) }}
+                </div>
+
+                <!-- ============================ Modal for add task personal ============================ -->
+                <div class="modal fade add-task-personal" id="add-task-personal" tabindex="-1" role="dialog" aria-labelledby="add-task-personal">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                        aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="modal-form">Assign Task</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form id="assign-task-personal">
+
+                                    <div class="form-group">
+                                        <label for="task-name">Task Name</label>
+                                        <input type="text" name="task-name" class="form-control" id="task-name"
+                                               placeholder="Task Name">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="task-description">Description</label>
+                                        <input type="text" name="task-description" class="form-control" id="task-description"
+                                               placeholder="Description">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="task-deadline">Deadline</label>
+                                        <input type="date" name="task-deadline" class="form-control" id="task-deadline"
+                                               placeholder="Deadline">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="task-duration">Duration</label>
+                                        <input type="number" name="task-duration" class="form-control" id="task-duration"
+                                               placeholder="Duration">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="task-priority">Priority</label>
+                                        <select class="selectpicker" name="task-priority" id="task-priority">
+                                            <option value="low">Low</option>
+                                            <option value="medium">Medium</option>
+                                            <option value="high">High</option>
+                                        </select>
+                                    </div>
 
 
-                    <li role="presentation" class="active col-xs-6 text-center">
-                        <a href="#tasks-personal" id="tasks-personal-tab" role="tab" data-toggle="tab" aria-controls="tasks-personal" aria-expanded="true">
-                            <span class="text">Tasks</span>
+                                    <div class="form-group">
+                                        <label for="task-members">Add Members</label>
+
+                                        <select multiple id="task-members" class="selectpicker" data-live-search="true"
+                                                name="task-members">
+                                            {{# each contacts}}
+                                                <option value="{{_id}}">{{profile.name}}</option>
+                                            {{/ each}}
+                                        </select>
+                                    </div>
+
+
+                                    <input type="submit" class="btn btn-default" name="submit" value="Add Task"/>
+
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <!--<button type="button" class="btn btn-primary">Add Task</button>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ============================ Modal for add new team ===================================== -->
+                <div class="modal fade add-new-team" id="add-new-team" tabindex="-1" role="dialog" aria-labelledby="add-new-team">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                        aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel">Add Team</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form id="add-team-form">
+
+                                    <div class="form-group">
+                                        <label for="team-name">Team Name</label>
+                                        <input type="text" class="form-control" name="team-name" id="team-name"
+                                               placeholder="Team Name">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="team-description">Description</label>
+                                        <input type="text" class="form-control" name="team-description" id="team-description"
+                                               placeholder="Description">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="team-members">Add Members</label>
+
+                                        <select multiple class="selectpicker" id="team-members" name="team-members">
+                                            {{# each contacts }}
+                                                <option value="{{_id}}">{{profile.name}} </option>
+                                            {{/ each}}
+                                        </select>
+                                    </div>
+
+
+                                    <input type="submit" class="btn btn-default" value="Add Team">
+
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <!--<button type="button" class="btn btn-primary">Add Task</button>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</template>
+
+<template name="tabcontentLayout">
+    <div class="wrapper" role="navigation">
+
+        <ul class="nav navbar-nav side-nav nav-pills nav-stacked col-md-3 text-center list-group">
+
+            {{# each parseObject linkData }}
+                {{# if notEqual this.selector 'new' }}
+                    <li class="list-group-item" role="presentation">
+                        <a href="#{{this.selector}}" role="tab" data-toggle="tab"> <i class="fa fa-check-square-o"
+                                                                                      aria-hidden="true"></i> {{ this.name }}
                         </a>
                     </li>
 
-                    <li role="presentation" class="col-xs-6 text-center">
-                        <a href="#tasks-team" role="tab" id="tasks-team-tab" data-toggle="tab" aria-controls="tasks-team">
-                            <span class="text">Teams</span>
-                        </a>
+                {{ else }}
+
+                    <li class="list-group-item " data-toggle="modal" data-target="#{{ this.target }}">
+                        <a href="#"><i class="fa fa-plus" aria-hidden="true"></i> {{ this.name }} </a>
                     </li>
 
-                    <!--<li role="presentation" class="col-xs-3 text-center">-->
-                        <!--<a href="#contacts" role="tab" id="contacts-tab" data-toggle="tab" aria-controls="contacts">-->
-                            <!--<span class="text">Contacts</span>-->
-                        <!--</a>-->
-                    <!--</li>-->
+                {{/ if}}
 
-                    <!--<li role="presentation" class="dropdown col-xs-3 text-center">-->
-                        <!--<a href="#dropdown1" id="myTabDrop1" data-toggle="tab" aria-controls="myTabDrop1-contents">-->
-                            <!--<span class="text">Calender</span>-->
-                        <!--</a>-->
-                    <!--</li>-->
+            {{/ each }}
 
-                </ul>
+        </ul>
 
-                <div id="myTabContent" class="tab-content">
+        <div class="col-xs-12 col-md-9 tasks">
+            <div class="col-xs-12 col-md-9 col-md-offset-1">
 
-                    <div role="tabpanel" class="tab-pane fade in active tasks-tab " id="tasks-personal" aria-labelledby="tasks-personal-tab">
+                <div class="tab-content">
 
-                        <div class="tasks-wrapper" role="navigation">
+                    {{# each parseObject linkData }}
+                        {{# if notEqual this.selector "new" }}
+                            <div role="tabpanel" class="tab-pane fade {{# if isEqual @index 0 }}in active{{/ if}}"
+                                 id="{{this.selector}}">
+                                {{> tasklist tasks=(runHelper "tabcontentLayout" this.helper) selector=this.selector }}
+                            </div>
+                        {{/ if}}
 
-                            <ul class="nav navbar-nav side-nav nav-pills nav-stacked col-xs-3 text-center list-group">
-
-                                <li class="list-group-item active" role="presentation">
-                                    <a href="#my-tasks" role="tab" data-toggle="tab"> <i class="fa fa-check-square-o" aria-hidden="true"></i> Tasks </a>
-                                </li>
-
-                                <li class="list-group-item" role="presentation">
-                                    <a href="#assigned-tasks" role="tab" data-toggle="tab"><i class="fa fa-share" aria-hidden="true"></i> Allocations </a>
-                                </li>
-
-                                <li class="list-group-item " data-toggle="modal" data-target="#new-task-form">
-                                    <a href="#"><i class="fa fa-plus" aria-hidden="true"></i> New Task </a>
-                                </li>
-
-                            </ul>
-
-                            <!-- Modal -->
-                            <div class="modal fade" id="new-task-form" tabindex="-1" role="dialog" aria-labelledby="modalFormLabel">
+                        {{# if isEqual this.helper "teamTasks" }}
+                            <button class="btn btn-default pull-right" data-toggle="modal"
+                                    data-target="#add-task-team-{{@index}}"> Assign Task
+                            </button>
+                            <!-- ============================ Modal for add team task ======================= -->
+                            <div class="modal fade add-task-team" id="add-task-team-{{@index}}" tabindex="-1" role="dialog"
+                                 aria-labelledby="add-task-team-{{@index}}">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                            <h4 class="modal-title" id="modal-form">Assign Task</h4>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span></button>
+                                            <h4 class="modal-title" id="modal-form">Assign Task Team</h4>
                                         </div>
                                         <div class="modal-body">
-                                            <form id="assign-task-personal">
+                                            <form id="assign-task-team">
 
                                                 <div class="form-group">
                                                     <label for="task-name">Task Name</label>
-                                                    <input type="text" name="task-name" class="form-control" id="task-name" placeholder="Task Name">
+                                                    <input type="text" name="task-name" class="form-control"
+                                                           id="task-name" placeholder="Task Name">
                                                 </div>
 
                                                 <div class="form-group">
                                                     <label for="task-description">Description</label>
-                                                    <input type="text" name="task-description" class="form-control" id="task-description" placeholder="Description">
+                                                    <input type="text" name="task-description" class="form-control"
+                                                           id="task-description" placeholder="Description">
                                                 </div>
 
                                                 <div class="form-group">
                                                     <label for="task-deadline">Deadline</label>
-                                                    <input type="date" name="task-deadline" class="form-control" id="task-deadline" placeholder="Deadline">
+                                                    <input type="date" name="task-deadline" class="form-control"
+                                                           id="task-deadline" placeholder="Deadline">
                                                 </div>
 
                                                 <div class="form-group">
                                                     <label for="task-duration">Duration</label>
-                                                    <input type="number" name="task-duration" class="form-control" id="task-duration" placeholder="Duration">
+                                                    <input type="number" name="task-duration" class="form-control"
+                                                           id="task-duration" placeholder="Duration">
                                                 </div>
 
                                                 <div class="form-group">
                                                     <label for="task-priority">Priority</label>
-                                                    <select class="selectpicker" name="task-priority" id="task-priority" >
+                                                    <select class="selectpicker" name="task-priority"
+                                                            id="task-priority">
                                                         <option value="low">Low</option>
                                                         <option value="medium">Medium</option>
                                                         <option value="high">High</option>
@@ -335,221 +361,43 @@
                                                 <div class="form-group">
                                                     <label for="task-members">Add Members</label>
 
-                                                    <select multiple id="task-members" class="selectpicker" data-live-search="true" name="task-members">
-                                                        {{# each contacts}}
-                                                            <option value="{{_id}}">{{profile.name}}</option>
+                                                    <select multiple id="task-members" class="selectpicker"
+                                                            data-live-search="true" name="task-members">
+                                                        {{# each this.members}}
+                                                            <option value="{{this}}">{{ getNameById this}}</option>
                                                         {{/ each}}
                                                     </select>
                                                 </div>
 
 
-
-                                                <input type="submit" class="btn btn-default" name="submit" value="Add Task" />
-
-                                            </form>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                            <!--<button type="button" class="btn btn-primary">Add Task</button>-->
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-xs-9 tasks">
-                                <div class="col-xs-10 col-xs-offset-1">
-
-                                    <div class="tab-content">
-                                        <div role="tabpanel" class="tab-pane fade in active" id="my-tasks">
-                                            {{> tasklist tasks=myTasks selector="my-tasks" }}
-                                        </div>
-
-                                        <div role="tabpanel" class="tab-pane fade" id="assigned-tasks">
-                                            {{> tasklist tasks=assignedTasks selector="assigned-tasks" }}
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <div role="tabpanel" class="tab-pane fade" id="tasks-team" aria-labelledby="tasks-team-tab">
-
-                        <div class="teams-wrapper" role="navigation">
-
-                            <ul class="nav navbar-nav side-nav nav-pills nav-stacked col-xs-3 text-center list-group">
-
-                                {{# each teams}}
-
-                                    <li class="list-group-item" role="presentation">
-                                        <a href="#team{{@index}}" role="tab" data-toggle="tab"> {{name}} </a>
-                                    </li>
-
-                                {{/ each}}
-
-                                    <li class="list-group-item new-team" data-toggle="modal" data-target="#myModal2">
-                                        <a href="#"><i class="fa fa-fw fa-plus"></i> Add new Team </a>
-                                    </li>
-
-                            </ul>
-
-                            <!-- ============================ Modal for add team ======================= -->
-                            <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                            <h4 class="modal-title" id="myModalLabel">Add Team</h4>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form id="add-team-form">
-
-                                                <div class="form-group">
-                                                    <label for="team-name">Team Name</label>
-                                                    <input type="text" class="form-control" name="team-name" id="team-name" placeholder="Team Name">
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label for="team-description">Description</label>
-                                                    <input type="text" class="form-control" name="team-description" id="team-description" placeholder="Description">
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label for="team-members">Add Members</label>
-
-                                                    <select multiple class="selectpicker" id="team-members" name="team-members">
-                                                        {{# each contacts }}
-                                                            <option value="{{_id}}">{{profile.name}} </option>
-                                                        {{/ each}}
-                                                    </select>
-                                                </div>
-
-
-
-                                                <input type="submit" class="btn btn-default" value="Add Team">
+                                                <input type="submit" class="btn btn-default" name="submit"
+                                                       value="Add Task"/>
 
                                             </form>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                            <!--<button type="button" class="btn btn-primary">Add Task</button>-->
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="col-xs-9 tasks">
-                                <div class="col-xs-10 col-xs-offset-1">
-
-
-                                    <div class="tab-content">
-                                        {{# each teams}}
-                                            <div role="tabpanel" class="tab-pane fade" id="team{{@index}}">
-
-                                                {{> tasklist tasks=teamTasks selector="team-tasks" }}
-
-                                                <button class="btn btn-default pull-right" data-toggle="modal" data-target="#assign-task-team-form"> Assign Task </button>
-
-                                                <!-- ============================ Modal for add team task ======================= -->
-
-                                                <div class="modal fade" id="assign-task-team-form" tabindex="-1" role="dialog" aria-labelledby="modalFormLabel">
-                                                    <div class="modal-dialog" role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                                <h4 class="modal-title" id="modal-form">Assign Task Team</h4>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <form id="assign-task-team">
-
-                                                                    <div class="form-group">
-                                                                        <label for="task-name">Task Name</label>
-                                                                        <input type="text" name="task-name" class="form-control" id="task-name" placeholder="Task Name">
-                                                                    </div>
-
-                                                                    <div class="form-group">
-                                                                        <label for="task-description">Description</label>
-                                                                        <input type="text" name="task-description" class="form-control" id="task-description" placeholder="Description">
-                                                                    </div>
-
-                                                                    <div class="form-group">
-                                                                        <label for="task-deadline">Deadline</label>
-                                                                        <input type="date" name="task-deadline" class="form-control" id="task-deadline" placeholder="Deadline">
-                                                                    </div>
-
-                                                                    <div class="form-group">
-                                                                        <label for="task-duration">Duration</label>
-                                                                        <input type="number" name="task-duration" class="form-control" id="task-duration" placeholder="Duration">
-                                                                    </div>
-
-                                                                    <div class="form-group">
-                                                                        <label for="task-priority">Priority</label>
-                                                                        <select class="selectpicker" name="task-priority" id="task-priority" >
-                                                                            <option value="low">Low</option>
-                                                                            <option value="medium">Medium</option>
-                                                                            <option value="high">High</option>
-                                                                        </select>
-                                                                    </div>
-
-
-                                                                    <div class="form-group">
-                                                                        <label for="task-members">Add Members</label>
-
-                                                                        <select multiple id="task-members" class="selectpicker" data-live-search="true" name="task-members">
-                                                                            {{# each members}}
-                                                                                <option value="{{this}}">{{ getNameById this}}</option>
-                                                                            {{/ each}}
-                                                                        </select>
-                                                                    </div>
-
-
-
-                                                                    <input type="submit" class="btn btn-default" name="submit" value="Add Task" />
-
-                                                                </form>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                                <!--<button type="button" class="btn btn-primary">Add Task</button>-->
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        {{/each}}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!--<div role="tabpanel" class="tab-pane fade" id="contacts" aria-labelledby="contacts-tab">-->
-                        <!--<ul class="contacts">-->
-                            <!--{{#each contacts}}-->
-                                <!--<li>{{profile.name}}</li>-->
-                            <!--{{/each}}-->
-                        <!--</ul>-->
-                    <!--</div>-->
-
-
-                    <!--<div role="tabpanel" class="tab-pane fade" id="dropdown1" aria-labelledby="dropdown1-tab">-->
-                        <!-- calender template-->
-                    <!--</div>-->
+                        {{/ if}}
+                    {{/ each}}
                 </div>
+
             </div>
+        </div>
+
     </div>
-
 </template>
-
 
 <template name="tasklist">
 
     {{# each groupByDate tasks }}
 
-        <div class="panel panel-default sort-groups" data-toggle="collapse" href="#{{ groupName }}-{{../selector}}" aria-expanded="false" aria-controls="{{ groupName }}">
+        <div class="panel panel-default sort-groups" data-toggle="collapse" href="#{{ groupName }}-{{../selector}}"
+             aria-expanded="false" aria-controls="{{ groupName }}">
             <div class="panel-body">
                 <h3> {{ groupName }} ({{ count }}) </h3>
             </div>
@@ -559,7 +407,9 @@
 
             {{# each records }}
 
-                <div class="alert {{getColorByPriority priority}}" role="alert" data-toggle="collapse" href="#{{../../selector}}-{{../groupName}}-{{@index}}-description" aria-expanded="false" aria-controls="description{{@index}}">
+                <div class="alert {{getColorByPriority priority}}" role="alert" data-toggle="collapse"
+                     href="#{{../../selector}}-{{../groupName}}-{{@index}}-description" aria-expanded="false"
+                     aria-controls="description{{@index}}">
                     {{name}}
 
                     {{# if notEqual ../../selector "team-tasks"}}
@@ -575,40 +425,43 @@
                 <div class="collapse" id="{{../../selector}}-{{../groupName}}-{{@index}}-description">
                     <div class="well">
 
-                        <button type="button" class="btn btn-info"> Description: </button>
+                        <button type="button" class="btn btn-info"> Description:</button>
 
                         <span class="value"> {{description}}</span>
                         <br>
                         <br>
-                        <button type="button" class="btn btn-info"> Deadline: </button>
+                        <button type="button" class="btn btn-info"> Deadline:</button>
 
                         <span class="value"> {{ getDateString deadline }}  </span>
                         <br>
                         <br>
-                        <button type="button" class="btn btn-info"> Status: </button>
+                        <button type="button" class="btn btn-info"> Status:</button>
 
                         <div class="status-wrapper">
 
                             <form>
                                 <label class="radio-inline">
-                                    <input type="radio" name="status" id="not-started" value="0"  {{ getChecked 0 }}> Not started
+                                    <input type="radio" name="status" id="not-started" value="0"  {{ getChecked 0 }}>
+                                    Not started
                                 </label>
                                 <label class="radio-inline">
-                                    <input type="radio" name="status" id="ongoing" value="1"  {{ getChecked 1 }}> Ongoing
+                                    <input type="radio" name="status" id="ongoing" value="1"  {{ getChecked 1 }}>
+                                    Ongoing
                                 </label>
                                 <label class="radio-inline">
-                                    <input type="radio" name="status" id="completed" value="2"  {{ getChecked 2 }}> Completed
+                                    <input type="radio" name="status" id="completed" value="2"  {{ getChecked 2 }}>
+                                    Completed
                                 </label>
                             </form>
 
                         </div>
 
                         <br><br>
-                        <button type="button" class="btn btn-info">Duration: </button>
+                        <button type="button" class="btn btn-info">Duration:</button>
 
                         <span class="value"> {{duration}} </span>
                         <br><br>
-                        <button type="button" class="btn btn-info">Priority: </button>
+                        <button type="button" class="btn btn-info">Priority:</button>
 
                         <span class="value"> {{priority}} </span>
                     </div>
@@ -620,26 +473,20 @@
 <!-- =====================  tabs layout ends =========================== -->
 
 
-<!--<template name="calender">-->
-    <!--<div class="container">-->
-        <!--<hr>-->
-        <!--<div id="calendar"></div>-->
-    <!--</div>-->
-<!--</template>-->
-
-
 <!-- ==================== Mobile Number Verification Page Layout ==================== -->
-<template name= "verifyphone">
-	<form method="post" name="verify-phone" id="verify-phone">
-		<input type="text" class="centered" name="code" />
-		<input type="submit" class="centered" name="submit" value="Submit">
-	</form>
-	<div class="col-xs-12 col-md-9">
-		<a href="{{pathFor route='logout'}}" class="btn btn-danger logout">Logout</a>
-	</div>
-	<br>
-	<p> Did not receive the code <a id="resend-code"> Resend Code </a> </p>
-	<p>{{next}}</p>
+<template name="verifyphone">
+    <form method="post" name="verify-phone" class="centered" id="verify-phone">
+        <div class="input-group">
+            <input type="text" class="form-control" name="code"/>
+        </div>
+
+        <div class="input-group centered">
+            <input type="submit" class="centered" name="submit" value="Submit">
+        </div>
+        <p> Did not receive the code <a id="resend-code"> Resend Code </a></p>
+    </form>
+    <br>
+
 </template>
 <!-- ==================== Mobile Number Verification Page Layout ends ==================== -->
 

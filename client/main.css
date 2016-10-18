@@ -16,16 +16,20 @@
     width: 20%;
 }
 
+@media only screen and (max-width: 600px) {
+    .mobno {
+        width: 100%;
+    }
+}
+
 .logout {
 	float : right;
 }
 
-/* sidebar start*/
-/*!
- * Start Bootstrap - SB Admin (http://startbootstrap.com/)
- * Copyright 2013-2016 Start Bootstrap
- * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
- */
+.centered {
+    text-align: center;
+}
+
 
 /* Global Styles */
 
@@ -40,14 +44,20 @@
 body {
 	margin-top: 100px;
 	background-color: #eee !important;
-
+    overflow-x: hidden;
 }
-
 
 @media(min-width:768px) {
 	body {
 		margin-top: 50px;
 	}
+}
+
+@media(max-width:768px) {
+    body {
+        margin-right: 0;
+        margin-left: 0;
+    }
 }
 
 #wrapper {
@@ -148,21 +158,15 @@ ul.alert-dropdown {
 @media(min-width:768px) {
 	.side-nav {
 		position: relative;
-		/*top: 51px;*/
-		/*left: 225px;*/
-		/*margin-left: -225px;*/
 		border: none;
 		border-radius: 0;
 		overflow-y: auto;
 		background-color: #222;
 		bottom: 0;
 		overflow-x: hidden;
-        padding-right: 0 !important;
-		/*padding-bottom: 40px;*/
 	}
 
 	.side-nav>li{
-		/*width: 225px;*/
         width: 100%;
 	}
 
@@ -170,6 +174,10 @@ ul.alert-dropdown {
 	.side-nav li a:focus {
 		outline: none;
 	}
+}
+
+.side-nav {
+	padding-right: 0 !important;
 }
 
 .side-nav>li>ul {
@@ -268,7 +276,7 @@ ul.alert-dropdown {
  * Responsive Bootstrap Tabs by @hayatbiralem
  * 15 May 2015
  */
-@media screen and (max-width: 479px) {
+/*@media screen and (max-width: 479px) {
 	.nav-tabs-responsive > li {
 		display: none;
 		width: 23%;
@@ -350,7 +358,7 @@ ul.alert-dropdown {
 		left: auto;
 		right: 0;
 	}
-}
+}*/
 /**
  * Demo Styles
  */
@@ -372,7 +380,6 @@ ul.alert-dropdown {
 
 div.tab-wrapper{
     margin-top: 91px;
-    width: 80%;
 }
 
 .tasks-wrapper,.teams-wrapper{
@@ -438,7 +445,7 @@ div.tab-wrapper{
 
 /*================= teams tab start ==================*/
 
-/*================= teams tab start ==================*/
+/*================= teams tab end ==================*/
 
 
 
@@ -1024,6 +1031,35 @@ table.fc-border-separate {
     cursor: pointer;
 }
 
+/* For mobile view of side bar */
+
+@media only screen and (max-width: 768px){
+
+    .side-nav {
+        position: absolute !important;
+		z-index: 99;
+        left: 106%;
+        top: 85px;
+        padding-top: 100px;
+        width: 60%;
+        height: 560px;
+        background-color: white;
+    }
+
+    .side-nav li {
+        border: none !important;
+    }
+
+    #myTabContent ul.side-nav li a {
+        padding: 10px 0;
+		font-size: 20px;
+    }
+
+    .container-fluid, .container {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+}
 
 
 

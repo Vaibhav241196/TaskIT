@@ -17,6 +17,57 @@ import './main.html';
 
 console.log("Executing Ui js");
 
+
+Template.homescreen.onRendered(function(){
+
+    console.log("Homescreen rendered");
+    var side_nav_open = false;
+
+
+    $(".navbar-toggle").click(function (evt) {
+        evt.preventDefault();
+        console.log("Clicked button");
+
+        if(!side_nav_open)
+            open_side_bar();
+
+        else
+            close_side_bar();
+    });
+
+    $("body").click(function(evt) {
+        console.log("Body click");
+
+        if(side_nav_open && evt.target !== $(".navbar-toggle")[0])
+            close_side_bar();
+    });
+
+    function open_side_bar() {
+        var side_nav = $(".side-nav");
+
+        side_nav.css("display", "block");
+        side_nav.animate({left: "46%"}, 100);
+        side_nav_open = true;
+    }
+
+    function close_side_bar() {
+        var side_nav = $(".side-nav");
+
+        side_nav.animate({left: "106%"}, 100);
+        side_nav_open = false;
+    }
+    
+});
+
+
+function assignEvent(element,event,handler,useCapture){
+    if(element.addEventListener)
+        element.addEventListener(event,handler,useCapture);
+    else if(element.attachEvent)
+        element.attachEvent("on"+event,handler,useCapture);
+}
+
+
 // (function($) {
 //
 // 	'use strict';

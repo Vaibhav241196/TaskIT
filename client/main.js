@@ -37,10 +37,45 @@ Template.registerHelper('getNameById',function (id) {
     return Meteor.users.findOne({_id : id }).profile.name;
 });
 
+Template.registerHelper('parseObject',function(str){
+    return JSON.parse(str);
+});
+
+Template.registerHelper('stringifyObject',function(obj){
+    return JSON.stringify(obj);
+});
+
+Template.registerHelper('runHelper',function(template,helper){
+    helper = " " + helper;
+    return Template[template].__helpers[helper]();
+});
 
 
 /* ====================================  Tabs template Helpers ========================================= */
 Template.tabs.helpers({
+
+    contacts () {
+        return Meteor.users.find({_id: {$ne: Meteor.userId()}});
+    },
+    
+    displayTeams () {
+
+        var teams = Teams.find({name : { $exists : true }}).fetch();
+        
+        for( t in teams) {
+            teams[t].helper = "teamTasks";
+            teams[t].selector = "team-"+t;
+        }
+        
+        teams.push({name: 'New Team', selector: 'new' , target: 'add-new-team' });
+        
+        console.log(teams);
+        return teams;
+    }
+
+});
+
+Template.tabcontentLayout.helpers({
 
     myTasks () {
 
@@ -102,7 +137,7 @@ Template.tabs.helpers({
     contacts () {
         return Meteor.users.find({_id: {$ne: Meteor.userId()}});
     },
-    
+
     assignedTasks () {
 
         var teams = Meteor.users.findOne({ _id : Meteor.userId() }).teams;
@@ -139,11 +174,8 @@ Template.tabs.helpers({
         return assigned_tasks_list;
     },
 
-    teams () {
-        return Teams.find({name : { $exists : true }});
-    }
-
 });
+
 
 Template.tasklist.helpers({
 
@@ -231,38 +263,9 @@ Template.tasklist.helpers({
 
 });
 
-// Template.homescreen.events({
-// 	'submit form#add_contact' : function(evt) {
-// 		evt.preventDefault();
-// 		var mob_no = $("[name='mobno']").val();
-// 		console.log(mob_no);
-//
-// 		Meteor.call('searchContact',mob_no,function(err,res){
-// 			if(!err){
-// 					if(res)
-// 						Meteor.call('insertContact',res,function(err,res){
-// 							if(!err){
-// 								Session.set('rerun',!Session.get('rerun'));
-// 								alert("Successfully Added Contact");
-// 							}
-// 							else
-// 								console.log(err)
-// 						});
-//
-// 					else
-// 						alert("No such user found");
-// 				}
-//
-// 			else
-// 				console.log(err);
-//
-// 		});
-// 	},
-// });
-
-Template.tabs.events({
+Template.tabcontentLayout.events({
    
-    'submit form#assign-task-personal' : function(evt) {
+    'submit form.add-task-personal' : function(evt) {
 	   evt.preventDefault();
 
 	   var task = {};
@@ -295,7 +298,7 @@ Template.tabs.events({
        
    },
 
-    'submit form#add-team-form' : function (evt) {
+    'submit form.add-new-team' : function (evt) {
         evt.preventDefault();
 
         var team = {};
@@ -316,7 +319,7 @@ Template.tabs.events({
         });
     },
 
-    'submit form#assign-task-team' : function (evt) {
+    'submit form.add-task-team' : function (evt) {
         evt.preventDefault();
 
         var today = new Date();
@@ -335,7 +338,6 @@ Template.tabs.events({
         task.priority = $(evt.target).find("[name='task-priority']").val();
         task.members = $(evt.target).find("[name='task-members']").val();
         task.assignedBy = Meteor.userId();
-        task.team = team_id;
 
         if(compareDate(task.deadline,today) < 0)
             alert("Please Enter a realistic deadline. Your team mates can not go back in time and complete tasks");

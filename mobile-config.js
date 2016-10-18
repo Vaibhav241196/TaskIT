@@ -2,19 +2,23 @@
 // This section sets up some basic app metadata,
 // the entire section is optional.
 App.info({
-    id: 'com.example.siteflu.meteor',
-    name: 'meteor',
+    id: 'com.siteflu.meteor',
+    name: 'TaskIt',
     description: 'Task assignment app',
     author: 'Siteflu',
     email: 'siteflu@gmail.com',
     website: 'http://tasks.siteflu.com'
 });
-// Set up resources such as icons and launch screens.
-// App.icons({
-//     'iphone': 'icons/icon-60.png',
-//     'iphone_2x': 'icons/icon-60@2x.png',
-//     ... more screen sizes and platforms ...
-// });
+//Set up resources such as icons and launch screens.
+App.icons({
+    'iphone': 'public/icon.png',
+    'iphone_2x': 'public/icon.png',
+    'android_mdpi': 'public/icon.png',
+    'android_hdpi': 'public/icon.png',
+    'android_xhdpi': 'public/icon.png',
+    'android_xxhdpi': 'public/icon.png',
+    'android_xxxdpi': 'public/icon.png',
+});
 
 // App.launchScreens({
 //     'iphone': 'splash/Default~iphone.png',
