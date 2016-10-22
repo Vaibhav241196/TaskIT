@@ -280,6 +280,8 @@ Template.tabs.events({
         task.priority = $(evt.target).find("[name='task-priority']").val();
         task.members = $(evt.target).find("[name='task-members']").val();
         task.assignedBy = Meteor.userId();
+        
+        task.status = 0;
 
 
         if(compareDate(task.deadline,today) < 0)
@@ -295,6 +297,7 @@ Template.tabs.events({
             });
         }
 
+        $(".add-task-personal").modal('hide');
     },
     'submit form#add-team-form' : function (evt) {
         evt.preventDefault();
@@ -315,6 +318,8 @@ Template.tabs.events({
             else
                 alert ("Team created successfully");
         });
+
+        $(".add-new-team").modal('hide');
     },
 });
 
@@ -338,6 +343,8 @@ Template.tabcontentLayout.events({
         task.priority = $(evt.target).find("[name='task-priority']").val();
         task.members = $(evt.target).find("[name='task-members']").val();
         task.assignedBy = Meteor.userId();
+        
+        task.status = 0;
 
         if(compareDate(task.deadline,today) < 0)
             alert("Please Enter a realistic deadline. Your team mates can not go back in time and complete tasks");
@@ -350,6 +357,8 @@ Template.tabcontentLayout.events({
                     alert("Task Assigned succesfully");
             });
         }
+
+        $(".add-task-team").modal('hide');
 
     },
 });
