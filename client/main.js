@@ -263,42 +263,40 @@ Template.tasklist.helpers({
 
 });
 
-Template.tabcontentLayout.events({
-   
-    'submit form.add-task-personal' : function(evt) {
-	   evt.preventDefault();
+Template.tabs.events({
+    'submit form#assign-task-personal' : function(evt) {
+        evt.preventDefault();
 
-	   var task = {};
-       var today = new Date();
+        var task = {};
+        var today = new Date();
 
-       task.name = $(evt.target).find("input[name='task-name']").val();
-       task.description = $(evt.target).find("input[name='task-description']").val();
+        task.name = $(evt.target).find("input[name='task-name']").val();
+        task.description = $(evt.target).find("input[name='task-description']").val();
 
-       task.deadline = $(evt.target).find("input[name='task-deadline']").val();
-       task.deadline = new Date(task.deadline);
+        task.deadline = $(evt.target).find("input[name='task-deadline']").val();
+        task.deadline = new Date(task.deadline);
 
-       task.duration = $(evt.target).find("input[name='task-duration']").val();
-       task.priority = $(evt.target).find("[name='task-priority']").val();
-       task.members = $(evt.target).find("[name='task-members']").val();
-       task.assignedBy = Meteor.userId();
+        task.duration = $(evt.target).find("input[name='task-duration']").val();
+        task.priority = $(evt.target).find("[name='task-priority']").val();
+        task.members = $(evt.target).find("[name='task-members']").val();
+        task.assignedBy = Meteor.userId();
 
 
-       if(compareDate(task.deadline,today) < 0)
-           alert("Please Enter a realistic deadline. Your team mates can not go back in time and complete tasks");
+        if(compareDate(task.deadline,today) < 0)
+            alert("Please Enter a realistic deadline. Your team mates can not go back in time and complete tasks");
 
-       else {
-           Meteor.call('assignTask', task, function (err, res) {
+        else {
+            Meteor.call('assignTask', task, function (err, res) {
 
-               if (err)
-                   console.log(err);
-               else
-                   alert("Task Assigned succesfully");
-           });
-       }
-       
-   },
+                if (err)
+                    console.log(err);
+                else
+                    alert("Task Assigned succesfully");
+            });
+        }
 
-    'submit form.add-new-team' : function (evt) {
+    },
+    'submit form#add-team-form' : function (evt) {
         evt.preventDefault();
 
         var team = {};
@@ -318,8 +316,10 @@ Template.tabcontentLayout.events({
                 alert ("Team created successfully");
         });
     },
+});
 
-    'submit form.add-task-team' : function (evt) {
+Template.tabcontentLayout.events({
+    'submit form#assign-task-team' : function (evt) {
         evt.preventDefault();
 
         var today = new Date();
@@ -351,7 +351,7 @@ Template.tabcontentLayout.events({
             });
         }
 
-    }
+    },
 });
 
 Template.tasklist.events({
