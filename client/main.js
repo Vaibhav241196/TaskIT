@@ -47,7 +47,16 @@ Template.registerHelper('stringifyObject',function(obj){
 
 Template.registerHelper('runHelper',function(template,helper){
     helper = " " + helper;
-    return Template[template].__helpers[helper]();
+    console.log(this);
+    return Template[template].__helpers[helper].call(this);
+});
+
+Template.registerHelper('notContains',function(string,substring){
+    
+    if(string.indexOf(substring) == -1)
+        return true;
+    else
+        return false;
 });
 
 
@@ -64,7 +73,7 @@ Template.tabs.helpers({
         
         for( t in teams) {
             teams[t].helper = "teamTasks";
-            teams[t].selector = "team-"+t;
+            teams[t].selector = "team-tasks"+t;
         }
         
         teams.push({name: 'New Team', selector: 'new' , target: 'add-new-team' });
@@ -125,13 +134,18 @@ Template.tabcontentLayout.helpers({
 
     teamTasks () {
 
-        for (t in this.tasks) {
-            this.tasks[t].team = { id : this._id , index : t };
+        console.log("Team");
+
+        var team = Teams.findOne({ _id : this._id });
+
+        if (team.tasks) {
+            for (t in team.tasks) {
+                team.tasks[t].team = { id : this._id , index : t };
+            }
         }
 
         console.log("Team Tasks : " );
-        console.log(this.tasks);
-        return this.tasks;
+        return team.tasks;
     },
 
     contacts () {
@@ -227,7 +241,7 @@ Template.tasklist.helpers({
     },
 
     groupByDate(tasks) {
-        var groups = [{groupName : 'Today' , records : [] , count : 0 },{groupName : 'Tommorow' , records : [] , count : 0 },{groupName : 'Later' , records : [] , count : 0 }];
+        var groups = [{groupName : 'DeadlineExtended' , records : [] , count : 0 },{groupName : 'Today' , records : [] , count : 0 },{groupName : 'Tommorow' , records : [] , count : 0 },{groupName : 'Later' , records : [] , count : 0 }];
 
         var today = new Date();
         
@@ -239,19 +253,25 @@ Template.tasklist.helpers({
         console.log(tasks);
         
         for (t in tasks) {
-            if (!compareDate(tasks[t].deadline,today)){
+
+            if(compareDate(tasks[t].deadline,today) == -1){
                 groups[0].records.push(tasks[t]);
                 groups[0].count++;
             }
-
-            else if (!compareDate(tasks[t].deadline,tommorow)){
+            
+            else if (compareDate(tasks[t].deadline,today) == 0){
                 groups[1].records.push(tasks[t]);
                 groups[1].count++;
             }
-            
-            else {
+
+            else if (!compareDate(tasks[t].deadline,tommorow)){
                 groups[2].records.push(tasks[t]);
                 groups[2].count++;
+            }
+            
+            else {
+                groups[3].records.push(tasks[t]);
+                groups[3].count++;
             }
         }
 
@@ -269,6 +289,9 @@ Template.tabs.events({
 
         var task = {};
         var today = new Date();
+        var members_numbers = [];
+
+        var ownerName;
 
         task.name = $(evt.target).find("input[name='task-name']").val();
         task.description = $(evt.target).find("input[name='task-description']").val();
@@ -283,6 +306,7 @@ Template.tabs.events({
         
         task.status = 0;
 
+        ownerName = Meteor.users.findOne({ _id : task.assignedBy }).profile.name;
 
         if(compareDate(task.deadline,today) < 0)
             alert("Please Enter a realistic deadline. Your team mates can not go back in time and complete tasks");
@@ -292,17 +316,42 @@ Template.tabs.events({
 
                 if (err)
                     console.log(err);
-                else
+                else {
                     alert("Task Assigned succesfully");
+
+                    for (i in task.members)
+                        members_numbers[i] = Meteor.users.findOne({ _id : task.members[i] }).phone.number.slice(3);
+
+                    Meteor.call('sendMessage', { phone: members_numbers.toString(),
+                        msg: "Hey, You have been assigned a task \nTask Name - " + task.name +
+                        "\nBy - " + ownerName + "\nCheck out at tasks.siteflu.com",
+                    }, function(err,res){
+                        if(err)
+                            console.log(err);
+                        else
+                            console.log(res);
+                    });
+
+                    Meteor.call('sendNotification', task.members, 'New Task' , "You have been assigned a task \nTask Name - " + task.name +
+                        "\nBy - " + ownerName + "\nCheck out at tasks.siteflu.com",function (err,res) {
+                        if(err)
+                            console.log(err);
+                        else
+                            console.log(res);
+                    });
+                }
             });
         }
 
         $(".add-task-personal").modal('hide');
     },
+
     'submit form#add-team-form' : function (evt) {
         evt.preventDefault();
 
         var team = {};
+        var adminName;
+        var member_numbers = [];
 
         team.name = $(evt.target).find("input[name='team-name']").val();
         team.description = $(evt.target).find("input[name='team-description']").val();
@@ -311,12 +360,36 @@ Template.tabs.events({
 
         team.members.push(team.admin);
 
+        adminName = Meteor.users.findOne({_id : team.admin });
 
         Meteor.call('addTeam',team,function (err,res) {
             if(err)
                 console.log(err);
-            else
-                alert ("Team created successfully");
+            else {
+                alert("Team created successfully");
+
+                for (i in team.members)
+                    member_numbers[i] = Meteor.users.findOne({ _id : team.members[i] }).phone.number.slice(3);
+                
+                Meteor.call('sendMessage', { phone: members_numbers.toString(),
+                                             msg: "Hey, You have been added in team" + team.name + 
+                                             "\nBy - " + adminName + "\nCheck out at tasks.siteflu.com",
+                },function(err,res){
+                    if(err)
+                        console.log(err);
+                    else
+                        console.log(res);
+                });
+
+                Meteor.call('sendNotification', team.members, 'New Team' , "You have been added in team" + team.name +
+                    "\nBy - " + adminName + "\nCheck out at tasks.siteflu.com", function(err,res){
+
+                    if(err)
+                        console.log(err);
+                    else
+                        console.log(res);
+                });
+            }
         });
 
         $(".add-new-team").modal('hide');
@@ -330,6 +403,10 @@ Template.tabcontentLayout.events({
         var today = new Date();
         var task = {};
         var team_id = this._id;
+        var team_name = Teams.findOne({ _id : team_id}).name;
+        var member_numbers = [];
+
+        var ownerName;
 
         console.log(this);
 
@@ -346,6 +423,8 @@ Template.tabcontentLayout.events({
         
         task.status = 0;
 
+        ownerName = Meteor.users.findOne({ _id : task.assignedBy }).profile.name;
+
         if(compareDate(task.deadline,today) < 0)
             alert("Please Enter a realistic deadline. Your team mates can not go back in time and complete tasks");
 
@@ -353,13 +432,34 @@ Template.tabcontentLayout.events({
             Meteor.call('assignTaskTeam', team_id, task, function (err, res) {
                 if (err)
                     console.log(err);
-                else
+                else {
                     alert("Task Assigned succesfully");
+
+                    for (i in task.members)
+                        member_numbers[i] = Meteor.users.findOne({ _id : task.members[i] }).phone.number.slice(3);
+                    
+                    Meteor.call('sendMessage', { phone: member_numbers.toString(),
+                                 msg: "Hey, You have been assigned a task in team " + team_name +  "\nTask Name - " + task.name +
+                                 "\nBy - " + ownerName + "\nCheck out at tasks.siteflu.com",
+                    }, function(err,res){
+                        if(err)
+                            console.log(err);
+                        else
+                            console.log(res);
+                    });
+
+                    Meteor.call('sendNotification', task.members, 'New Task' , "You have been assigned a task in team " + team_name +  "\nTask Name - " + task.name +
+                        "\nBy - " + ownerName + "\nCheck out at tasks.siteflu.com",function(err,res){
+                        if(err)
+                            console.log(err);
+                        else
+                            console.log(res);
+                    });
+
+                    $(".add-task-team").modal('hide');
+                }
             });
         }
-
-        $(".add-task-team").modal('hide');
-
     },
 });
 
@@ -369,10 +469,23 @@ Template.tasklist.events({
        
        var team_id = this.team.id;
        var task_id = Number(this.team.index);
-
+       
+       var task = Teams.findOne({ _id: team_id }).tasks[task_id];
+       var task_name = task.name;
+       var task_owner = Meteor.users.findOne({ _id : task.assignedBy }).phone.number.slice(3);
        var status = $(evt.target).val();
+       var changing_member = Meteor.users.findOne({ _id: Meteor.userId() }).name;
 
-       Meteor.call('updateStatus',team_id,task_id,status);
+       Meteor.call('updateStatus',team_id,task_id,status,function (err,res) {
+           if(err)
+               console.log(err);
+           else {
+               Meteor.call('sendMessage', { phone: task_owner,
+                            msg: "Hey, Status of your assigned task " + task_name +
+                            "has been changed to " + status + "\nBy - " + changing_member + "\nCheck out at tasks.siteflu.com",
+               });
+           }
+       });
    }
 });
 

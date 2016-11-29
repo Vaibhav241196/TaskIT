@@ -1,4 +1,5 @@
 import { Meteor } from 'meteor/meteor';
+import { HTTP } from 'meteor/http';
 
 Meteor.methods({
 
@@ -64,5 +65,43 @@ Meteor.methods({
         tasks[task_id].status = Number(status);
 
         Teams.update({ _id : team_id }, {$set : { tasks : tasks } });
+    },
+
+    'sendMessage' : function (options) {
+
+        try {
+            // result = HTTP.call("get","http://smshorizon.co.in/api/sendsms.php",{ params : { user : "siteflu" , apikey : "g5JtwEaWcghvIseDeLJ3" ,
+            // 		mobile : options.to , senderid : "MYTEXT" , message : options.body , type : "txt" }});
+
+            console.log(options);
+            result = HTTP.call("post","http://139.59.28.252/sms-api/sendsms.php",{ params : { uid : "7020903549" ,
+                pwd : "Siteflu2016" , phone : options.phone,msg : options.msg }});
+
+            console.log("Response");
+            console.log(result);
+
+        }
+
+        catch(e){
+            console.log("In catch block");
+            console.log(e);
+        }
+    },
+    
+    'sendNotification' : function (to,title,text) {
+        Push.send({
+            from: 'TaskIt',
+            title: title,
+            text: text,
+            //badge: 1, //optional, use it to set badge count of the receiver when the app is in background.
+            query: {
+                // Ex. send to a specific user if using accounts:
+                _id : { $in : to }
+            } // Query the appCollection
+            // token: appId or token eg. "{ apn: token }"
+            // tokens: array of appId's or tokens
+            // payload: user data
+            // delayUntil: Date
+        });
     }
 });

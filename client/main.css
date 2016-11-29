@@ -7,13 +7,22 @@
     margin-top: 10px;
 }
 
-#login-form .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) ,
-#register-form .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn){
-    width: 66px !important;
+#login .form-control, #register .form-control, #login .selectize-input, #register .selectize-input {
+    border-radius: 0;
+}
+.country-code {
+    display: table-cell;
+    vertical-align: bottom;
 }
 
-.mobno{
-    width: 20%;
+.mobno {
+    display: table-cell !important;
+    vertical-align: bottom;
+}
+
+.mobno-group {
+    display: table;
+    margin: auto;
 }
 
 @media only screen and (max-width: 600px) {
@@ -42,14 +51,14 @@
 }
 
 body {
-	margin-top: 100px;
+	margin-top: 100px !important;
 	background-color: #eee !important;
-    overflow-x: hidden;
 }
+
 
 @media(min-width:768px) {
 	body {
-		margin-top: 50px;
+		margin-top: 50px !important;
 	}
 }
 
@@ -415,7 +424,7 @@ div.tab-wrapper{
 }
 
 #myTabContent ul.side-nav li a{
-    padding: 40px 0;
+    padding: 30px 0;
     margin: 0;
     font-size: 25px;
     font-weight: 200;
@@ -448,7 +457,6 @@ div.tab-wrapper{
 /*================= teams tab end ==================*/
 
 
-
 /* Tasks start*/
 div.alert span {
 	float: right;
@@ -456,7 +464,6 @@ div.alert span {
 	background: transparent;
 	color: #666;
 	padding: 5px;
-
 }
 
 .assigned_by {
@@ -1037,6 +1044,7 @@ table.fc-border-separate {
 
     .side-nav {
         position: absolute !important;
+        display: none;
 		z-index: 99;
         left: 106%;
         top: 85px;
@@ -1061,6 +1069,13 @@ table.fc-border-separate {
     }
 }
 
+.panel-body {
+    padding: 5px 15px !important;
+}
+
+h3 {
+    margin-top: 10px !important;
+}
 
 
 

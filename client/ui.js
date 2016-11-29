@@ -5,12 +5,13 @@ import { Template } from 'meteor/templating';
 
 //========================================== css imports ====================================================
 import '../node_modules/bootstrap/dist/css/bootstrap.css'
+import '../node_modules/selectize/dist/css/selectize.bootstrap3.css'
 import './main.css'
-import '../node_modules/bootstrap-select/dist/css/bootstrap-select.min.css'
+
 
 //========================================== javascript files import ========================================
 import Bootstrap from 'bootstrap';
-import BootstrapSelect from 'bootstrap-select'
+import Selectize from 'selectize'
 
 //========================================= html templates import ============================================
 import './main.html';
@@ -19,27 +20,25 @@ console.log("Executing Ui js");
 
 
 Template.homescreen.onRendered(function(){
-
-    console.log("Homescreen rendered");
+    
     var side_nav_open = false;
-
-
+    
     $(".navbar-toggle").click(function (evt) {
         evt.preventDefault();
-        console.log("Clicked button");
-
-        if(!side_nav_open)
+        
+        if(!side_nav_open) {
             open_side_bar();
-
-        else
+        }
+        else {
             close_side_bar();
+        }
     });
 
     $("body").click(function(evt) {
-        console.log("Body click");
-
-        if(side_nav_open && evt.target !== $(".navbar-toggle")[0])
+        if(side_nav_open && $($(".navbar-toggle")[0]).find(evt.target).length == 0 &&  evt.target != $(".navbar-toggle")[0]) {
+            console.log("If body");
             close_side_bar();
+        }
     });
 
     function open_side_bar() {
@@ -53,7 +52,16 @@ Template.homescreen.onRendered(function(){
     function close_side_bar() {
         var side_nav = $(".side-nav");
 
-        side_nav.animate({left: "106%"}, 100);
+        side_nav.animate({left: "106%"},{
+
+            duration: 100,
+
+            done: function() {
+                    $(this).css("display", "none");
+            },
+
+        });
+
         side_nav_open = false;
     }
     
@@ -139,7 +147,19 @@ function assignEvent(element,event,handler,useCapture){
 for (t in Template) {
     if(Blaze.isTemplate(Template[t])) {
         Template[t].onRendered(function(){
-            $('.selectpicker').selectpicker();
+            $('select').selectize({
+                plugins: ['remove_button','restore_on_backspace'],
+                render: {
+
+                    item: function (data,escape) {
+                        return '<div>' + ( data.label ? escape(data.label) : escape(data.text) ) + '</div>';
+                    },
+
+                    option: function (data,escape) {
+                        return '<div>' + escape(data.text) + '</div>';
+                    }
+                }
+            });
         });
     }
 }

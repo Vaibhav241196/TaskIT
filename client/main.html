@@ -1,20 +1,20 @@
 <head>
     <title>TaskIt App</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
 </head>
 
 
 <!--==================== Login Page Layout ====================-->
 <template name="login">
-    <div class="text-center form-wrapper">
+    <div class="text-center form-wrapper" id="login">
         <form method="post" class="text-center" name="login-form" id="login-form">
-            <div class="centered input-group mobno">
-                <div class="input-group-btn">
-                    <select id="country-code" name="country-code" class="selectpicker">
-                        <option value="+91"> +91 - India</option>
-                    </select>
-                </div>
-                <input type="text" name="mobno" id="mobno" class="form-control" style="width: 100%;"
+            <div class="centered mobno-group">
+
+                <select class="country-code"  name="country-code">
+                    <option value="+91" data-data='{ "label" : "+91"}'> +91 - India </option>
+                </select>
+
+                <input type="text" name="mobno"  class="form-control mobno"
                        placeholder="Mobile Number"/>
             </div>
 
@@ -29,7 +29,6 @@
         </form>
         <p>Don't have an account? <a href="{{pathFor route='register'}}" id="register-link">Register</a></p>
         <p>{{next}}</p>
-
     </div>
 </template>
 <!--==================== Login Page Layout ends ====================-->
@@ -37,17 +36,28 @@
 
 <!--==================== Registration Page Layout ====================-->
 <template name="register">
-    <div class="text-center form-wrapper">
+    <div class="text-center form-wrapper" id="register">
         <form method="post" name="register-form" id="register-form">
-            <div class="input-group mobno centered">
-                <div class="input-group-btn">
-                    <select id="country-code" name="country-code" class="selectpicker">
-                        <option value="+91"> +91 - India</option>
-                    </select>
-                </div>
+            <!--<div class="input-group mobno centered">-->
+                <!--<div class="input-group-btn">-->
+                    <!--<select id="country-code" name="country-code">-->
+                        <!--<option value="+91"> +91 - India</option>-->
+                    <!--</select>-->
+                <!--</div>-->
 
-                <input type="text" name="mobno" class="form-control" placeholder="Mobile Number"/>
+                <!--<input type="text" name="mobno" class="form-control" placeholder="Mobile Number"/>-->
+            <!--</div>-->
+
+            <div class="centered mobno-group">
+
+                <select class="country-code"  name="country-code">
+                    <option value="+91" data-data='{ "label" : "+91"}'> +91 - India </option>
+                </select>
+
+                <input type="text" name="mobno"  class="form-control mobno"
+                       placeholder="Mobile Number"/>
             </div>
+
 
             <div class="input-group centered">
                 <input type="text" name="name" class="form-control" placeholder="Name">
@@ -66,7 +76,7 @@
         <p>Already have an account? <a href="{{pathFor route='login'}}" id="login-link">Login</a></p>
     </div>
 </template>
-<!--==================== Registration Page Layout ====================-->
+<!--==================== Registration Page Layout ends ====================-->
 
 <template name="userLayout">
     <div class="container-fluid">
@@ -265,8 +275,8 @@
             </div>
         </div>
     </div>
-
 </template>
+
 
 <template name="tabcontentLayout">
     <div class="wrapper" role="navigation">
@@ -302,14 +312,20 @@
                         {{# if notEqual this.selector "new" }}
                             <div role="tabpanel" class="tab-pane fade {{# if isEqual @index 0 }}in active{{/ if}}"
                                  id="{{this.selector}}">
-                                {{> tasklist tasks=(runHelper "tabcontentLayout" this.helper) selector=this.selector }}
+
+                                {{> tasklist tasks=(runHelper "tabcontentLayout" this.helper this.id) selector=this.selector }}
+
+                                {{# if isEqual this.helper "teamTasks" }}
+                                    <button class="btn btn-default pull-right" data-toggle="modal"          data-target="#add-task-team-{{@index}}"> Assign Task
+                                    </button>
+
+                                {{/ if}}
+
                             </div>
                         {{/ if}}
 
                         {{# if isEqual this.helper "teamTasks" }}
-                            <button class="btn btn-default pull-right" data-toggle="modal"
-                                    data-target="#add-task-team-{{@index}}"> Assign Task
-                            </button>
+
                             <!-- ============================ Modal for add team task ======================= -->
                             <div class="modal fade add-task-team" id="add-task-team-{{@index}}" tabindex="-1" role="dialog"
                                  aria-labelledby="add-task-team-{{@index}}">
@@ -412,10 +428,10 @@
                      aria-controls="description{{@index}}">
                     {{name}}
 
-                    {{# if notEqual ../../selector "team-tasks"}}
+                    {{# if notContains ../../selector "team-tasks"}}
                         <span class="badge right"> {{ getTeam }}
                         </span>
-                    {{/ if}}
+                    {{/ if}}    
 
                     <span class="badge right assigned_by"> By: {{getNameById assignedBy}}
                     </span>
@@ -471,7 +487,6 @@
     {{/ each }}
 </template>
 <!-- =====================  tabs layout ends =========================== -->
-
 
 <!-- ==================== Mobile Number Verification Page Layout ==================== -->
 <template name="verifyphone">

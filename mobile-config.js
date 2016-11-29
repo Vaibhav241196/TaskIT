@@ -36,6 +36,11 @@ App.setPreference('Orientation', 'all', 'ios');
 //     APP_ID: '1234567890',
 //     API_KEY: 'supersecretapikey'
 // });
+
+App.configurePlugin('phonegap-plugin-push', {
+    SENDER_ID: 284029652921,
+});
+
 // Add custom tags for a particular PhoneGap/Cordova plugin
 // to the end of generated config.xml.
 // Universal Links is shown as an example here.
