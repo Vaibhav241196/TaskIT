@@ -9,10 +9,20 @@ import { ReactiveVar } from 'meteor/reactive-var';
 
 function compareDate(d1,d2) {
 
-    if( (d1.getDate() < d2.getDate()) && (d1.getMonth() <= d2.getMonth()) && (d1.getFullYear() <= d2.getFullYear()) )
+    d1.setHours(0);
+    d1.setMinutes(0);
+    d1.setSeconds(0);
+    d1.setMilliseconds(0);
+
+    d2.setHours(0);
+    d2.setMinutes(0);
+    d2.setSeconds(0);
+    d2.setMilliseconds(0);
+
+    if( d1 < d2)
         return -1;
 
-    else if ( (d1.getDate() > d2.getDate()) && (d1.getMonth() >= d2.getMonth()) && (d1.getFullYear() >= d2.getFullYear()) )
+    else if ( d1 > d2)
         return 1;
 
     else
@@ -73,7 +83,7 @@ Template.tabs.helpers({
         
         for( t in teams) {
             teams[t].helper = "teamTasks";
-            teams[t].selector = "team-tasks"+t;
+            teams[t].selector = "team-"+t;
         }
         
         teams.push({name: 'New Team', selector: 'new' , target: 'add-new-team' });
@@ -135,8 +145,6 @@ Template.tabcontentLayout.helpers({
     },
 
     teamTasks () {
-
-        console.log("Team");
 
         var team = Teams.findOne({ _id : this._id });
 
@@ -248,8 +256,8 @@ Template.tasklist.helpers({
         var groups = [{groupName : 'DeadlineExtended' , records : [] , count : 0 },{groupName : 'Today' , records : [] , count : 0 },{groupName : 'Tommorow' , records : [] , count : 0 },{groupName : 'Later' , records : [] , count : 0 }];
 
         var today = new Date();
-        
         var tommorow = new Date();
+
         tommorow.setDate(tommorow.getDate() + 1);
 
 
@@ -268,7 +276,7 @@ Template.tasklist.helpers({
                 groups[1].count++;
             }
 
-            else if (!compareDate(tasks[t].deadline,tommorow)){
+            else if (compareDate(tasks[t].deadline,tommorow) == 0){
                 groups[2].records.push(tasks[t]);
                 groups[2].count++;
             }
@@ -294,9 +302,9 @@ Template.tabs.events({
         evt.preventDefault();
 
         var task = {};
+        
         var today = new Date();
         var members_numbers = [];
-
         var ownerName;
 
         task.name = $(evt.target).find("input[name='task-name']").val();
@@ -313,6 +321,8 @@ Template.tabs.events({
         task.status = 0;
 
         ownerName = Meteor.users.findOne({ _id : task.assignedBy }).profile.name;
+
+        console.log(compareDate(task.deadline,today));
 
         if(compareDate(task.deadline,today) < 0)
             alert("Please Enter a realistic deadline. Your team mates can not go back in time and complete tasks");
@@ -409,6 +419,11 @@ Template.tabcontentLayout.events({
         evt.preventDefault();
 
         var today = new Date();
+        today.setHours(0);
+        today.setMinutes(0);
+        today.setSeconds(0);
+        today.setMilliseconds(0);
+        
         var task = {};
         var team_id = this._id;
         var team_name = Teams.findOne({ _id : team_id}).name;
