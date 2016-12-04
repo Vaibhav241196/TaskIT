@@ -16,6 +16,7 @@
     "materialize-css": "^0.97.7",
     "meteor-node-stubs": "~0.2.0",
     "node-archiver": "^0.3.0",
-    "pickadate": "^3.5.6"
+    "pickadate": "^3.5.6",
+    "selectize": "^0.12.4"
   }
 }
