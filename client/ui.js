@@ -19,6 +19,7 @@ import './main.html';
 console.log("Executing Ui js");
 
 
+/* ======================================= Side nav animation in mobile ================================ */
 Template.homescreen.onRendered(function(){
     
     var side_nav_open = false;
@@ -68,6 +69,7 @@ Template.homescreen.onRendered(function(){
 });
 
 
+/* ======================================= Generic event listerner function =========================== */
 function assignEvent(element,event,handler,useCapture){
     if(element.addEventListener)
         element.addEventListener(event,handler,useCapture);
@@ -144,6 +146,7 @@ function assignEvent(element,event,handler,useCapture){
 // });
 
 
+/* =================================== For selectize plugin on select buttons ======================== */
 for (t in Template) {
     if(Blaze.isTemplate(Template[t])) {
         Template[t].onRendered(function(){

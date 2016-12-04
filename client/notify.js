@@ -2,6 +2,7 @@
  * Created by lite on 3/11/16.
  */
 
+/* =============================== For notifications on android devices ============================= */
 Push.Configure({
     android: {
         senderID: 284029652921,

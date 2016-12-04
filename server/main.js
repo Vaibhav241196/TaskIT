@@ -5,6 +5,8 @@ Meteor.startup(() => {
   // code to run on server at startup
 
   // SMS.twilio = {FROM: '+12563842702' , ACCOUNT_SID: 'AC9af1854c158ec45eee2bac61fc609e96', AUTH_TOKEN: '323b9a50fd5c0ebfaffa57bb52413fa7'};
+  
+  /* ============================== Function for sending  sms ======================================== */
   SMS.send = function(options) {
 	  
 	 	try {
@@ -26,7 +28,7 @@ Meteor.startup(() => {
  	}
 });
 
-
+/* =============================== Data publishing to clients ============================= */
 Meteor.publish('users',function () {
     return Meteor.users.find({});
 });
@@ -34,8 +36,10 @@ Meteor.publish('users',function () {
 Meteor.publish('teams',function () {
 	return Teams.find({members : { $elemMatch : {$eq : this.userId } }});
 });
+/* =============================== Data publishing to clients end ============================= */
 
 
+/* =============================== Server side methods ============================= */
 Meteor.methods({
 	searchContact : function(mob_no) {
 		console.log(mob_no);
@@ -63,3 +67,4 @@ Meteor.methods({
 	}
 
 });
+/* =============================== Server side methods end ============================= */

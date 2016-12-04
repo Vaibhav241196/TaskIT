@@ -78,12 +78,15 @@
 </template>
 <!--==================== Registration Page Layout ends ====================-->
 
+
+<!-- ====================== Basic page skeleton for all pages ==================== -->
 <template name="userLayout">
     <div class="container-fluid">
         {{> nav}}
         {{> yield}}
     </div>
 </template>
+<!-- ====================== Basic page skeleton for all pages ends ==================== -->
 
 
 <!--==================== Homescreen Page Layout - only for logged in users ====================-->
@@ -92,8 +95,9 @@
 </template>
 <!-- ==================== Homescreen Page Layout - only for logged in users end ==================== -->
 
-<template name="nav">
 
+<!-- ==================================== Nav Bar ================================================== -->
+<template name="nav">
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -124,8 +128,9 @@
 
     </nav>
 </template>
+<!-- ==================================== Nav bar ends =========================================== -->
 
-<!--====================== tabs layout start ========================== -->
+<!--===================================== tabs layout start ====================================== -->
 <template name="tabs">
     <div class="tab-wrapper container">
         <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
@@ -276,8 +281,9 @@
         </div>
     </div>
 </template>
+<!-- ====================================== tabs layout ends ========================================== -->
 
-
+<!-- ===================================== Generic layout for content inside tabs ===================== -->
 <template name="tabcontentLayout">
     <div class="wrapper" role="navigation">
 
@@ -407,7 +413,9 @@
 
     </div>
 </template>
+<!-- ===================================== Generic layout for content inside tabs ===================== -->
 
+<!-- ===================================== Generic layout for listing tasks ============================ -->
 <template name="tasklist">
 
     {{# each groupByDate tasks }}
@@ -486,9 +494,9 @@
         </div>
     {{/ each }}
 </template>
-<!-- =====================  tabs layout ends =========================== -->
+<!-- ===================================== Generic layout for listing tasks ends ============================ -->
 
-<!-- ==================== Mobile Number Verification Page Layout ==================== -->
+<!-- ===================================== Mobile Number Verification Page Layout =========================== -->
 <template name="verifyphone">
     <form method="post" name="verify-phone" class="centered" id="verify-phone">
         <div class="input-group">

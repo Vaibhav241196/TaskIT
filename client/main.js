@@ -83,7 +83,9 @@ Template.tabs.helpers({
     }
 
 });
+/* ====================================  Tabs template Helpers end ========================================= */
 
+/* ====================================  Generic tab content template Helpers ========================================= */
 Template.tabcontentLayout.helpers({
 
     myTasks () {
@@ -189,8 +191,10 @@ Template.tabcontentLayout.helpers({
     },
 
 });
+/* ====================================  Generic tab content template Helpers end ========================================= */
 
 
+/* ====================================  Generic task listing template Helpers ========================================= */
 Template.tasklist.helpers({
 
     getTeam () {
@@ -282,7 +286,9 @@ Template.tasklist.helpers({
     },
 
 });
+/* ====================================  Generic task listing template Helpers end ========================================= */
 
+/* ====================================  Tabs template events ========================================= */
 Template.tabs.events({
     'submit form#assign-task-personal' : function(evt) {
         evt.preventDefault();
@@ -395,7 +401,9 @@ Template.tabs.events({
         $(".add-new-team").modal('hide');
     },
 });
+/* ====================================  Tabs template events end ========================================= */
 
+/* ====================================  Generic tab content template events ========================================= */
 Template.tabcontentLayout.events({
     'submit form#assign-task-team' : function (evt) {
         evt.preventDefault();
@@ -462,7 +470,10 @@ Template.tabcontentLayout.events({
         }
     },
 });
+/* ====================================  Generic tab content template events end ========================================= */
 
+
+/* ====================================  Generic task listing template events ========================================= */
 Template.tasklist.events({
    'change [name="status"]' : function (evt){
        evt.preventDefault();
@@ -488,8 +499,10 @@ Template.tasklist.events({
        });
    }
 });
+/* ====================================  Generic task listing template events end ========================================= */
 
 
+/* ====================================  verify phone template events  ========================================= */
 Template.verifyphone.events({
 	'submit form#verify-phone' : function(evt) {
 		evt.preventDefault();
@@ -516,7 +529,10 @@ Template.verifyphone.events({
 		Accounts.requestPhoneVerification(user.phone.number);
 	}
 });
+/* ====================================  Verify phone template events end ========================================= */
 
+
+/* ====================================  Login template events ========================================= */
 Template.login.events({
 	
 	'submit form' : function(evt) {
@@ -550,8 +566,9 @@ Template.login.events({
 		});
 	},
 });
+/* ====================================  Login template events end ========================================= */
 
-
+/* ====================================  Register template events ======================================== */
 Template.register.events({
 
 	'submit form' :  function(evt) {
@@ -589,7 +606,7 @@ Template.register.events({
         }
 	},
 });
-
+/* ====================================  Register template events end ======================================== */
 
 
 

@@ -2,6 +2,8 @@
  * Created by lite on 3/11/16.
  */
 
+
+/* =============================== For notifications on android devices =============================== */
 Push.Configure({
     // apn: {
     //     certData: Assets.getText('apnDevCert.pem'),
