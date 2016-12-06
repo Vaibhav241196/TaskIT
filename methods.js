@@ -67,6 +67,36 @@ Meteor.methods({
         Teams.update({ _id : team_id }, {$set : { tasks : tasks } });
     },
 
+    /* To add to remove members in a team 
+        team_id -           id of the team to update
+
+        op -                0 for adding member
+                            1 for removing member
+        
+        affected_members -  array of members to add for adding or 
+                            id of the member to remove 
+
+    */
+    'updateTeamMembers' : function(team_id,op,affected_members) {
+
+        // Add members
+        if(op == 0){
+            Teams.update({_id: team_id },{$push: { members : {$each : affected_members }}});
+
+            for(m in affected_members){
+                Meteor.users.update({_id : affected_members[m] },{$push : { teams : team_id }});
+            }
+        }
+
+        // Remove member
+        else if (op == 1){
+            console.log("removing members");
+            console.log(affected_members);
+            Teams.update({_id: team_id },{$pull: { members : affected_members }})
+            Meteor.users.update({_id : affected_members },{ $pull : { teams : team_id }});
+        }
+    },
+
     'sendMessage' : function (options) {
 
         try {
