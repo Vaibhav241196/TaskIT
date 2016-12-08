@@ -56,13 +56,13 @@ body {
 }
 
 
-@media(min-width:768px) {
+@media(min-width:990px) {
 	body {
 		margin-top: 50px !important;
 	}
 }
 
-@media(max-width:768px) {
+@media(max-width:990px) {
     body {
         margin-right: 0;
         margin-left: 0;
@@ -84,7 +84,7 @@ body {
 	line-height: normal;
 }
 
-@media(min-width:768px) {
+@media(min-width:990px) {
 	#wrapper {
 		padding-left: 225px;
 	}
@@ -164,7 +164,8 @@ ul.alert-dropdown {
 
 /* Side Navigation */
 
-@media(min-width:768px) {
+@media(min-width:990px) {
+
 	.side-nav {
 		position: relative;
 		border: none;
@@ -1040,7 +1041,7 @@ table.fc-border-separate {
 
 /* For mobile view of side bar */
 
-@media only screen and (max-width: 768px){
+@media only screen and (max-width: 990px){
 
     .side-nav {
         position: absolute !important;
@@ -1067,6 +1068,8 @@ table.fc-border-separate {
         padding-left: 0 !important;
         padding-right: 0 !important;
     }
+
+
 }
 
 .panel-body {
