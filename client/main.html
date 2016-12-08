@@ -153,130 +153,12 @@
 
                 <div role="tabpanel" class="tab-pane fade in active tasks-tab " id="tasks-personal"
                      aria-labelledby="tasks-personal-tab">
-                    {{> tabcontentLayout linkData='[{"name":"My Tasks","helper":"myTasks", "selector":"my-tasks" },{"name":"Assigned Tasks","helper":"assignedTasks","selector":"assigned-tasks"},{"name":"New Task","selector":"new","target":"add-task-personal"}]' }}
+                    {{> tabcontentLayout linkData='[{"name":"My Tasks","helper":"myTasks", "selector":"my-tasks" },{"name":"Assigned Tasks","helper":"assignedTasks","selector":"assigned-tasks"},{"name":"New Task","selector":"new","target":"add-task-personal"}]' tab='tasks' }}
                 </div>
 
                 <div role="tabpanel" class="tab-pane fade" id="tasks-team" aria-labelledby="tasks-team-tab">
-                    {{> tabcontentLayout linkData= (stringifyObject displayTeams) }}
+                    {{> tabcontentLayout linkData= (stringifyObject displayTeams) tab='teams' }}
                 </div>
-
-                <!-- ============================ Modal for add task personal ============================ -->
-                <div class="modal fade add-task-personal" id="add-task-personal" tabindex="-1" role="dialog" aria-labelledby="add-task-personal">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                        aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title" id="modal-form">Assign Task</h4>
-                            </div>
-                            <div class="modal-body">
-                                <form id="assign-task-personal">
-
-                                    <div class="form-group">
-                                        <label for="task-name">Task Name</label>
-                                        <input type="text" name="task-name" class="form-control" id="task-name"
-                                               placeholder="Task Name">
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="task-description">Description</label>
-                                        <input type="text" name="task-description" class="form-control" id="task-description"
-                                               placeholder="Description">
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="task-deadline">Deadline</label>
-                                        <input type="date" name="task-deadline" class="form-control" id="task-deadline"
-                                               placeholder="Deadline">
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="task-duration">Duration</label>
-                                        <input type="number" name="task-duration" class="form-control" id="task-duration"
-                                               placeholder="Duration (hrs)">
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="task-priority">Priority</label>
-                                        <select class="selectpicker" name="task-priority" id="task-priority">
-                                            <option value="low">Low</option>
-                                            <option value="medium">Medium</option>
-                                            <option value="high">High</option>
-                                        </select>
-                                    </div>
-
-
-                                    <div class="form-group">
-                                        <label for="task-members">Add Members</label>
-
-                                        <select multiple id="task-members" class="selectpicker" data-live-search="true"
-                                                name="task-members">
-                                            {{# each contacts}}
-                                                <option value="{{_id}}">{{profile.name}}</option>
-                                            {{/ each}}
-                                        </select>
-                                    </div>
-
-
-                                    <input type="submit" class="btn btn-default" name="submit" value="Add Task"/>
-
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                <!--<button type="button" class="btn btn-primary">Add Task</button>-->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ============================ Modal for add new team ===================================== -->
-                <div class="modal fade add-new-team" id="add-new-team" tabindex="-1" role="dialog" aria-labelledby="add-new-team">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                        aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title" id="myModalLabel">Add Team</h4>
-                            </div>
-                            <div class="modal-body">
-                                <form id="add-team-form">
-
-                                    <div class="form-group">
-                                        <label for="team-name">Team Name</label>
-                                        <input type="text" class="form-control" name="team-name" id="team-name"
-                                               placeholder="Team Name">
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="team-description">Description</label>
-                                        <input type="text" class="form-control" name="team-description" id="team-description"
-                                               placeholder="Description">
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="team-members">Add Members</label>
-
-                                        <select multiple class="selectpicker" id="team-members" name="team-members">
-                                            {{# each contacts }}
-                                                <option value="{{_id}}">{{profile.name}} </option>
-                                            {{/ each}}
-                                        </select>
-                                    </div>
-
-
-                                    <input type="submit" class="btn btn-default" value="Add Team">
-
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                <!--<button type="button" class="btn btn-primary">Add Task</button>-->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
             </div>
         </div>
     </div>
@@ -309,9 +191,131 @@
 
         </ul>
 
+        {{# if isEqual tab 'tasks' }}
+            <!-- ============================ Modal for add task personal ============================ -->
+            <div class="modal fade add-task-personal" id="add-task-personal" tabindex="-1" role="dialog" aria-labelledby="add-task-personal">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="modal-form">Assign Task</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form id="assign-task-personal">
+
+                                <div class="form-group">
+                                    <label for="task-name">Task Name</label>
+                                    <input type="text" name="task-name" class="form-control" id="task-name"
+                                           placeholder="Task Name">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="task-description">Description</label>
+                                    <input type="text" name="task-description" class="form-control" id="task-description"
+                                           placeholder="Description">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="task-deadline">Deadline</label>
+                                    <input type="date" name="task-deadline" class="form-control" id="task-deadline"
+                                           placeholder="Deadline">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="task-duration">Duration</label>
+                                    <input type="number" name="task-duration" class="form-control" id="task-duration"
+                                           placeholder="Duration (hrs)">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="task-priority">Priority</label>
+                                    <select class="selectpicker" name="task-priority" id="task-priority">
+                                        <option value="low">Low</option>
+                                        <option value="medium">Medium</option>
+                                        <option value="high">High</option>
+                                    </select>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label for="task-members">Add Members</label>
+
+                                    <select multiple id="task-members" class="selectpicker" data-live-search="true"
+                                            name="task-members">
+                                        {{# each contacts}}
+                                            <option value="{{_id}}">{{profile.name}}</option>
+                                        {{/ each}}
+                                    </select>
+                                </div>
+
+
+                                <input type="submit" class="btn btn-default" name="submit" value="Add Task"/>
+
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <!--<button type="button" class="btn btn-primary">Add Task</button>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        {{/ if}}
+
+        {{# if isEqual tab 'teams'}}
+        <!-- ============================ Modal for add new team ===================================== -->
+            <div class="modal fade add-new-team" id="add-new-team" tabindex="-1" role="dialog" aria-labelledby="add-new-team">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Add Team</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form id="add-team-form">
+
+                                <div class="form-group">
+                                    <label for="team-name">Team Name</label>
+                                    <input type="text" class="form-control" name="team-name" id="team-name"
+                                           placeholder="Team Name">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="team-description">Description</label>
+                                    <input type="text" class="form-control" name="team-description" id="team-description"
+                                           placeholder="Description">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="team-members">Add Members</label>
+
+                                    <select multiple class="selectpicker" id="team-members" name="team-members">
+                                        {{# each contacts }}
+                                            <option value="{{_id}}">{{profile.name}} </option>
+                                        {{/ each}}
+                                    </select>
+                                </div>
+
+
+                                <input type="submit" class="btn btn-default" value="Add Team">
+
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <!--<button type="button" class="btn btn-primary">Add Task</button>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {{/ if}}
+
+
         <div class="col-xs-12 col-md-9 tasks">
             <div class="col-xs-12 col-md-9 col-md-offset-1">
-
                 <div class="tab-content">
 
                     {{# each parseObject linkData }}
@@ -319,6 +323,63 @@
                             <div role="tabpanel" class="tab-pane fade {{# if isEqual @index 0 }}in active{{/ if}}"
                                  id="{{this.selector}}">
 
+                                <h3 class="text-center"> {{this.name}} </h3>
+                                    {{# if isEqual this.helper "teamTasks" }}
+                                        
+                                        <div class="text-center">
+                                            <a href="" class="team-info-btn" data-toggle="modal" data-target="#{{this.selector}}-info"> Team Info</a>
+                                        </div>
+
+                                        <div class="modal fade" id="{{this.selector}}-info" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                        <h4 class="modal-title">{{this.name}}</h4>
+                                                    </div>
+
+                                                    <div class="modal-body">
+                                                        <p class="team-description">{{this.description}}</p>  
+
+                                                        <ul class="team-member-list">
+                                                            {{# each member in this.members }}
+                                                                <li> 
+                                                                    {{ getNameById member }} 
+
+                                                                    {{# if isAdmin this._id }}
+                                                                        <a href="" id="{{member}}" class="remove-member-team">
+                                                                            &times;
+                                                                        </a>
+                                                                    {{/ if }}    
+                                                                </li>
+                                                            {{/ each }}
+                                                        </ul> 
+                                                        {{# if isAdmin this._id }}
+                                                            
+                                                            <h5> Add New Member </h5>
+                                                            <form class="add-member-team">
+                                                                <select multiple name="new-members" class="selectpicker">
+                                                                    {{# each remainingContacts this._id }}
+                                                                        <option value="{{_id}}">{{profile.name}}</option>
+                                                                    {{/ each }}
+                                                                </select>
+                                                                <input type="submit" value="Add Member" class="btn btn-default">
+                                                            </form>
+
+                                                        {{/ if }}
+                                                    </div>
+
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    {{/ if}}
+                            
+                                
                                 {{> tasklist tasks=(runHelper "tabcontentLayout" this.helper this.id) selector=this.selector }}
 
                                 {{# if isEqual this.helper "teamTasks" }}

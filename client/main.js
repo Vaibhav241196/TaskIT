@@ -9,10 +9,20 @@ import { ReactiveVar } from 'meteor/reactive-var';
 
 function compareDate(d1,d2) {
 
-    if( (d1.getDate() < d2.getDate()) && (d1.getMonth() <= d2.getMonth()) && (d1.getFullYear() <= d2.getFullYear()) )
+    d1.setHours(0);
+    d1.setMinutes(0);
+    d1.setSeconds(0);
+    d1.setMilliseconds(0);
+
+    d2.setHours(0);
+    d2.setMinutes(0);
+    d2.setSeconds(0);
+    d2.setMilliseconds(0);
+
+    if( d1 < d2)
         return -1;
 
-    else if ( (d1.getDate() > d2.getDate()) && (d1.getMonth() >= d2.getMonth()) && (d1.getFullYear() >= d2.getFullYear()) )
+    else if ( d1 > d2)
         return 1;
 
     else
@@ -47,7 +57,6 @@ Template.registerHelper('stringifyObject',function(obj){
 
 Template.registerHelper('runHelper',function(template,helper){
     helper = " " + helper;
-    console.log(this);
     return Template[template].__helpers[helper].call(this);
 });
 
@@ -73,15 +82,13 @@ Template.tabs.helpers({
         
         for( t in teams) {
             teams[t].helper = "teamTasks";
-            teams[t].selector = "team-tasks"+t;
+            teams[t].selector = "team-"+t;
         }
         
         teams.push({name: 'New Team', selector: 'new' , target: 'add-new-team' });
         
-        console.log(teams);
         return teams;
     }
-
 });
 /* ====================================  Tabs template Helpers end ========================================= */
 
@@ -90,7 +97,6 @@ Template.tabcontentLayout.helpers({
 
     myTasks () {
 
-        console.log("In my tasks");
         var task_list =  [] ;
         var teams = Meteor.users.findOne({ _id : Meteor.userId() }).teams;
         var team;
@@ -98,8 +104,6 @@ Template.tabcontentLayout.helpers({
 
         function searchFunction(task,index){
             var return_value = ( task.members.indexOf(Meteor.userId()) >= 0 );
-
-            console.log("In filter function");
 
             if(return_value) {
                 task.team = { id : this._id , index : index };
@@ -128,15 +132,11 @@ Template.tabcontentLayout.helpers({
         if(task_list)
             task_list.sort(function(a,b){ return a.deadline - b.deadline });
 
-        console.log("My tasks : " );
-        console.log(task_list);
         return task_list;
 
     },
 
     teamTasks () {
-
-        console.log("Team");
 
         var team = Teams.findOne({ _id : this._id });
 
@@ -146,7 +146,6 @@ Template.tabcontentLayout.helpers({
             }
         }
 
-        console.log("Team Tasks : " );
         return team.tasks;
     },
 
@@ -189,6 +188,23 @@ Template.tabcontentLayout.helpers({
 
         return assigned_tasks_list;
     },
+
+    remainingContacts (team_id) {
+        var members = Teams.findOne({ _id : team_id }).members;
+        var remainingMembers = Meteor.users.find({ _id : { $nin : members }});
+
+        return remainingMembers;
+    },
+
+    isAdmin (team_id) {
+        var admin = Teams.findOne({_id : team_id}).admin;
+
+        if(Meteor.userId() == admin)
+            return true;
+        else
+            return false;
+
+    }
 
 });
 /* ====================================  Generic tab content template Helpers end ========================================= */
@@ -248,13 +264,10 @@ Template.tasklist.helpers({
         var groups = [{groupName : 'DeadlineExtended' , records : [] , count : 0 },{groupName : 'Today' , records : [] , count : 0 },{groupName : 'Tommorow' , records : [] , count : 0 },{groupName : 'Later' , records : [] , count : 0 }];
 
         var today = new Date();
-        
         var tommorow = new Date();
+
         tommorow.setDate(tommorow.getDate() + 1);
 
-
-        console.log("All Tasks ");
-        console.log(tasks);
         
         for (t in tasks) {
 
@@ -268,7 +281,7 @@ Template.tasklist.helpers({
                 groups[1].count++;
             }
 
-            else if (!compareDate(tasks[t].deadline,tommorow)){
+            else if (compareDate(tasks[t].deadline,tommorow) == 0){
                 groups[2].records.push(tasks[t]);
                 groups[2].count++;
             }
@@ -279,24 +292,23 @@ Template.tasklist.helpers({
             }
         }
 
-        console.log("Groups : ");
-        console.log(groups);
-
         return groups;
     },
 
 });
 /* ====================================  Generic task listing template Helpers end ========================================= */
 
-/* ====================================  Tabs template events ========================================= */
-Template.tabs.events({
+
+/* ====================================  Generic tab content template events ========================================= */
+Template.tabcontentLayout.events({
+    
     'submit form#assign-task-personal' : function(evt) {
         evt.preventDefault();
 
         var task = {};
+        
         var today = new Date();
         var members_numbers = [];
-
         var ownerName;
 
         task.name = $(evt.target).find("input[name='task-name']").val();
@@ -313,6 +325,7 @@ Template.tabs.events({
         task.status = 0;
 
         ownerName = Meteor.users.findOne({ _id : task.assignedBy }).profile.name;
+
 
         if(compareDate(task.deadline,today) < 0)
             alert("Please Enter a realistic deadline. Your team mates can not go back in time and complete tasks");
@@ -353,6 +366,7 @@ Template.tabs.events({
     },
 
     'submit form#add-team-form' : function (evt) {
+        
         evt.preventDefault();
 
         var team = {};
@@ -377,7 +391,7 @@ Template.tabs.events({
                 for (i in team.members)
                     member_numbers[i] = Meteor.users.findOne({ _id : team.members[i] }).phone.number.slice(3);
                 
-                Meteor.call('sendMessage', { phone: members_numbers.toString(),
+                Meteor.call('sendMessage', { phone: member_numbers.toString(),
                                              msg: "Hey, You have been added in team" + team.name + 
                                              "\nBy - " + adminName + "\nCheck out at tasks.siteflu.com",
                 },function(err,res){
@@ -400,23 +414,22 @@ Template.tabs.events({
 
         $(".add-new-team").modal('hide');
     },
-});
-/* ====================================  Tabs template events end ========================================= */
 
-/* ====================================  Generic tab content template events ========================================= */
-Template.tabcontentLayout.events({
     'submit form#assign-task-team' : function (evt) {
         evt.preventDefault();
 
         var today = new Date();
+        today.setHours(0);
+        today.setMinutes(0);
+        today.setSeconds(0);
+        today.setMilliseconds(0);
+        
         var task = {};
         var team_id = this._id;
         var team_name = Teams.findOne({ _id : team_id}).name;
         var member_numbers = [];
 
         var ownerName;
-
-        console.log(this);
 
         task.name = $(evt.target).find("input[name='task-name']").val();
         task.description = $(evt.target).find("input[name='task-description']").val();
@@ -468,6 +481,33 @@ Template.tabcontentLayout.events({
                 }
             });
         }
+    },
+
+    'submit form.add-member-team': function(evt){
+        
+        evt.preventDefault();
+        var new_members = $(evt.target).find("[name='new-members']").val(); 
+
+        Meteor.call('updateTeamMembers',this._id,0,new_members,function(err,res){
+            if(err)
+                console.log(err);
+            else
+                alert("New Members added successfully");
+        });
+    },
+
+    'click .remove-member-team': function(evt){
+        
+        evt.preventDefault();
+
+        var member_id = $(evt.target).attr("id");
+
+        Meteor.call('updateTeamMembers',this._id,1,member_id,function(err,res){
+            if(err)
+                console.log(err);
+            else
+                alert("Member Removed successfully");
+        });        
     },
 });
 /* ====================================  Generic tab content template events end ========================================= */
@@ -550,19 +590,18 @@ Template.login.events({
 			if(!err) {
 				
 				if(next) {
-					console.log('Routing to next');
 					Router.go(next);
 				}
 
 				else {
-					console.log("homescreen");
 					Router.go('homescreen');
 				}
 			}
 
-			else
+			else {
 				console.log(err);
                 alert(err.message);
+            }
 		});
 	},
 });
@@ -599,9 +638,10 @@ Template.register.events({
             Meteor.loginWithPhoneAndPassword({phone: mobno}, pwd, function (err) {
                 if (!err)
                     Router.go('homescreen');
-                else
+                else {
                     console.log(err);
                     alert(err.message);
+                }
             });
         }
 	},
