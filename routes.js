@@ -6,14 +6,11 @@
 // ============================================== Root route =========================================
 Router.route('/' , function(){
 
-	this.subscribe('users').wait();
-    this.subscribe('teams').wait();
-
 	this.layout('userLayout', { data : function () {
-                return {
-                    user: Meteor.users.findOne({_id: Meteor.userId()})
-                };
-        }
+        return {
+            	user: Meteor.users.findOne({_id: Meteor.userId()})
+        	};
+    	}
     });
 
 	if(this.ready()) {

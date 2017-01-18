@@ -97,26 +97,6 @@ Meteor.methods({
         }
     },
 
-    'sendMessage' : function (options) {
-
-        try {
-            // result = HTTP.call("get","http://smshorizon.co.in/api/sendsms.php",{ params : { user : "siteflu" , apikey : "g5JtwEaWcghvIseDeLJ3" ,
-            // 		mobile : options.to , senderid : "MYTEXT" , message : options.body , type : "txt" }});
-
-            console.log(options);
-            result = HTTP.call("post","http://139.59.28.252/sms-api/sendsms.php",{ params : { uid : "7020903549" ,
-                pwd : "Siteflu2016" , phone : options.phone,msg : options.msg }});
-
-            console.log("Response");
-            console.log(result);
-
-        }
-
-        catch(e){
-            console.log("In catch block");
-            console.log(e);
-        }
-    },
     
     'sendNotification' : function (to,title,text) {
         Push.send({
