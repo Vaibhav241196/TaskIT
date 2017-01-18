@@ -347,7 +347,7 @@ Template.tabcontentLayout.events({
 
         task.duration = $(evt.target).find("input[name='task-duration']").val();
         task.priority = $(evt.target).find("[name='task-priority']").val();
-        task.members = magicsuggest_personal_task.getValue();
+        task.members = $(evt.target).find("[name='task-members']").val();
         task.assignedBy = Meteor.userId();
         
         task.status = 0;
@@ -404,7 +404,7 @@ Template.tabcontentLayout.events({
         console.log($(magicsuggest_new_team));
         team.name = $(evt.target).find("input[name='team-name']").val();
         team.description = $(evt.target).find("input[name='team-description']").val();
-        team.members = magicsuggest_new_team.getValue();
+        team.members = $(evt.target).find("input[name='team-members']").val();
         team.admin = Meteor.userId();
 
         if (team.members.indexOf(team.admin) != -1)

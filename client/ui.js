@@ -177,59 +177,59 @@ for (t in Template) {
     }
 }
 
-Template.tabcontentLayout.onRendered(function(){
+// Template.tabcontentLayout.onRendered(function(){
 
-    magicsuggest_personal_task = $("#magicsuggest-personal-task").magicSuggest({
+//     magicsuggest_personal_task = $("#magicsuggest-personal-task").magicSuggest({
 
-        data: function(q){
-            var users = Meteor.users.find().fetch();
-            var name = "";
-            var matched_users = [];
-            var search_string;
+//         data: function(q){
+//             var users = Meteor.users.find().fetch();
+//             var name = "";
+//             var matched_users = [];
+//             var search_string;
 
-            for(i in users){
-                name = users[i].profile.name;
-                search_string = new RegExp(name,"i");
-                if( name.search(search_string) != -1 )
-                    matched_users.push({ id: users[i]._id, name: users[i].profile.name });
+//             for(i in users){
+//                 name = users[i].profile.name;
+//                 search_string = new RegExp(name,"i");
+//                 if( name.search(search_string) != -1 )
+//                     matched_users.push({ id: users[i]._id, name: users[i].profile.name });
                 
-            }
+//             }
 
-            return matched_users;
-        },
+//             return matched_users;
+//         },
 
-        required: true,
-        name: 'task-members',
-        valueField: 'id',
-    });
+//         required: true,
+//         name: 'task-members',
+//         valueField: 'id',
+//     });
 
-    magicsuggest_new_team = $("#magicsuggest-new-team").magicSuggest({
+//     magicsuggest_new_team = $("#magicsuggest-new-team").magicSuggest({
 
-        data: function(q){
-            var users = Meteor.users.find().fetch();
-            var name = "";
-            var matched_users = [];
-            var search_string;
+//         data: function(q){
+//             var users = Meteor.users.find().fetch();
+//             var name = "";
+//             var matched_users = [];
+//             var search_string;
 
-            for(i in users){
-                name = users[i].profile.name;
-                search_string = new RegExp(name,"i");
-                if( name.search(search_string) != -1 )
-                    matched_users.push({ id: users[i]._id, name: users[i].profile.name });
+//             for(i in users){
+//                 name = users[i].profile.name;
+//                 search_string = new RegExp(name,"i");
+//                 if( name.search(search_string) != -1 )
+//                     matched_users.push({ id: users[i]._id, name: users[i].profile.name });
                 
-            }
+//             }
 
-            return matched_users;
-        },
+//             return matched_users;
+//         },
 
-        required: true,
-        name: 'task-members',
-        valueField: 'id',
-    });
+//         required: true,
+//         name: 'task-members',
+//         valueField: 'id',
+//     });
 
-});
+// });
 
-console.log(magicsuggest_personal_task);
+// console.log(magicsuggest_personal_task);
 
 // Template.calender.onCreated(function () {
 //         $.getScript('http://arshaw.com/js/fullcalendar-1.6.4/fullcalendar/fullcalendar.min.js',function(){
